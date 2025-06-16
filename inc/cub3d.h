@@ -37,6 +37,7 @@ typedef struct s_game
     void *mlx;
     void *win;
     void *player_img;
+    void *wall;
     char *addr;
     char **map;
     char **temp_map;
@@ -54,10 +55,15 @@ t_game  start_game(t_game *game);
 //parse
 void count_width(t_game *game, char *file);
 void count_height(t_game *game, char *file);
-void load_images(t_game *game, int x, int y);
+void load_images(t_game *game);
 int	 handle_keyboard(int keycode, t_game *game);
 void player_move(t_game *game, int dx, int dy);
 void	user_input(t_game *game);
 void update_player(t_game *game);
+void load_map(t_game *game, char *file);
+void render_map(t_game *game);
+void render_images(t_game *game, int x, int y);
+void update_game(t_game *game);
+void find_player(t_game *game);
 
 #endif

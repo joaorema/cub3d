@@ -16,28 +16,23 @@
 void count_width(t_game *game, char *file)
 {
     int fd;
+    int max_len;
     char *line;
+    int len;
 
+    max_len = 0;
     fd = open(file, O_RDONLY);
-    if (fd < 0 || ft_strcmp(file + (ft_strlen(file) - 4), ".cub"))                    //check if the file end with .cub
+    while ((line = get_next_line(fd)))
     {
-        ft_printf(RED "something went wrong with the file\n" RESET);
-        exit (1);
+        len = ft_strlen(line);
+        if (len > 0 && line[len - 1] == '\n')
+            len--; // Exclude newline
+        if (len > max_len)
+            max_len = len;
+        free(line);
     }
-    line = get_next_line(fd);
-    if(!line)
-    {
-        ft_printf(RED "Error: Empty file or unable to read\n" RESET);
-        close(fd);
-        exit(2);
-    }
-    while(line != NULL)
-    {
-        line = get_next_line(fd);
-        game->map_width++;
-    }
-    free(line);
     close(fd);
+    game->map_width = max_len;
 }
 
 void count_height(t_game *game, char *file)

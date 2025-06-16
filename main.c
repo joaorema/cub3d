@@ -24,7 +24,14 @@ int main(int ac, char *av[])
         return (1); 
     }
     start_game(&game);
-    load_images(&game, 0, 0);
+    count_height(&game, av[1]);
+    count_width(&game, av[1]);
+    game.win = mlx_new_window(game.mlx, game.map_width * TILE_SIZE, game.map_height * TILE_SIZE, "Cub3d" );
+    
+    load_map(&game, av[1]);
+    find_player(&game);
+    load_images(&game);
+    render_map(&game);
     user_input(&game);
     mlx_loop(game.mlx);
     return (0);
