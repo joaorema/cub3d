@@ -22,6 +22,8 @@
 # define RED    "\033[1;31m"
 # define GREEN  "\033[1;32m"
 # define BLUE   "\033[1;36m"
+# define TILE_SIZE 32
+
 
 typedef struct s_position
 {
@@ -34,6 +36,8 @@ typedef struct s_game
 {
     void *mlx;
     void *win;
+    void *player_img;
+    char *addr;
     char **map;
     char **temp_map;
     int  player;
@@ -50,5 +54,10 @@ t_game  start_game(t_game *game);
 //parse
 void count_width(t_game *game, char *file);
 void count_height(t_game *game, char *file);
+void load_images(t_game *game, int x, int y);
+int	 handle_keyboard(int keycode, t_game *game);
+void player_move(t_game *game, int dx, int dy);
+void	user_input(t_game *game);
+void update_player(t_game *game);
 
 #endif

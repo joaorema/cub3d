@@ -16,10 +16,10 @@ LIBFT = $(LIBFT_DIR)/libft.a
 MLX_DIR = ./inc/mlx_linux
 MLX = $(MLX_DIR)/libmlx.a
 
-SRCS_DIR = src/parse
-SRCS = src/main.c \
-       src/parse/parse_utils.c \
-       src/init/init.c
+SRCS = main.c           			\
+       src/parse/parse_utils.c     \
+       src/init/init.c  			\
+
 
 ################################################################################
 #                                  Makefile objs                               #
