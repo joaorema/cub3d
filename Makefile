@@ -48,6 +48,11 @@ RESET	= "\033[0m"
 ################################################################################
 
 all: $(NAME)
+
+OBJS = $(patsubst $(SRCS_DIR)%,$(TMP)/%,$(SRCS:.c=.o))
+
+$(NAME): $(MLX) $(OBJS) $(LIBFT)
+	@$(CC) $(CFLAGS) $(OBJS) -L$(MLX_DIR) -lmlx -L$(LIBFT_DIR) -lft -lm -lXext -lX11 -o $(NAME)
 	@clear
 	@echo $(BBLU) "   ____ _   _ ____  _____  ____  "
 	@echo $(BBLU) "  / ___| | | | __ )|___ / |  _ \ "
@@ -58,15 +63,10 @@ all: $(NAME)
 	@echo $(BGRN) "Compilation Successful!"$(RESET)
 	@echo $(BYEL)" This $(NAME) was created by icunha-t and jpedro-c!" $(RESET)
 
-OBJS = $(patsubst $(SRCS_DIR)%,$(TMP)/%,$(SRCS:.c=.o))
-
-$(NAME): $(MLX) $(OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJS) -L$(MLX_DIR) -lmlx -L$(LIBFT_DIR) -lft -lm -lXext -lX11 -o $(NAME)
-
 $(MLX):
 	@if [ ! -d "$(MLX_DIR)" ]; then \
-	echo $(BYEL)"Cloning MiniLibX..."$(RESET); \
-	@git clone https://github.com/42Paris/minilibx-linux.git $(MLX_DIR); \
+	echo $(BYEL) "Cloning MiniLibX..." $(RESET); \
+	git clone https://github.com/42Paris/minilibx-linux.git $(MLX_DIR); \
 	fi
 	@$(MAKE) -C $(MLX_DIR)
 
@@ -84,17 +84,21 @@ clean:
 	@$(RM) $(OBJS)
 	@$(MAKE) clean -C $(MLX_DIR)
 	@$(MAKE) clean -C $(LIBFT_DIR)
+	@clear
 	@rm -rf $(TMP)
-	@echo $(BRED)"tmp and cub3d .o removed"$(RESET)
+	@echo $(BRED)"-> .o files removed"$(RESET)
 
 fclean: clean
 	@$(RM) $(NAME)
-	@echo $(BRED)"$(NAME) removed"$(RESET)
+	@clear
+	@echo $(BRED)"-> $(NAME) and .o files removed"$(RESET)
 
 fcleanall: clean fclean
 	@$(MAKE) -C $(LIBFT_DIR) fclean
 	@$(MAKE) -C $(MLX_DIR) clean
-	@echo $(BRED)"mlx and lift.a removed"$(RESET)
+	@rm -rf $(MLX_DIR)
+	@clear
+	@echo $(BRED)"-> $(NAME), .o files, mlx and libft removed"$(RESET)
 
 re: fclean all
 
