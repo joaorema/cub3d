@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   close_and_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/10 15:49:27 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/17 17:14:06 by icunha-t         ###   ########.fr       */
+/*   Created: 2025/06/17 17:24:56 by icunha-t          #+#    #+#             */
+/*   Updated: 2025/06/17 17:44:43 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../../inc/cub3d.h"
 
-int main(int ac, char *av[])
+void	close_and_free(t_game *game, int exit_code)
 {
-	t_game game;
+	if (game)
+		free_game(game);
+	exit (exit_code);
+}
 
-	if (ac != 2)
-	{
-		ft_printf(RED"Usage: %s <map_file> \n"RESET, av[0]);
-		return (1);
-	}
-	init_game(&game);
-	ch_and_load_map(&game, av[1]);
-	//if (!parse_map(&game))
-	//	return (1);
-	return (0);
+void	free_game(t_game *game)
+{
+	if (game->map)
+		ft_free_array((void **)game->map);	
+	return ;
 }

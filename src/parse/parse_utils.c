@@ -3,63 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:33 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/10 16:41:04 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/17 18:41:23 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-
-void count_width(t_game *game, char *file)
+void set_width(t_game *game, int fd)
 {
-    int fd;
     char *line;
 
-    fd = open(file, O_RDONLY);
-    if (fd < 0 || ft_strcmp(file + (ft_strlen(file) - 4), ".cub"))                    //check if the file end with .cub
-    {
-        ft_printf(RED "something went wrong with the file\n" RESET);
-        exit (1);
-    }
-    line = get_next_line(fd);
-    if(!line)
-    {
-        ft_printf(RED "Error: Empty file or unable to read\n" RESET);
-        close(fd);
-        exit(2);
-    }
-    while(line != NULL)
-    {
-        line = get_next_line(fd);
-        game->map_width++;
-    }
-    free(line);
-    close(fd);
+	line = get_next_line(fd);
+	while(line != NULL)
+	{
+		line = get_next_line(fd);
+		printf("line is %s\n", line);
+		game->map_width++;
+	}
+	line = safe_free(line);
+	ft_printf("Map width: %d\n", game->map_width); //debug to delete
 }
 
-void count_height(t_game *game, char *file)
+void set_height(t_game *game, int fd)
 {
-    int fd;
-    int counter;
     char *line;
 
-    counter = 0;
-    fd = open(file, O_RDONLY);
-    if (fd < 0 || ft_strcmp(file + (ft_strlen(file) - 4), ".cub"))                    //check if the file end with .cub
-    {
-        ft_printf(RED "something went wrong with the file\n" RESET);
-        exit (1);
-    }
-    while((line = get_next_line(fd)) != NULL)
-    {
-        counter++;
-        free(line);
-    }
-    game->map_height = counter;
-    free(line);
-    close(fd);
+	line = get_next_line(fd);
+	while(1)
+	{
+	 	line = get_next_line(fd);
+	 	printf("line is %s\n", line);
+	 	if (!line)
+	 		break;
+	 	game->map_height++;
+	}
+
+	// game->map_height++;
+	// line = get_next_line(fd);
+	// while((line = get_next_line(fd)) != NULL)
+	// {
+	// 	line = get_next_line(fd);
+	// 	game->map_height++;
+	// }
+	line = safe_free(line);
+	ft_printf("Map height: %d\n", game->map_height); //debug to delete
 }
     

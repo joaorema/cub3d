@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Jpedro-c <joaopcrema@gmail.com>            +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 14:55:51 by jpedro-c          #+#    #+#             */
-/*   Updated: 2025/05/08 14:33:44 by Jpedro-c         ###   ########.fr       */
+/*   Updated: 2025/06/17 17:42:36 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 void	ft_bzerognl(void *s, size_t n);
 void	*ft_callocgnl(size_t nmemb, size_t size);
 void	ft_listadd_front(t_list **lst, t_list *new);
+void	*safe_free(void *ptr);
+void	ft_free_array(void **array);
 
 int		ft_atoi(const char *nptr);
 int		ft_isalnum(int c);

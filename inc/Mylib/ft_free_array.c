@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_free_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/10 15:49:27 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/17 17:14:06 by icunha-t         ###   ########.fr       */
+/*   Created: 2025/06/17 17:41:33 by icunha-t          #+#    #+#             */
+/*   Updated: 2025/06/17 17:46:26 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "libft.h"
 
-int main(int ac, char *av[])
+void	ft_free_array(void **array)
 {
-	t_game game;
+	int	i;
 
-	if (ac != 2)
+	i = 0;
+	if (!array)
+		return ;
+	while (array[i])
 	{
-		ft_printf(RED"Usage: %s <map_file> \n"RESET, av[0]);
-		return (1);
+		if (array[i])
+			array[i] = safe_free(array[i]);
+		i++;
 	}
-	init_game(&game);
-	ch_and_load_map(&game, av[1]);
-	//if (!parse_map(&game))
-	//	return (1);
-	return (0);
+	array = safe_free(array);
+	return ;
 }

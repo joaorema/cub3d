@@ -18,14 +18,17 @@ MLX = $(MLX_DIR)/libmlx.a
 
 SRCS_DIR = ./src/
 SRCS = $(addprefix $(SRCS_DIR), main.c \
+       							init/init.c \
+								parse/parse.c \
        							parse/parse_utils.c \
-       							init/init.c)
+								close/close_and_free.c)
 
 TMP = ./tmp
 
 ################################################################################
 #                                  COLORS                                      #
 ################################################################################
+
 RED		= "\033[0;31m"
 GRN		= "\033[0;32m"  
 YEL		= "\033[0;33m"
