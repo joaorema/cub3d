@@ -17,8 +17,12 @@ MLX_DIR = ./inc/mlx_linux
 MLX = $(MLX_DIR)/libmlx.a
 
 SRCS = main.c           			\
-       src/parse/parse_utils.c     \
        src/init/init.c  			\
+	   src/init/map.c				\
+       src/parse/parse_utils.c      \
+	   src/player/player.c 			\
+	   src/raycasting/utils.c       \
+
 
 
 ################################################################################

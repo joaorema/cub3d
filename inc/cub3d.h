@@ -17,7 +17,9 @@
 #include "mlx_linux/mlx.h"
 #include <stdio.h>
 #include <unistd.h>
+#include <math.h>
 
+# define PI 3.1415926535
 # define RESET  "\033[0m"
 # define RED    "\033[1;31m"
 # define GREEN  "\033[1;32m"
@@ -44,6 +46,13 @@ typedef struct s_game
     int  player;
     int  player_x;
     int  player_y;
+    float  player_dx;                                                     //player delta x
+    float player_dy;                                                     //player delta y
+    int  player_tile_x;
+    int  player_tile_y;
+    int  player_p_x;
+    int  player_p_y;
+    float  angle;                                                         //angle of player
     int map_width;
     int map_height;
     
@@ -59,11 +68,14 @@ void load_images(t_game *game);
 int	 handle_keyboard(int keycode, t_game *game);
 void player_move(t_game *game, int dx, int dy);
 void	user_input(t_game *game);
-void update_player(t_game *game);
+
 void load_map(t_game *game, char *file);
 void render_map(t_game *game);
 void render_images(t_game *game, int x, int y);
 void update_game(t_game *game);
 void find_player(t_game *game);
+void draw_line(t_game *game);
+
+int player_direction(int keycode, t_game *game);
 
 #endif

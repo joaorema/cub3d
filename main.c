@@ -32,6 +32,8 @@ int main(int ac, char *av[])
     find_player(&game);
     load_images(&game);
     render_map(&game);
+
+
     user_input(&game);
     mlx_loop(game.mlx);
     return (0);
