@@ -77,5 +77,8 @@ void find_player(t_game *game);
 void draw_line(t_game *game);
 
 int player_direction(int keycode, t_game *game);
+void draw_rays(t_game *game);
+int render(void *param);
+
 
 #endif

@@ -66,7 +66,7 @@ void render_map(t_game *game)
         }
         y++;
     }
-    draw_line(game);  
+    draw_line(game);
 }
 
 void find_player(t_game *game)
@@ -94,3 +94,4 @@ void find_player(t_game *game)
     }
     exit(1); //if not found
 }
+
