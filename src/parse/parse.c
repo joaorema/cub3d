@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:35 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/18 19:51:52 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/18 20:07:39 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ch_and_load_map(t_game *game, char *file)
 	set_height(game, file);
 	game->map = malloc(sizeof(char *) * (game->map_height + 1));
 	set_width_and_load(game, file);
+	game->map[game->map_height] = NULL;
 	int i = -1;
 	while (++i < game->map_height)
 		ft_printf("%s\n", game->map[i]); //debug to delete
