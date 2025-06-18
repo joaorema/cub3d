@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/18 16:10:05 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/18 19:31:07 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ void  init_game(t_game *game);
 //parse
 void	ch_and_load_map(t_game *game, char *file);
 int		ch_file(t_game *game, char *file);
+void	set_width_and_load(t_game *game, char *file);
+void	add_line_to_map(t_game *game, char *file);
 
 //parse_utils
-void	set_width(t_game *game, char *file);
+int		get_line_len(char *line);
 void	set_height(t_game *game, char *file);
 int		safe_fd_open(char *file);
 

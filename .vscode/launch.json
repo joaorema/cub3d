@@ -6,7 +6,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "/home/isabel/cub3d/cub3d",
-			"args": ["maps/teste.cub"],
+			"args": ["maps/different_widths.cub"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

@@ -6,35 +6,23 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:33 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/18 16:55:01 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/18 19:28:39 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-void set_width(t_game *game, char *file)
+int	get_line_len(char *line)
 {
-	int fd;
-    char *line;
-	int	counter;
+	int	len;
 
-	if ((fd = safe_fd_open(file)) && (fd == -1))
-		close_and_free(game, 2);
-	while(1)
-	{
-		counter = 0;
-		line = get_next_line(fd);
-	 	if (!line)
-	 		break;
-	 	counter = (ft_strlen(line) - 1);
-		if (counter > game->map_width)
-			game->map_width = counter;
-		line = safe_free(line);
-	}
-	close(fd);
-	ft_printf("Map width: %d\n", game->map_width); //debug to delete
+	len = ft_strlen(line);
+	if (line[len - 1] == '\n')
+		len--;
+	if (len > 0 && line[len - 1] == '\r')
+		len--;
+	return (len);
 }
-
 void set_height(t_game *game, char *file)
 {
     char *line;
