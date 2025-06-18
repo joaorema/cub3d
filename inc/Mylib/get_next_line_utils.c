@@ -3,87 +3,117 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpedro-c <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 12:43:42 by jpedro-c          #+#    #+#             */
-/*   Updated: 2024/11/18 13:15:10 by jpedro-c         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:36:13 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoingnl(char const *s1, char const *s2)
+int	ft_newline(t_gnllist *list)
 {
-	int		size;
-	char	*rest;
-	int		i;
-	int		j;
+	int	i;
 
-	size = ft_strlen(s1) + ft_strlen(s2);
-	rest = malloc(sizeof(char) * (size + 1));
-	if (!rest || !s1 || !s2)
-		return (NULL);
-	i = 0;
-	while (s1[i] != 0)
+	if (list == NULL)
+		return (0);
+	while (list)
 	{
-		rest[i] = s1[i];
-		i++;
+		i = 0;
+		while (list->str_buff[i] && i < BUFFER_SIZE)
+		{
+			if (list->str_buff[i] == '\n')
+				return (1);
+			++i;
+		}
+		list = list->next;
 	}
+	return (0);
+}
+
+t_gnllist	*find_last_node(t_gnllist *list)
+{
+	if (list == NULL)
+		return (NULL);
+	while (list->next)
+		list = list->next;
+	return (list);
+}
+
+int	len_new_line(t_gnllist *list)
+{
+	int	i;
+	int	len;
+
+	if (list == NULL)
+		return (0);
+	len = 0;
+	while (list)
+	{
+		i = 0;
+		while (list->str_buff[i])
+		{
+			if (list->str_buff[i] == '\n')
+			{
+				++len;
+				return (len);
+			}
+			++len;
+			++i;
+		}
+		list = list->next;
+	}
+	return (len);
+}
+
+void	ft_copy_str(t_gnllist *list, char *str)
+{
+	int	i;
+	int	j;
+
+	if (list == NULL)
+		return ;
 	j = 0;
-	while (s2[j] != 0)
+	while (list)
 	{
-		rest[i] = s2[j];
-		i++;
-		j++;
+		i = 0;
+		while (list->str_buff[i])
+		{
+			if (list->str_buff[i] == '\n')
+			{
+				str[j++] = '\n';
+				str[j] = '\0';
+				return ;
+			}
+			str[j++] = list->str_buff[i++];
+		}
+		list = list->next;
 	}
-	rest[size] = 0;
-	return (rest);
+	str[j] = '\0';
 }
 
-char	*ft_strchrgnl(const char *s, int c)
+void	ft_dealloc(t_gnllist **list, t_gnllist *clean_node, char *buffer)
 {
-	char	*str;
+	t_gnllist	*temp;
 
-	str = (char *)s;
-	while (*str != c && *str != 0)
-		str++;
-	if (*str == c)
-		return (str);
+	if (*list == NULL)
+		return ;
+	while (*list)
+	{
+		temp = (*list)->next;
+		free((*list)->str_buff);
+		free(*list);
+		*list = temp;
+	}
+	*list = NULL;
+	if (!clean_node || !buffer)
+		return ;
+	if (clean_node->str_buff[0])
+		*list = clean_node;
 	else
-		return (NULL);
-}
-
-void	ft_bzerognl(void *s, size_t n)
-{
-	size_t			i;
-	char			*ptr;
-
-	i = 0;
-	ptr = (char *)s;
-	while (i < n)
 	{
-		ptr[i] = 0;
-		i++;
+		free(clean_node);
+		free(buffer);
 	}
-}
-
-void	*ft_callocgnl(size_t nmemb, size_t size)
-{
-	char	*rest;
-
-	rest = malloc(nmemb * size);
-	if (!rest)
-		return (NULL);
-	ft_bzero(rest, nmemb * size);
-	return (rest);
-}
-
-size_t	ft_strlengnl(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
 }

@@ -3,115 +3,111 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Jpedro-c <joaopcrema@gmail.com>            +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 11:42:35 by jpedro-c          #+#    #+#             */
-/*   Updated: 2025/03/18 12:45:06 by Jpedro-c         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:36:04 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_free(char *buffer, char *buf)
-{
-	char	*dest;
-
-	dest = ft_strjoingnl(buffer, buf);
-	free(buffer);
-	return (dest);
-}
-
-char	*file_read(int fd, char *txt)
-{
-	char	*buffer;
-	int		bytes_read;
-
-	if (!txt)
-		txt = ft_callocgnl(1, 1);
-	buffer = ft_callocgnl(BUFFER_SIZE + 1, sizeof(char));
-	if (!txt || !buffer)
-		return (free(buffer), free(txt), NULL);
-	bytes_read = 0;
-	while (1)
-	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read == -1)
-			return (free(buffer), free(txt), NULL);
-		if (bytes_read <= 0)
-			break ;
-		buffer[bytes_read] = 0;
-		txt = ft_free(txt, buffer);
-		if (!txt)
-			return (free(buffer), NULL);
-		if (ft_strchrgnl(buffer, '\n'))
-			break ;
-	}
-	free(buffer);
-	return (txt);
-}
-
-char	*ft_extract(char *buffer)
-{
-	char	*line;
-	int		i;
-
-	i = 0;
-	if (!buffer[i])
-		return (NULL);
-	while (buffer[i] && buffer[i] != '\n')
-		i++;
-	line = ft_callocgnl(i + 2, sizeof(char));
-	if (!line)
-		return (NULL);
-	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
-	{
-		line[i] = buffer[i];
-		i++;
-	}
-	if (buffer[i] == '\n')
-		line[i++] = '\n';
-	return (line);
-}
-
-char	*ft_next(char *buffer)
-{
-	int		i;
-	int		j;
-	char	*line;
-
-	i = 0;
-	if (!buffer)
-		return (NULL);
-	while (buffer[i] && buffer[i] != '\n')
-		i++;
-	if (!buffer[i])
-	{
-		free(buffer);
-		return (NULL);
-	}
-	line = ft_callocgnl(ft_strlengnl(buffer) - i + 1, sizeof(char));
-	if (!line)
-		return (NULL);
-	i++;
-	j = 0;
-	while (buffer[i])
-		line[j++] = buffer[i++];
-	free(buffer);
-	return (line);
-}
-
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
-	char		*line;
+	static t_gnllist	*list[MAX_FD];
+	char				*next_line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = file_read(fd, buffer);
-	if (!buffer)
+	ft_new_list(&list[fd], fd);
+	if (list[fd] == NULL)
 		return (NULL);
-	line = ft_extract(buffer);
-	buffer = ft_next(buffer);
-	return (line);
+	next_line = ft_get_line(list[fd]);
+	ft_polish_list(&list[fd]);
+	return (next_line);
+}
+
+void	ft_new_list(t_gnllist **list, int fd)
+{
+	int		nb_chars;
+	char	*buffer;
+
+	while (!ft_newline(*list))
+	{
+		buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+		if (buffer == NULL)
+			return ;
+		nb_chars = read(fd, buffer, BUFFER_SIZE);
+		if (nb_chars == -1)
+		{
+			free (buffer);
+			ft_dealloc(list, NULL, NULL);
+			*list = NULL;
+			return ;
+		}
+		if (!nb_chars)
+		{
+			free (buffer);
+			return ;
+		}
+		buffer[nb_chars] = '\0';
+		ft_put_buffer_in_list(list, buffer);
+	}
+}
+
+void	ft_put_buffer_in_list(t_gnllist **list, char *buffer)
+{
+	t_gnllist	*new_node;
+	t_gnllist	*last_node;
+
+	last_node = find_last_node(*list);
+	new_node = malloc(sizeof(t_gnllist));
+	if (new_node == NULL)
+		return ;
+	if (last_node == NULL)
+		*list = new_node;
+	else
+		last_node->next = new_node;
+	new_node->str_buff = buffer;
+	new_node->next = NULL;
+}
+
+char	*ft_get_line(t_gnllist *list)
+{
+	int		str_len;
+	char	*next_str;
+
+	if (list == NULL)
+		return (NULL);
+	str_len = len_new_line(list);
+	next_str = malloc(sizeof(char) * (str_len + 1));
+	if (next_str == NULL)
+		return (NULL);
+	ft_copy_str(list, next_str);
+	return (next_str);
+}
+
+void	ft_polish_list(t_gnllist **list)
+{
+	t_gnllist	*last_node;
+	t_gnllist	*clean_node;
+	int			i;
+	int			j;
+	char		*buffer;
+
+	buffer = malloc(sizeof(t_gnllist) * (BUFFER_SIZE + 1));
+	clean_node = malloc(sizeof(t_gnllist));
+	if (buffer == NULL || clean_node == NULL)
+		return ;
+	last_node = find_last_node(*list);
+	i = 0;
+	j = 0;
+	while (last_node->str_buff[i] && (last_node->str_buff[i] != '\n'))
+		++i;
+	while (last_node->str_buff[i] && (last_node->str_buff[++i]))
+		buffer[j++] = last_node->str_buff[i];
+	buffer[j] = '\0';
+	clean_node->str_buff = buffer;
+	clean_node->next = NULL;
+	ft_dealloc(list, clean_node, buffer);
 }
