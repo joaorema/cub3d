@@ -29,12 +29,26 @@
 # define BLUE   "\033[1;36m"
 # define TILE_SIZE 32
 
-
 typedef struct s_rayhit
 {
     float x;
     float y;
     float distance;
+    float ra;
+    float atan;
+    float ntan;
+    float ry;
+    float rx;
+    float xo;
+    float yo;
+    float px;
+    float py;
+    float maxhorizontal;
+    float maxvertical;
+    int dof;
+    int mx;
+    int my;
+    float max_dof;
     
 }   t_rayhit;
 
@@ -69,34 +83,34 @@ typedef struct s_game
     
 } t_game;
 
-//functions
-t_game  start_game(t_game *game);
-
-//parse
-void count_width(t_game *game, char *file);
-void count_height(t_game *game, char *file);
+//init folder
+void  start_game(t_game *game);
+void init(t_game *game, char *file);
+void init_raystruct(t_game *game, t_rayhit *hit);
+void init_rayhit(t_rayhit *hit, t_game *game, float angle);
 void load_images(t_game *game);
-int	 handle_keyboard(int keycode, t_game *game);
-void player_move(t_game *game, int dx, int dy);
-void user_input(t_game *game);
-
 void load_map(t_game *game, char *file);
 void render_map(t_game *game);
 void render_images(t_game *game, int x, int y);
-void update_game(t_game *game);
 void find_player(t_game *game);
+void update_game(t_game *game);
+
+//parse folder
+void count_width(t_game *game, char *file);
+void count_height(t_game *game, char *file);
+
+//player folder
+void user_input(t_game *game);
+int  player_move(t_game *game, int dx, int dy);
+int	 handle_keyboard(int keycode, t_game *game);
+int player_direction(int keycode, t_game *game);
+
+//raycasting folder
 void draw_line(t_game *game);
 void draw_ray_line(t_game *game, float rx, float ry);
-void draw_ray_line2(t_game *game, float rx, float ry);
-
-//raycasting
-
-int player_direction(int keycode, t_game *game);
+void render_rays(t_game *game);
 void horizontal_check(t_game *game, t_rayhit *hit);
 void vertical_check(t_game *game, t_rayhit *hit);
-void render_rays(t_game *game);
-
-//math
-float distance(float ax, float ay, float bx, float by, float ang);
+float distance(float ax, float ay, float bx, float by, float ang);              //hipotenusa
 
 #endif

@@ -22,7 +22,8 @@ SRCS = $(addprefix $(SRCS_DIR), main.c 				\
        							init/init.c 		\
 								init/map.c  		\
 								player/player.c     \
-								raycasting/utils.c)
+								raycasting/utils.c  \
+								raycasting/draw.c)
 
 TMP = ./tmp
 

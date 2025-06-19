@@ -28,28 +28,6 @@ void load_map(t_game *game, char *file)
     close(fd);
 }
 
-void load_images(t_game *game)
-{
-    int image_w;
-    int image_h;
-
-    game->wall = mlx_xpm_file_to_image(game->mlx, "images/wall.xpm", &image_w, &image_h);
-    game->player_img = mlx_xpm_file_to_image(game->mlx, "images/player.xpm", &image_w, &image_h);
-    if(!game->player_img || !game->wall)
-    {   
-        ft_putstr_fd("Error loading images\n", 2);
-        return ;
-    }
-}
-
-void render_images(t_game *game, int x, int y)
-{
-    if(game->map[y][x] == '1')
-        mlx_put_image_to_window(game->mlx, game->win, game->wall, x * TILE_SIZE, y * TILE_SIZE);
-    else if(game->map[y][x] == 'P')
-        mlx_put_image_to_window(game->mlx, game->win, game->player_img, x * TILE_SIZE, y * TILE_SIZE);
-}
-
 void render_map(t_game *game)   
 {
     int x;
@@ -66,9 +44,7 @@ void render_map(t_game *game)
         }
         y++;
     }
-    draw_line(game);
-    horizontal_check(game, NULL);
-    vertical_check(game, NULL);
+    render_rays(game);
 }
 
 void find_player(t_game *game)
@@ -97,3 +73,8 @@ void find_player(t_game *game)
     exit(1); //if not found
 }
 
+void update_game(t_game *game)
+{
+    if (game->map[game->player_y][game->player_x] == '0')
+		game->map[game->player_y][game->player_x] = 'P';
+}

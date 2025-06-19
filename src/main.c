@@ -17,23 +17,13 @@
 int main(int ac, char *av[])
 {
     t_game game;
-    
+
     if (ac != 2)
     {
         ft_printf("Usage : %s <map_file> \n", av[0]);
         return (1); 
     }
-    start_game(&game);
-    count_height(&game, av[1]);
-    count_width(&game, av[1]);
-    game.win = mlx_new_window(game.mlx, game.map_width * TILE_SIZE, game.map_height * TILE_SIZE, "Cub3d" );
-    
-    load_map(&game, av[1]);
-    find_player(&game);
-    load_images(&game);
-    render_map(&game);
-    
-
+    init(&game, av[1]);
     user_input(&game);
     mlx_loop(game.mlx);
     return (0);

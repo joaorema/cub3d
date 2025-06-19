@@ -5,7 +5,7 @@ void	user_input(t_game *game)
 	mlx_key_hook(game->win, handle_keyboard, game);
 }
 
-void	player_move(t_game *game, int dx, int dy)
+int player_move(t_game *game, int dx, int dy)
 {
     int new_x;
     int new_y;
@@ -23,28 +23,37 @@ void	player_move(t_game *game, int dx, int dy)
         game->player_y = new_y * TILE_SIZE + TILE_SIZE / 2;
         mlx_clear_window(game->mlx, game->win);
         render_map(game);
+        return 1;
     }
+    return 0;
 }
 
 
 int	handle_keyboard(int keycode, t_game *game)
 {
+    int moved;
+
+    moved = 0;
 	if (keycode == 65307)
 		exit(1);
 	if (keycode == 119)
-		player_move(game, 0, -1);
+		moved = player_move(game, 0, -1);
 	if (keycode == 115)
-		player_move(game, 0, 1);
+		moved = player_move(game, 0, 1);
 	if (keycode == 97)
-		player_move(game, -1, 0);
+		moved = player_move(game, -1, 0);
 	if (keycode == 100)
-		player_move(game, 1, 0);
+		moved = player_move(game, 1, 0);
     if (keycode == 65361 || keycode == 65363)
     {
         player_direction(keycode, game);
+        mlx_clear_window(game->mlx, game->win);
+        render_map(game);
     }
-    mlx_clear_window(game->mlx, game->win);
-    render_map(game);
+    if(moved)
+    {
+        
+    }
     return (0);
 }
 
