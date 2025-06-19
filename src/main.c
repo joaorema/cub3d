@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:27 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/18 20:04:14 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/19 14:40:30 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int main(int ac, char *av[])
 
 	if (ac != 2)
 	{
-		ft_printf(RED"Usage: %s <map_file> \n"RESET, av[0]);
+		ft_printf(RED ERR USG RESET);
 		return (1);
 	}
 	init_game(&game);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:33 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/18 19:28:39 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/19 14:39:15 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ int	safe_fd_open(char *file)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_printf(RED"Error\n");
-		ft_printf("Unable to open file\n"RESET);
+		ft_printf(RED ERR OP RESET);
 		return (-1);
 	}
 	return (fd);

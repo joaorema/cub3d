@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/18 19:31:07 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/19 14:40:09 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,27 @@
 #include <stdio.h>
 #include <unistd.h>
 
+/* ************************************************************************** */
+/*                                    MACROS                                  */
+/* ************************************************************************** */
+//error messages
+# define ERR "Error\n"
+# define USG "Usage: ./cub3d <map_file> \n"
+# define OP "Unable to open file\n"
+# define EXT "File extension should be .cub\n"
+# define EMPT "Empty file or unable to read\n"
+
+//colors
 # define RESET  "\033[0m"
 # define RED    "\033[1;31m"
 # define GREEN  "\033[1;32m"
 # define BLUE   "\033[1;36m"
 
+//constants
+# define WS " \t\n\r\v\f"
+/* ************************************************************************** */
+/*                                   STRUCTS                                  */
+/* ************************************************************************** */
 typedef struct s_position
 {
     int x;
@@ -43,7 +59,9 @@ typedef struct s_game
     int		map_height;
     
 } t_game;
-
+/* ************************************************************************** */
+/*                                 PROTOTYPES                                 */
+/* ************************************************************************** */
 int main(int ac, char *av[]);
 
 //init

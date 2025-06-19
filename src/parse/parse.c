@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:35 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/18 20:07:39 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/19 14:39:02 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,13 @@ int	ch_file(t_game *game, char *file)
 		close_and_free(game, 2);
 	if (ft_strcmp(".cub", file + (ft_strlen(file) - 4)))
 	{
-		ft_printf(RED"Error\n");
-		ft_printf("File extension should be .cub\n"RESET);
+		ft_printf(RED ERR EXT RESET);
 		close (fd);
 		return (1);
 	}
 	if (read(fd, &line, 1) <= 0) 
 	{
-		ft_printf(RED"Error\n");
-		ft_printf("Empty file or unable to read\n"RESET);
+		ft_printf(RED ERR EMPT RESET);
 		close(fd);
 		return (1);
 	}
@@ -67,6 +65,7 @@ void set_width_and_load(t_game *game, char *file)
 		len = get_line_len(line);
 		if (len > game->map_width)
 			game->map_width = len;
+		//while (ft_strchr)
 		add_line_to_map(game, line);
 		line = safe_free(line);
 	}
