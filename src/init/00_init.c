@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:00:02 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/17 17:01:36 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/19 15:05:44 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,11 @@ void  init_game(t_game *game)
 	game->player_y = 0;
 	game->map_width = 0;
 	game->map_height = 0;
+	game->map_inf.no_pth = NULL;
+	game->map_inf.so_pth = NULL;
+	game->map_inf.ea_pth = NULL;
+	game->map_inf.we_pth = NULL;
+	game->map_inf.f_rgb = 0;
+	game->map_inf.c_rgb = 0;
+	
 }

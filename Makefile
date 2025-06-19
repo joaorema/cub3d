@@ -4,7 +4,7 @@
 
 NAME = cub3d
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g 
+CFLAGS = -Wall -Wextra -Werror -g
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
@@ -18,10 +18,13 @@ MLX = $(MLX_DIR)/libmlx.a
 
 SRCS_DIR = ./src/
 SRCS = $(addprefix $(SRCS_DIR), main.c \
-       							init/init.c \
-								parse/parse.c \
-       							parse/parse_utils.c \
-								close/close_and_free.c)
+       							init/00_init.c \
+								parse/00_parse.c \
+								parse/01_ch_map.c \
+								parse/02_ch_map_info.c \
+								parse/03_rgb_info.c \
+       							parse/04_parse_utils.c \
+								close/00_close_and_free.c)
 
 TMP = ./tmp
 
