@@ -6,7 +6,7 @@
 /*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/10 16:30:22 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:06:24 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,23 @@
 #include <math.h>
 
 # define PI 3.1415926535
+# define P2 PI/2
+# define P3 3*PI/2
+# define B_DISTANCE 100000
 # define RESET  "\033[0m"
 # define RED    "\033[1;31m"
 # define GREEN  "\033[1;32m"
 # define BLUE   "\033[1;36m"
 # define TILE_SIZE 32
 
+
+typedef struct s_rayhit
+{
+    float x;
+    float y;
+    float distance;
+    
+}   t_rayhit;
 
 typedef struct s_position
 {
@@ -67,7 +78,7 @@ void count_height(t_game *game, char *file);
 void load_images(t_game *game);
 int	 handle_keyboard(int keycode, t_game *game);
 void player_move(t_game *game, int dx, int dy);
-void	user_input(t_game *game);
+void user_input(t_game *game);
 
 void load_map(t_game *game, char *file);
 void render_map(t_game *game);
@@ -75,10 +86,17 @@ void render_images(t_game *game, int x, int y);
 void update_game(t_game *game);
 void find_player(t_game *game);
 void draw_line(t_game *game);
+void draw_ray_line(t_game *game, float rx, float ry);
+void draw_ray_line2(t_game *game, float rx, float ry);
+
+//raycasting
 
 int player_direction(int keycode, t_game *game);
-void draw_rays(t_game *game);
-int render(void *param);
+void horizontal_check(t_game *game, t_rayhit *hit);
+void vertical_check(t_game *game, t_rayhit *hit);
+void render_rays(t_game *game);
 
+//math
+float distance(float ax, float ay, float bx, float by, float ang);
 
 #endif

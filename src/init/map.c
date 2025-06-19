@@ -67,7 +67,8 @@ void render_map(t_game *game)
         y++;
     }
     draw_line(game);
-    draw_rays(game);
+    horizontal_check(game, NULL);
+    vertical_check(game, NULL);
 }
 
 void find_player(t_game *game)

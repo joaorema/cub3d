@@ -17,7 +17,6 @@ MLX_DIR = ./inc/mlx_linux
 MLX = $(MLX_DIR)/libmlx.a
 
 SRCS_DIR = ./src/
-MAIN = main.c
 SRCS = $(addprefix $(SRCS_DIR), main.c 				\
        							parse/parse_utils.c \
        							init/init.c 		\

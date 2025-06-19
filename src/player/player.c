@@ -62,6 +62,6 @@ int player_direction(int keycode, t_game *game)
 
     game->player_dx = cos(game->angle);
     game->player_dy = sin(game->angle);
-    printf("Angle: %f | dx: %f | dy: %f\n", game->angle, game->player_dx, game->player_dy);
+    
     return (0);
 }
