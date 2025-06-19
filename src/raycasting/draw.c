@@ -20,19 +20,26 @@ void draw_line(t_game *game)
 
 void draw_ray_line(t_game *game, float rx, float ry)
 {
-    float x = game->player_x;
-    float y = game->player_y;
-    float dx = rx - x;
-    float dy = ry - y;
-    float steps = fabsf(dx) > fabsf(dy) ? fabsf(dx) : fabsf(dy);
+    float x;
+    float y;
+    float dx;
+    float dy;
+    float steps;
+    int i;
 
+    x = game->player_x;
+    y = game->player_y;
+    dx = rx - x;
+    dy = ry - y;
+    if(fabsf(dx) > fabsf(dy))
+        steps = fabsf(dx);
+    else
+        steps = fabsf(dy);
     if (steps == 0)
         return;
-
     dx /= steps;
     dy /= steps;
-
-    int i = 0;
+    i = 0;
     while (i < (int)steps)
     {
         mlx_pixel_put(game->mlx, game->win, (int)x, (int)y, 0xFF0000);
@@ -44,18 +51,29 @@ void draw_ray_line(t_game *game, float rx, float ry)
 
 void render_rays(t_game *game)
 {
-    t_rayhit h_hit;
+    int i;
+    float ray_angle;
     t_rayhit v_hit;
-    float r_angle;
+    t_rayhit h_hit;
 
-    r_angle = game->angle;
-    init_rayhit(&h_hit, game, r_angle);
-    init_rayhit(&v_hit, game, r_angle);
-    horizontal_check(game, &h_hit);
-    vertical_check(game, &v_hit);
+    i = 0;
+    ray_angle = game->angle - (FOV / 2);
+    while(i < NUM_RAYS)
+    {
+        init_rayhit(&v_hit, game, ray_angle);
+        init_rayhit(&h_hit, game, ray_angle);
+        horizontal_check(game, &h_hit);
+        vertical_check(game, &v_hit);
+        if (h_hit.distance < v_hit.distance)
+            draw_ray_line(game, h_hit.x, h_hit.y);
+        else
+            draw_ray_line(game, v_hit.x, v_hit.y);
+        ray_angle += ANGLE_STEP;
+        if (ray_angle < 0)
+            ray_angle += 2 * PI;
+        if (ray_angle > 2 * PI)
+            ray_angle -= 2 * PI;
+        i++;
+    }
 
-    if (h_hit.distance < v_hit.distance)
-        draw_ray_line(game, h_hit.x, h_hit.y);
-    else
-        draw_ray_line(game, v_hit.x, v_hit.y);
 }

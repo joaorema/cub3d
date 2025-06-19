@@ -43,6 +43,8 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 void	ft_bzerognl(void *s, size_t n);
 void	*ft_callocgnl(size_t nmemb, size_t size);
 void	ft_listadd_front(t_list **lst, t_list *new);
+void	*safe_free(void *ptr);
+void	ft_free_array(void **array);
 
 int		ft_atoi(const char *nptr);
 int		ft_isalnum(int c);

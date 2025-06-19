@@ -50,7 +50,9 @@ SRCS = \
     ft_strcpy.c \
     space.c \
     ft_is_numeric.c \
-    ft_atol.c
+    ft_atol.c \
+    ft_free_array.c \
+    ft_safe_free.c
     
     
     

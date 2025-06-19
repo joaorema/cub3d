@@ -25,7 +25,13 @@ int main(int ac, char *av[])
     }
     init(&game, av[1]);
     user_input(&game);
+    mlx_loop_hook(game.mlx, game_loop,  &game);
     mlx_loop(game.mlx);
     return (0);
 }
 
+int game_loop(t_game *game)
+{
+    render_map(game);
+    return 0;
+}

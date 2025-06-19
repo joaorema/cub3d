@@ -22,12 +22,17 @@
 # define PI 3.1415926535
 # define P2 PI/2
 # define P3 3*PI/2
+# define DR 0.0174533                            //One degree in radians
+# define NUM_RAYS 60
+# define FOV (PI / 3)
+# define ANGLE_STEP (FOV / NUM_RAYS)
 # define B_DISTANCE 100000
 # define RESET  "\033[0m"
 # define RED    "\033[1;31m"
 # define GREEN  "\033[1;32m"
 # define BLUE   "\033[1;36m"
 # define TILE_SIZE 32
+
 
 typedef struct s_rayhit
 {
@@ -84,7 +89,7 @@ typedef struct s_game
 } t_game;
 
 //init folder
-void  start_game(t_game *game);
+void start_game(t_game *game);
 void init(t_game *game, char *file);
 void init_raystruct(t_game *game, t_rayhit *hit);
 void init_rayhit(t_rayhit *hit, t_game *game, float angle);
@@ -94,6 +99,7 @@ void render_map(t_game *game);
 void render_images(t_game *game, int x, int y);
 void find_player(t_game *game);
 void update_game(t_game *game);
+int  game_loop(t_game *game);
 
 //parse folder
 void count_width(t_game *game, char *file);
@@ -112,5 +118,9 @@ void render_rays(t_game *game);
 void horizontal_check(t_game *game, t_rayhit *hit);
 void vertical_check(t_game *game, t_rayhit *hit);
 float distance(float ax, float ay, float bx, float by, float ang);              //hipotenusa
+
+//utils folder
+void	close_and_free(t_game *game, int exit_code);
+void	free_game(t_game *game);
 
 #endif
