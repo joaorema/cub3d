@@ -44,6 +44,9 @@ void render_map(t_game *game)
         }
         y++;
     }
+    //draw_ray_line(game, game->player_x + 100, game->player_y);
+    //draw_ray_line(game, game->player_x, game->player_y + 100);
+    //draw_ray_line(game, game->player_x + 100, game->player_y + 100);
     render_rays(game);
 }
 

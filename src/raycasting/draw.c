@@ -49,6 +49,7 @@ void draw_ray_line(t_game *game, float rx, float ry)
     }
 }
 
+
 void render_rays(t_game *game)
 {
     int i;
@@ -65,9 +66,15 @@ void render_rays(t_game *game)
         horizontal_check(game, &h_hit);
         vertical_check(game, &v_hit);
         if (h_hit.distance < v_hit.distance)
+        {
             draw_ray_line(game, h_hit.x, h_hit.y);
+
+        }
         else
+        {
             draw_ray_line(game, v_hit.x, v_hit.y);
+
+        }
         ray_angle += ANGLE_STEP;
         if (ray_angle < 0)
             ray_angle += 2 * PI;

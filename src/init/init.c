@@ -57,13 +57,11 @@ void init_raystruct(t_game *game, t_rayhit *hit)
 
 void init_rayhit(t_rayhit *hit, t_game *game, float angle)
 {
-    hit->ra = angle;
     hit->px = game->player_x;
     hit->py = game->player_y;
-    if(game->map_width > game->map_height)
-        hit->max_dof = game->map_width;
-    else
-        hit->max_dof = game->map_height;
+    hit->ra = angle;
+    hit->dof = 0;
+    hit->max_dof = 30; // or 8, or 100 — depending on how far rays should go
 }
 
 
