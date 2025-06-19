@@ -46,7 +46,6 @@ void init_raystruct(t_game *game, t_rayhit *hit)
 {
     hit->px = game->player_x;
     hit->py = game->player_y;
-    hit->ra = game->angle;
     hit->dof = 0;
     hit->distance = 1000000;
     if(game->map_width > game->map_height)

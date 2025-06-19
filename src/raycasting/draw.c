@@ -49,7 +49,6 @@ void draw_ray_line(t_game *game, float rx, float ry)
     }
 }
 
-
 void render_rays(t_game *game)
 {
     int i;
@@ -66,15 +65,9 @@ void render_rays(t_game *game)
         horizontal_check(game, &h_hit);
         vertical_check(game, &v_hit);
         if (h_hit.distance < v_hit.distance)
-        {
             draw_ray_line(game, h_hit.x, h_hit.y);
-
-        }
         else
-        {
             draw_ray_line(game, v_hit.x, v_hit.y);
-
-        }
         ray_angle += ANGLE_STEP;
         if (ray_angle < 0)
             ray_angle += 2 * PI;
@@ -83,4 +76,21 @@ void render_rays(t_game *game)
         i++;
     }
 
+}
+
+void draw_circle(t_game *game, int cx, int cy, int radius, int color)
+{
+    int x, y;
+    int r_sq = radius * radius;
+
+    for (y = -radius; y <= radius; y++)
+    {
+        for (x = -radius; x <= radius; x++)
+        {
+            if (x*x + y*y <= r_sq) // inside the circle radius
+            {
+                mlx_pixel_put(game->mlx, game->win, cx + x, cy + y, color);
+            }
+        }
+    }
 }

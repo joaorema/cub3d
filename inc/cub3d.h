@@ -118,6 +118,7 @@ void render_rays(t_game *game);
 void horizontal_check(t_game *game, t_rayhit *hit);
 void vertical_check(t_game *game, t_rayhit *hit);
 float distance(float ax, float ay, float bx, float by, float ang);              //hipotenusa
+void draw_circle(t_game *game, int cx, int cy, int radius, int color);
 
 //utils folder
 void	close_and_free(t_game *game, int exit_code);
