@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/19 14:40:09 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/19 14:51:19 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 
 //constants
 # define WS " \t\n\r\v\f"
+# define CH_MAP "01NSEW"
+# define N_CH_MAP "01 \t\n\r\v\f"
 /* ************************************************************************** */
 /*                                   STRUCTS                                  */
 /* ************************************************************************** */
@@ -77,6 +79,7 @@ void	add_line_to_map(t_game *game, char *file);
 int		get_line_len(char *line);
 void	set_height(t_game *game, char *file);
 int		safe_fd_open(char *file);
+int		is_map(char *line);
 
 //close
 void	close_and_free(t_game *game, int exit_code);

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:35 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/19 14:39:02 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/19 14:51:34 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,13 @@ void set_width_and_load(t_game *game, char *file)
 		line = get_next_line(fd);
 	 	if (!line)
 	 		break;
-		len = get_line_len(line);
-		if (len > game->map_width)
-			game->map_width = len;
-		//while (ft_strchr)
-		add_line_to_map(game, line);
+		if (is_map(line))
+		{
+			len = get_line_len(line);
+			if (len > game->map_width)
+				game->map_width = len;
+			add_line_to_map(game, line);	
+		}
 		line = safe_free(line);
 	}
 	close(fd);

@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:33 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/19 14:39:15 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/19 14:52:39 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void set_height(t_game *game, char *file)
 	 	line = get_next_line(fd);
 	 	if (!line)
 	 		break;
-	 	game->map_height++;
+		if (is_map(line))
+		 	game->map_height++;
 		line = safe_free(line);
 	}
 	close(fd);
@@ -53,4 +54,21 @@ int	safe_fd_open(char *file)
 		return (-1);
 	}
 	return (fd);
+}
+
+int	is_map(char *line)
+{
+	int		i;
+	char	c;
+	char	n;
+	
+	i = 0;
+	
+	while (ft_strchr(WS, line[i]))
+		i++;
+	c = line[i];
+	n = line [i + 1];
+	if (ft_strchr(CH_MAP, c) && ((n == '\0') || ft_strchr(N_CH_MAP, n)))
+		return (1);
+	return (0);
 }
