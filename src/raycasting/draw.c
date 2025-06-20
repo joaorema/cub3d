@@ -31,21 +31,35 @@ void render_wall(t_game *game, float angle, int col)
     vertical_check(game, &v_hit);
     wall.screen_x = (col * game->win_width) / NUM_RAYS;
     init_wall(game, &v_hit, &h_hit, &wall);
-    draw_wall(game, &wall);
+    draw_column(game, &wall);
 }
 
-void draw_wall(t_game *game, t_wall *wall)
+void draw_column(t_game *game, t_wall *wall)
 {
-    wall->w = 0;
-    while (wall->w < wall->slice_width)
+    int x;
+    int w;
+    int y;
+
+    x = wall->screen_x;
+    w = 0;
+    while (w < wall->slice_width)
     {
-        wall->y = (int)wall->wall_top;
-        while (wall->y < (int)wall->wall_bottom)
+        y = 0;
+        while (y < (int)wall->wall_top && y < game->win_height)             // Draw sky
         {
-            mlx_pixel_put(game->mlx, game->win, wall->screen_x + wall->w, wall->y, RED);
-            wall->y++;
+            mlx_pixel_put(game->mlx, game->win, x + w, y, SKY);
+            y++;
         }
-        wall->w++;
+        while (y < (int)wall->wall_bottom && y < game->win_height)          // Draw wall
+        {
+            mlx_pixel_put(game->mlx, game->win, x + w, y, BRICKRED);
+            y++;
+        }
+        while (y < game->win_height)                                        // Draw floor
+        {
+            mlx_pixel_put(game->mlx, game->win, x + w, y, FLOOR);
+            y++;
+        }
+        w++;
     }
 }
-

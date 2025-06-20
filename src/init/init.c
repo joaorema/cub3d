@@ -31,7 +31,7 @@ void init(t_game *game, char *file)
     game->win = mlx_new_window(game->mlx, game->win_width, game->win_height, "Cub3d" );
     load_map(game, file);
     find_player(game);
-    render_map(game);
+    //render_map(game);
 }
 
 void init_raystruct(t_game *game, t_rayhit *hit)

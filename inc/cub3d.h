@@ -6,7 +6,7 @@
 /*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/20 13:15:46 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/20 21:26:43 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@
 # define RED    0x00FF0000
 # define GREEN  0x0000FF00
 # define BLUE   0x000000FF
+# define BRICKRED 0xB22222
+# define DARKGRAY 0x00333333
+# define GRAY     0xFFD3D3D3
+# define SKY    GRAY
+# define FLOOR  DARKGRAY
 # define TILE_SIZE 64
 
 
@@ -134,7 +139,6 @@ void render_rays(t_game *game);
 void horizontal_check(t_game *game, t_rayhit *hit);
 void vertical_check(t_game *game, t_rayhit *hit);
 float distance(float ax, float ay, float bx, float by, float ang);              //hipotenusa
-void draw_wall(t_game *game, t_wall *wall);
 void render_wall(t_game *game, float angle, int col);
 void init_wall(t_game *game, t_rayhit *vhit, t_rayhit *hhit, t_wall *wall);
 void h_sides(t_game *game, t_rayhit *hit);
@@ -151,6 +155,7 @@ void update_vcheck(t_rayhit *hit);
 void final_vupdate(t_rayhit *hit);
 void vhit_wall(t_rayhit *hit, float ra);
 void v_s_tile(t_rayhit *hit);
+void draw_column(t_game *game, t_wall *wall);
 
 //utils folder
 void	close_and_free(t_game *game, int exit_code);

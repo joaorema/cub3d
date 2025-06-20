@@ -15,8 +15,8 @@ int player_move(t_game *game, float m_x, float m_y)
     {
         game->player_x = new_x;
         game->player_y = new_y;
-        mlx_clear_window(game->mlx, game->win);
-        render_map(game);
+        //mlx_clear_window(game->mlx, game->win);
+        //render_map(game);
         return (1);
     }
     return (0);
@@ -40,8 +40,8 @@ int	handle_keyboard(int keycode, t_game *game)
     if (keycode == 65361 || keycode == 65363)
     {
         player_direction(keycode, game);
-        mlx_clear_window(game->mlx, game->win);
-        render_map(game);
+        //mlx_clear_window(game->mlx, game->win);
+        //render_map(game);
     }
     return 0;
 }
