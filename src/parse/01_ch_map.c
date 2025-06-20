@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:03:49 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/20 12:51:49 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/20 15:14:38 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void set_height(t_game *game, char *file)
 		line = safe_free(line);
 	}
 	close(fd);
-	ft_printf("Map height: %d\n", game->map_height); //debug to delete
 }
 
 void set_width_and_load(t_game *game, char *file)
@@ -55,7 +54,6 @@ void set_width_and_load(t_game *game, char *file)
 		line = safe_free(line);
 	}
 	close(fd);
-	ft_printf("Map width: %d\n", game->map_width); //debug to delete
 }
 
 void add_line_to_map(t_game *game, char *line)

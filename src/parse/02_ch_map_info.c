@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:03:39 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/20 13:00:04 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/20 16:45:00 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	set_map_info_util(t_game *game, char **line, int fd, int n)
 		else
 		{
 			*line = safe_free(*line);
-			ft_printf(RED ERR INF RESET);
+			ft_printf(RED ERR MINF RESET);
 			close_and_free(game, 2);
 		}	
 	}
@@ -61,22 +61,22 @@ int get_pth(t_game *game, char *line)
 {
 	if (which_dir(line) == 1)
 	{
-		set_pth(line, &(game)->map_inf.no_pth);
+		set_pth(game, line, &(game)->map_inf.no_pth);
 		return (1);
 	}
 	else if (which_dir(line) == 2)
 	{
-		set_pth(line, &(game)->map_inf.so_pth);
+		set_pth(game, line, &(game)->map_inf.so_pth);
 		return (1);
 	}
 	else if (which_dir(line) == 3)
 	{
-		set_pth(line, &(game)->map_inf.ea_pth);
+		set_pth(game, line, &(game)->map_inf.ea_pth);
 		return (1);
 	}	
 	else if (which_dir(line) == 4)
 	{	
-		set_pth(line, &(game)->map_inf.we_pth);
+		set_pth(game, line, &(game)->map_inf.we_pth);
 		return (1);
 	}
 	return (0);
@@ -106,7 +106,7 @@ int	which_dir(char *line)
 	return(0);
 }
 
-void set_pth(char *line, char **set_str)
+void set_pth(t_game *game, char *line, char **set_str)
 {
 	int		i;
 	int		start;
@@ -115,7 +115,15 @@ void set_pth(char *line, char **set_str)
 	i = 0;
 	len = 0;
 	while (line[i] != '.')
-		i++;
+	{
+		// if (!ft_strchr(WS, line[i]))
+		// {
+		// 	ft_printf(RED ERR PTH RESET);
+		// 	close_and_free(game, 2);
+		// }
+		(void)game;
+		i++;	
+	}
 	start = i;
 	while(line[i] && !ft_strchr(WS, line[i]))
 	{

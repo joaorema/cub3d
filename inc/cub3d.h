@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/20 13:18:20 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/20 16:23:47 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@
 # define OP "Unable to open file\n"
 # define EXT "File extension should be .cub\n"
 # define EMPT "Empty file or unable to read\n"
-# define INF "Missing info on map\n"
+# define MINF "Missing info on map\n"
+# define MMAP "Missing map\n"
+# define COL "Missing colour information\n"
 # define RGB "Incorrect RGB info\n"
+# define PTH "Incorrect path info\n"
 
 //colors
 # define RESET  "\033[0m"
@@ -86,7 +89,7 @@ int	main(int ac, char *av[]);
 void	init_game(t_game *game);
 
 //00_parse
-void	ch_and_load_map(t_game *game, char *file);
+void	load_and_parse_map(t_game *game, char *file);
 int		ch_file(t_game *game, char *file);
 void	set_map_info(t_game *game, char *file);
 
@@ -100,21 +103,31 @@ void	set_map_info(t_game *game, char *file);
 void	set_map_info_util(t_game *game, char **line, int fd, int n);
 int 	get_pth(t_game *game, char *line);
 int		which_dir(char *line);
-void 	set_pth(char *line, char **set_str);
+void 	set_pth(t_game *game, char *line, char **set_str);
 
 //03_rgb_info
 void 	add_fl_and_c(t_game *game, char *line);
 int		get_rgb_val(char *line, int *start);
+void	ch_mid_val(t_game *game, char c, bool *ch, int n);
 void	set_rgb(t_game *game, char *line, int f_val, int s_val, int t_val);
 
-//04_parse_utils
+//04_parse_map_info
+void	parse_map_info(t_game *game);
+void	ch_missing_info(t_game *game);
+
+//05_load_utils
 int		safe_fd_open(char *file);
 int		is_map(char *line);
 int		get_line_len(char *line);
 int		empty_line(char *line);
 
+//06_parse_utils
+
 //00_close_and_free
 void	close_and_free(t_game *game, int exit_code);
 void	free_game(t_game *game);
+
+//debug to delete
+void	print_map_info(t_game *game);
 
 #endif

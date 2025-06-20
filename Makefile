@@ -19,12 +19,15 @@ MLX = $(MLX_DIR)/libmlx.a
 SRCS_DIR = ./src/
 SRCS = $(addprefix $(SRCS_DIR), main.c \
        							init/00_init.c \
-								parse/00_parse.c \
+								parse/00_load_and_parse.c \
 								parse/01_ch_map.c \
 								parse/02_ch_map_info.c \
 								parse/03_rgb_info.c \
-       							parse/04_parse_utils.c \
-								close/00_close_and_free.c)
+								parse/04_parse_info.c \
+								parse/05_load_utils.c \
+       							parse/06_parse_utils.c \
+								close/00_close_and_free.c \
+								debug.c)
 
 TMP = ./tmp
 
