@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:03:39 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/20 16:45:00 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:55:47 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,26 +109,57 @@ int	which_dir(char *line)
 void set_pth(t_game *game, char *line, char **set_str)
 {
 	int		i;
-	int		start;
-	int		len;
-	
+	char	path[2048];
+	char	id[3];
+	int		j;
+
 	i = 0;
-	len = 0;
-	while (line[i] != '.')
+	while (ft_strchr(WS, line[i]))
+		i++;
+	id[0] = line[i++];
+	id[1] = line[i++];
+	id[2] = '\0';
+	while (ft_strchr(WS, line[i]))
+		i++;
+	j = 0;
+	while(!ft_strchr(WS, line[i]))
+		path[j++] = line[i++];
+	path[j] = '\0';
+	*set_str = ft_strdup(path);
+	while (line[i])
 	{
-		// if (!ft_strchr(WS, line[i]))
-		// {
-		// 	ft_printf(RED ERR PTH RESET);
-		// 	close_and_free(game, 2);
-		// }
-		(void)game;
-		i++;	
-	}
-	start = i;
-	while(line[i] && !ft_strchr(WS, line[i]))
-	{
-		len++;
+		if (!ft_strchr(WS, line[i]))
+		{
+			ft_printf(RED ERR PTH RESET);
+	 		close_and_free(game, 2);
+		}
 		i++;
 	}
-	*set_str = ft_substr((const char *)line, (unsigned int)start, (size_t)len);
 }
+
+// void set_pth(t_game *game, char *line, char **set_str)
+// {
+// 	int		i;
+// 	int		start;
+// 	int		len;
+	
+// 	i = 0;
+// 	len = 0;
+// 	while (line[i] != '.')
+// 	{
+// 		// if (!ft_strchr(WS, line[i]))
+// 		// {
+// 		// 	ft_printf(RED ERR PTH RESET);
+// 		// 	close_and_free(game, 2);
+// 		// }
+// 		(void)game;
+// 		i++;	
+// 	}
+// 	start = i;
+// 	while(line[i] && !ft_strchr(WS, line[i]))
+// 	{
+// 		len++;
+// 		i++;
+// 	}
+// 	*set_str = ft_substr((const char *)line, (unsigned int)start, (size_t)len);
+// }

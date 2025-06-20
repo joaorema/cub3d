@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:00:02 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/20 14:44:55 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:58:30 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void  init_game(t_game *game)
 {
 	game->map = NULL;
 	game->tmp_map = NULL;
-	game->mlx = NULL;
+	game->mlx = mlx_init();
 	game->win = NULL;
 	game->player = 0;
 	game->player_x = 0;

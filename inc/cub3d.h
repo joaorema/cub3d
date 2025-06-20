@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/20 16:23:47 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:58:20 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define CUB3D_H
 
 #include "Mylib/libft.h"
-#include "mlx_linux/mlx.h"
+# include "mlx_linux/mlx.h"
+# include "mlx_linux/mlx_int.h"
 #include <stdio.h>
 #include <unistd.h>
 # include <stdbool.h>
@@ -33,14 +34,16 @@
 # define COL "Missing colour information\n"
 # define RGB "Incorrect RGB info\n"
 # define PTH "Incorrect path info\n"
+# define TXT "Impossible to open texture\n"
 
-//colors
+//colours
 # define RESET  "\033[0m"
 # define RED    "\033[1;31m"
 # define GREEN  "\033[1;32m"
 # define BLUE   "\033[1;36m"
 
 //constants
+# define TILE_SIZE 32
 # define WS " \t\n\r\v\f"
 # define CH_MAP "01NSEW"
 # define N_CH_MAP "01 \t\n\r\v\f"
@@ -65,6 +68,13 @@ typedef struct s_map_inf
 	int		*c_rgb;
 } t_map_inf;
 
+typedef struct s_text
+{
+	void	*NO;
+	void	*SO;
+	void	*WE;
+	void	*EA;
+}	t_text;
 
 typedef struct s_game
 {
@@ -73,6 +83,7 @@ typedef struct s_game
     char		**map;
     char		**tmp_map;
 	t_map_inf 	map_inf;	
+	t_text		*txt;
     int 		player;
     int			player_x;
     int			player_y;
@@ -114,6 +125,7 @@ void	set_rgb(t_game *game, char *line, int f_val, int s_val, int t_val);
 //04_parse_map_info
 void	parse_map_info(t_game *game);
 void	ch_missing_info(t_game *game);
+void	ch_txt_paths(t_game *game);
 
 //05_load_utils
 int		safe_fd_open(char *file);
@@ -126,6 +138,7 @@ int		empty_line(char *line);
 //00_close_and_free
 void	close_and_free(t_game *game, int exit_code);
 void	free_game(t_game *game);
+void	kill_visuals(t_game *game);
 
 //debug to delete
 void	print_map_info(t_game *game);

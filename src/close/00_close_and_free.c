@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:24:56 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/19 19:24:18 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:51:09 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void	close_and_free(t_game *game, int exit_code)
 {
 	if (game)
+	{
+		kill_visuals(game);
 		free_game(game);
+	}
 	exit (exit_code);
 }
 
@@ -38,4 +41,29 @@ void	free_game(t_game *game)
 	if (game->map_inf.ea_pth)
 		game->map_inf.ea_pth = safe_free(game->map_inf.ea_pth);
 	return ;
+}
+
+void	kill_visuals(t_game *game)
+{
+	if (!game)
+		return ;
+	if (game->txt && game->txt->NO)
+		mlx_destroy_image(game->mlx, game->txt->NO);
+	if (game->txt && game->txt->SO)
+		mlx_destroy_image(game->mlx, game->txt->SO);
+	if (game->txt && game->txt->WE)
+		mlx_destroy_image(game->mlx, game->txt->WE);
+	if (game->txt && game->txt->EA)
+		mlx_destroy_image(game->mlx, game->txt->EA);
+	if (game->win)
+	{
+		mlx_destroy_window(game->mlx, game->win);
+		game->win = NULL;
+	}
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		game->mlx = safe_free(game->mlx);
+		game->mlx = NULL;
+	}
 }
