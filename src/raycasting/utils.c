@@ -112,3 +112,35 @@ float distance(float ax, float ay, float bx, float by, float ang)
     (void)ang;
     return (sqrt((bx-ax)*(bx-ax) + (by-ay)*(by-ay)) );                      //soma do quadrado dos catetos
 }
+
+void draw_wall(t_game *game, t_rayhit vhit, t_rayhit hhit, int col)
+{
+    float wall_dist;
+    float lineh;
+    float wall_top;
+    float wall_bottom;
+    float screen_center;
+    int y;
+    int screen_x;
+    int slice_width;
+    int w;
+
+    screen_center = game->win_height / 2;
+    wall_dist = (vhit.distance < hhit.distance) ? vhit.distance : hhit.distance;
+    lineh = (TILE_SIZE * 320) / wall_dist;
+    wall_top = screen_center - lineh / 2;
+    wall_bottom = screen_center + lineh / 2;
+    slice_width = game->win_width / NUM_RAYS;
+    screen_x = (col * game->win_width) / NUM_RAYS;
+    w = 0;
+    while (w < slice_width)
+    {
+        y = (int)wall_top;
+        while (y < (int)wall_bottom)
+        {
+            mlx_pixel_put(game->mlx, game->win, screen_x + w, y, RED);
+            y++;
+        }
+        w++;
+    }
+}

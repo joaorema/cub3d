@@ -6,7 +6,7 @@
 /*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/18 15:06:24 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/20 11:39:31 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@
 # define ANGLE_STEP (FOV / NUM_RAYS)
 # define B_DISTANCE 100000
 # define RESET  "\033[0m"
-# define RED    "\033[1;31m"
-# define GREEN  "\033[1;32m"
-# define BLUE   "\033[1;36m"
-# define TILE_SIZE 32
+# define RED    0x00FF0000
+# define GREEN  0x0000FF00
+# define BLUE   0x000000FF
+# define TILE_SIZE 64
 
 
 typedef struct s_rayhit
@@ -50,10 +50,10 @@ typedef struct s_rayhit
     float py;
     float maxhorizontal;
     float maxvertical;
+    float max_dof;
     int dof;
     int mx;
     int my;
-    float max_dof;
     
 }   t_rayhit;
 
@@ -85,6 +85,14 @@ typedef struct s_game
     float  angle;                                                         //angle of player
     int map_width;
     int map_height;
+    int win_width;
+    int win_height;
+    int key_w;
+    int key_a;
+    int key_s;
+    int key_d;
+    int key_left;
+    int key_right;
     
 } t_game;
 
@@ -107,9 +115,10 @@ void count_height(t_game *game, char *file);
 
 //player folder
 void user_input(t_game *game);
-int  player_move(t_game *game, int dx, int dy);
+int player_move(t_game *game, float m_x, float m_y);
 int	 handle_keyboard(int keycode, t_game *game);
 int player_direction(int keycode, t_game *game);
+
 
 //raycasting folder
 void draw_line(t_game *game);
@@ -118,7 +127,7 @@ void render_rays(t_game *game);
 void horizontal_check(t_game *game, t_rayhit *hit);
 void vertical_check(t_game *game, t_rayhit *hit);
 float distance(float ax, float ay, float bx, float by, float ang);              //hipotenusa
-void draw_circle(t_game *game, int cx, int cy, int radius, int color);
+void draw_wall(t_game *game, t_rayhit vhit, t_rayhit hhit, int col);
 
 //utils folder
 void	close_and_free(t_game *game, int exit_code);

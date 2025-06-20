@@ -5,22 +5,21 @@ void	user_input(t_game *game)
 	mlx_key_hook(game->win, handle_keyboard, game);
 }
 
-int player_move(t_game *game, int dx, int dy)
+int player_move(t_game *game, float m_x, float m_y)
 {
-    int new_x;
-    int new_y;
+    float new_x;
+    float new_y;
+    int map_x;
+    int map_y;
 
-    new_x = game->player_tile_x + dx;                               
-    new_y = game->player_tile_y + dy;
-    
-    if(game->map[new_y][new_x] != '1')
+    new_x = game->player_x + m_x;                               
+    new_y = game->player_y + m_y;
+    map_x = (int)(new_x) / TILE_SIZE;
+    map_y = (int)(new_y) / TILE_SIZE;
+    if(game->map[map_y][map_x] != '1')
     {
-        game->map[game->player_tile_y][game->player_tile_x] = '0';
-        game->player_tile_x = new_x;
-        game->player_tile_y = new_y;
-        game->map[new_y][new_x] = 'P';
-        game->player_x = new_x * TILE_SIZE + TILE_SIZE / 2;
-        game->player_y = new_y * TILE_SIZE + TILE_SIZE / 2;
+        game->player_x = new_x;
+        game->player_y = new_y;
         mlx_clear_window(game->mlx, game->win);
         render_map(game);
         return 1;
@@ -31,30 +30,25 @@ int player_move(t_game *game, int dx, int dy)
 
 int	handle_keyboard(int keycode, t_game *game)
 {
-    int moved;
+    float move_speed = 15.0; // Adjust as needed
 
-    moved = 0;
-	if (keycode == 65307)
-		exit(1);
-	if (keycode == 119)
-		moved = player_move(game, 0, -1);
-	if (keycode == 115)
-		moved = player_move(game, 0, 1);
-	if (keycode == 97)
-		moved = player_move(game, -1, 0);
-	if (keycode == 100)
-		moved = player_move(game, 1, 0);
+    if (keycode == 65307)
+        exit(1);
+    if (keycode == 119) // W: forward
+        player_move(game, cos(game->angle) * move_speed, sin(game->angle) * move_speed);
+    if (keycode == 115) // S: backward
+        player_move(game, -cos(game->angle) * move_speed, -sin(game->angle) * move_speed);
+    if (keycode == 97)  // A: strafe left
+        player_move(game, sin(game->angle) * move_speed, -cos(game->angle) * move_speed);
+    if (keycode == 100) // D: strafe right
+        player_move(game, -sin(game->angle) * move_speed, cos(game->angle) * move_speed);
     if (keycode == 65361 || keycode == 65363)
     {
         player_direction(keycode, game);
         mlx_clear_window(game->mlx, game->win);
         render_map(game);
     }
-    if(moved)
-    {
-        
-    }
-    return (0);
+    return 0;
 }
 
 int player_direction(int keycode, t_game *game)

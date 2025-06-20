@@ -6,7 +6,7 @@
 /*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:33 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/10 16:41:04 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/20 10:59:57 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void count_height(t_game *game, char *file)
     fd = open(file, O_RDONLY);
     if (fd < 0 || ft_strcmp(file + (ft_strlen(file) - 4), ".cub"))                    //check if the file end with .cub
     {
-        ft_printf(RED "something went wrong with the file\n" RESET);
+        ft_printf("something went wrong with the file\n");
         exit (1);
     }
     while((line = get_next_line(fd)) != NULL)

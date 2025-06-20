@@ -6,7 +6,7 @@
 /*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:00:02 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/10 16:27:09 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/20 11:29:48 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void start_game(t_game *game)
     game->player_y = 0;
     game->map_width = 0;
     game->map_height = 0;
+    game->win_height = 0;
+    game->win_width = 0;
     game->mlx = mlx_init();
     if(!game->mlx)
         exit(1);
@@ -35,10 +37,11 @@ void init(t_game *game, char *file)
     start_game(game);
     count_height(game, file);
     count_width(game, file);
-    game->win = mlx_new_window(game->mlx, game->map_width * TILE_SIZE, game->map_height * TILE_SIZE, "Cub3d" );
+    game->win_height = game->map_height * TILE_SIZE;
+    game->win_width = game->map_width * TILE_SIZE;
+    game->win = mlx_new_window(game->mlx, game->win_width, game->win_height, "Cub3d" );
     load_map(game, file);
     find_player(game);
-    load_images(game);
     render_map(game);
 }
 
@@ -60,7 +63,7 @@ void init_rayhit(t_rayhit *hit, t_game *game, float angle)
     hit->py = game->player_y;
     hit->ra = angle;
     hit->dof = 0;
-    hit->max_dof = 30; // or 8, or 100 — depending on how far rays should go
+    hit->max_dof = 30; 
 }
 
 
