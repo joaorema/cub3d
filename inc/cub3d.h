@@ -6,7 +6,7 @@
 /*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/20 11:39:31 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/20 13:15:46 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,25 @@
 # define FOV (PI / 3)
 # define ANGLE_STEP (FOV / NUM_RAYS)
 # define B_DISTANCE 100000
-# define RESET  "\033[0m"
 # define RED    0x00FF0000
 # define GREEN  0x0000FF00
 # define BLUE   0x000000FF
 # define TILE_SIZE 64
 
+
+typedef struct s_wall
+{
+    float wall_dist;
+    float lineh;
+    float wall_top;
+    float wall_bottom;
+    float screen_center;
+    int y;
+    int screen_x;
+    int slice_width;
+    int w;
+
+}   t_wall;
 
 typedef struct s_rayhit
 {
@@ -101,12 +114,9 @@ void start_game(t_game *game);
 void init(t_game *game, char *file);
 void init_raystruct(t_game *game, t_rayhit *hit);
 void init_rayhit(t_rayhit *hit, t_game *game, float angle);
-void load_images(t_game *game);
 void load_map(t_game *game, char *file);
 void render_map(t_game *game);
-void render_images(t_game *game, int x, int y);
 void find_player(t_game *game);
-void update_game(t_game *game);
 int  game_loop(t_game *game);
 
 //parse folder
@@ -119,15 +129,28 @@ int player_move(t_game *game, float m_x, float m_y);
 int	 handle_keyboard(int keycode, t_game *game);
 int player_direction(int keycode, t_game *game);
 
-
 //raycasting folder
-void draw_line(t_game *game);
-void draw_ray_line(t_game *game, float rx, float ry);
 void render_rays(t_game *game);
 void horizontal_check(t_game *game, t_rayhit *hit);
 void vertical_check(t_game *game, t_rayhit *hit);
 float distance(float ax, float ay, float bx, float by, float ang);              //hipotenusa
-void draw_wall(t_game *game, t_rayhit vhit, t_rayhit hhit, int col);
+void draw_wall(t_game *game, t_wall *wall);
+void render_wall(t_game *game, float angle, int col);
+void init_wall(t_game *game, t_rayhit *vhit, t_rayhit *hhit, t_wall *wall);
+void h_sides(t_game *game, t_rayhit *hit);
+void h_up(t_game *game, t_rayhit *hit, float atan);
+void h_down(t_game *game, t_rayhit *hit, float atan);
+void update_hcheck(t_rayhit *hit);
+void final_hupdate(t_rayhit *hit);
+void hhit_wall(t_rayhit *hit, float ra);
+void h_s_tile(t_rayhit *hit);
+void v_top_down(t_game *game, t_rayhit *hit);
+void v_right(t_game *game, t_rayhit *hit, float ntan);
+void v_left(t_game *game, t_rayhit *hit, float ntan);
+void update_vcheck(t_rayhit *hit);
+void final_vupdate(t_rayhit *hit);
+void vhit_wall(t_rayhit *hit, float ra);
+void v_s_tile(t_rayhit *hit);
 
 //utils folder
 void	close_and_free(t_game *game, int exit_code);

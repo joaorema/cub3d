@@ -17,14 +17,15 @@ MLX_DIR = ./inc/mlx_linux
 MLX = $(MLX_DIR)/libmlx.a
 
 SRCS_DIR = ./src/
-SRCS = $(addprefix $(SRCS_DIR), main.c 				\
-       							parse/parse_utils.c \
-       							init/init.c 		\
-								init/map.c  		\
-								init/images.c		\
-								player/player.c     \
-								raycasting/utils.c  \
-								utils/utils.c       \
+SRCS = $(addprefix $(SRCS_DIR), main.c 					\
+       							init/init.c 			\
+								init/map.c  			\
+       							parse/parse_utils.c 	\
+								player/player.c     	\
+								utils/utils.c       	\
+								raycasting/utils.c  	\
+								raycasting/horizontal.c \
+								raycasting/vertical.c \
 								raycasting/draw.c)
 
 TMP = ./tmp

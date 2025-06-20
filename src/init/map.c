@@ -28,33 +28,11 @@ void load_map(t_game *game, char *file)
     close(fd);
 }
 
-void render_map(t_game *game)   
-{
-    /*int x;
-    int y;
-
-    y = 0;
-    while(y < game->map_height)
-    {
-        x = 0;
-        while(x < game->map_width)
-        {
-            render_images(game, x, y);
-            x++;
-        }
-        y++;
-    }
-    //draw_ray_line(game, game->player_x + 100, game->player_y);
-    //draw_ray_line(game, game->player_x, game->player_y + 100);
-    //draw_ray_line(game, game->player_x + 100, game->player_y + 100);*/
-    render_rays(game);
-}
-
 void find_player(t_game *game)
 {
     int x;
     int y;
-
+    
     y = 0;
     while(y < game->map_height)
     {
@@ -73,11 +51,15 @@ void find_player(t_game *game)
         }
         y++;
     }
-    exit(1); //if not found
+    exit(1);
+}
+void render_map(t_game *game)   
+{
+    render_rays(game);
 }
 
-void update_game(t_game *game)
+int game_loop(t_game *game)
 {
-    if (game->map[game->player_y][game->player_x] == '0')
-		game->map[game->player_y][game->player_x] = 'P';
+    render_map(game);
+    return 0;
 }

@@ -1,74 +1,15 @@
 #include "../../inc/cub3d.h"
 
-void draw_line(t_game *game)
-{
-    int i;
-    float x;
-    float y;
-
-    i = 0;
-    y = game->player_y;
-    x = game->player_x;
-    while (i < 20)
-    {
-        x += game->player_dx * 2;
-        y += game->player_dy * 2;
-        mlx_pixel_put(game->mlx, game->win, (int)x, (int)y, 0xFF0000);
-        i++;
-    }
-}
-
-void draw_ray_line(t_game *game, float rx, float ry)
-{
-    float x;
-    float y;
-    float dx;
-    float dy;
-    float steps;
-    int i;
-
-    x = game->player_x;
-    y = game->player_y;
-    dx = rx - x;
-    dy = ry - y;
-    if(fabsf(dx) > fabsf(dy))
-        steps = fabsf(dx);
-    else
-        steps = fabsf(dy);
-    if (steps == 0)
-        return;
-    dx /= steps;
-    dy /= steps;
-    i = 0;
-    while (i < (int)steps)
-    {
-        mlx_pixel_put(game->mlx, game->win, (int)x, (int)y, 0xFF0000);
-        x += dx;
-        y += dy;
-        i++;
-    }
-}
-
 void render_rays(t_game *game)
 {
     int i;
     float ray_angle;
-    t_rayhit v_hit;
-    t_rayhit h_hit;
 
     i = 0;
     ray_angle = game->angle - (FOV / 2);
     while(i < NUM_RAYS)
     {
-        init_rayhit(&v_hit, game, ray_angle);
-        init_rayhit(&h_hit, game, ray_angle);
-        horizontal_check(game, &h_hit);
-        vertical_check(game, &v_hit);
-        draw_wall(game, v_hit, h_hit, i);
-        //if (h_hit.distance < v_hit.distance)
-        //    draw_ray_line(game, h_hit.x, h_hit.y);
-        //else
-        //    draw_ray_line(game, v_hit.x, v_hit.y);
+        render_wall(game, ray_angle, i);
         ray_angle += ANGLE_STEP;
         if (ray_angle < 0)
             ray_angle += 2 * PI;
@@ -76,10 +17,35 @@ void render_rays(t_game *game)
             ray_angle -= 2 * PI;
         i++;
     }
-
 }
 
-//if (h_hit.distance < v_hit.distance)
-        //    draw_ray_line(game, h_hit.x, h_hit.y);
-        //else
-        //    draw_ray_line(game, v_hit.x, v_hit.y);
+void render_wall(t_game *game, float angle, int col)
+{
+    t_rayhit v_hit;
+    t_rayhit h_hit;
+    t_wall wall;
+
+    init_rayhit(&v_hit, game, angle);
+    init_rayhit(&h_hit, game, angle);
+    horizontal_check(game, &h_hit);
+    vertical_check(game, &v_hit);
+    wall.screen_x = (col * game->win_width) / NUM_RAYS;
+    init_wall(game, &v_hit, &h_hit, &wall);
+    draw_wall(game, &wall);
+}
+
+void draw_wall(t_game *game, t_wall *wall)
+{
+    wall->w = 0;
+    while (wall->w < wall->slice_width)
+    {
+        wall->y = (int)wall->wall_top;
+        while (wall->y < (int)wall->wall_bottom)
+        {
+            mlx_pixel_put(game->mlx, game->win, wall->screen_x + wall->w, wall->y, RED);
+            wall->y++;
+        }
+        wall->w++;
+    }
+}
+

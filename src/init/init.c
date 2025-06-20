@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/10 16:00:02 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/20 11:29:48 by joaorema         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
@@ -66,5 +55,14 @@ void init_rayhit(t_rayhit *hit, t_game *game, float angle)
     hit->max_dof = 30; 
 }
 
+void init_wall(t_game *game, t_rayhit *vhit, t_rayhit *hhit, t_wall *wall)
+{
+    wall->screen_center = game->win_height / 2;
+    wall->wall_dist = (vhit->distance < hhit->distance) ? vhit->distance : hhit->distance;
+    wall->lineh = (TILE_SIZE * 320) / wall->wall_dist;
+    wall->wall_top = wall->screen_center - wall->lineh / 2;
+    wall->wall_bottom = wall->screen_center + wall->lineh / 2;
+    wall->slice_width = game->win_width / NUM_RAYS;
+}
 
 
