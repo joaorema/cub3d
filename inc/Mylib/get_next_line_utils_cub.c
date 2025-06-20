@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_init.c                                          :+:      :+:    :+:   */
+/*   get_next_line_utils_cub.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/10 16:00:02 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/20 13:17:56 by icunha-t         ###   ########.fr       */
+/*   Created: 2025/06/20 12:33:58 by icunha-t          #+#    #+#             */
+/*   Updated: 2025/06/20 12:38:38 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "libft.h"
 
-void  init_game(t_game *game)
+void	gnl_free_fd(int fd)
 {
-	game->map = NULL;
-	game->tmp_map = NULL;
-	game->mlx = NULL;
-	game->win = NULL;
-	game->player = 0;
-	game->player_x = 0;
-	game->player_y = 0;
-	game->map_width = 0;
-	game->map_height = 0;
-	game->map_inf.no_pth = NULL;
-	game->map_inf.so_pth = NULL;
-	game->map_inf.ea_pth = NULL;
-	game->map_inf.we_pth = NULL;
+	t_gnllist **list;
+	
+	list = get_gnl_list();
+	if (fd < 0 || fd >= MAX_FD || !list[fd])
+		return;
+	ft_clear_list(&list[fd]);
+	list[fd] = NULL;
+}
+
+t_gnllist	**get_gnl_list(void)
+{
+	static t_gnllist	*list[MAX_FD];
+
+	return (list);
 }

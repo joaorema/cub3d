@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:08:06 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/19 18:34:48 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/20 13:18:29 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,28 +69,6 @@ void add_fl_and_c(t_game *game, char *line)
 		}
 		i++;	
 	}
-	i = -1;
-	while (line[++i])
-	{
-		if (line[i] == 'F')
-		{
-			game->map_inf.f_rgb = malloc(sizeof(int) * 3);
-			i = 0;
-			game->map_inf.f_rgb[0] = f_val;
-			game->map_inf.f_rgb[1] = s_val;
-			game->map_inf.f_rgb[2] = t_val;
-			break;
-		}
-		if (line[i] == 'C')
-		{
-			game->map_inf.c_rgb = malloc(sizeof(int) * 3);
-			i = 0;
-			game->map_inf.c_rgb[0] = f_val;
-			game->map_inf.c_rgb[1] = s_val;
-			game->map_inf.c_rgb[2] = t_val;
-			break;
-		}
-	}
 }
 
 int	get_rgb_val(char *line, int *start)
@@ -104,20 +82,41 @@ int	get_rgb_val(char *line, int *start)
 	tmp = *start;
 	i = 0;
 	len = 0;
-	while (ft_strchr(NB, line[tmp]))
-	{
+	while (ft_strchr(NB, line[tmp++]))
 		len++;
-		tmp++;
-	}
 	val_str = ft_calloc(len + 1, sizeof(char));
 	while (ft_strchr(NB, line[*start]))
-	{
-		val_str[i] = line[*start];
-		i++;
-		(*start)++;
-	}
+		val_str[i++] = line[(*start)++];
 	val_str[i] = '\0';
 	val = ft_atoi(val_str);
 	val_str = safe_free(val_str);
 	return (val);
+}
+
+void	set_rgb(t_game *game, char *line, int f_val, int s_val, int t_val)
+{
+	int	i;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] == 'F')
+		{
+			game->map_inf.f_rgb = ft_calloc(3, sizeof(int));
+			i = 0;
+			game->map_inf.f_rgb[0] = f_val;
+			game->map_inf.f_rgb[1] = s_val;
+			game->map_inf.f_rgb[2] = t_val;
+			break;
+		}
+		if (line[i] == 'C')
+		{
+			game->map_inf.f_rgb = ft_calloc(3, sizeof(int));
+			i = 0;
+			game->map_inf.c_rgb[0] = f_val;
+			game->map_inf.c_rgb[1] = s_val;
+			game->map_inf.c_rgb[2] = t_val;
+			break;
+		}
+	}
 }

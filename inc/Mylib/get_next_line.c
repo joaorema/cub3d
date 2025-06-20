@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 11:42:35 by jpedro-c          #+#    #+#             */
-/*   Updated: 2025/06/18 16:36:04 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/20 12:33:36 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 char	*get_next_line(int fd)
 {
-	static t_gnllist	*list[MAX_FD];
-	char				*next_line;
+	t_gnllist	**list;
+	char		*next_line;
 
+	list = get_gnl_list();
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	ft_new_list(&list[fd], fd);

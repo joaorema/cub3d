@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/19 17:25:00 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/20 13:18:20 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void 	add_line_to_map(t_game *game, char *line);
 
 //02_ch_map_info
 void	set_map_info(t_game *game, char *file);
+void	set_map_info_util(t_game *game, char **line, int fd, int n);
 int 	get_pth(t_game *game, char *line);
 int		which_dir(char *line);
 void 	set_pth(char *line, char **set_str);
@@ -104,6 +105,7 @@ void 	set_pth(char *line, char **set_str);
 //03_rgb_info
 void 	add_fl_and_c(t_game *game, char *line);
 int		get_rgb_val(char *line, int *start);
+void	set_rgb(t_game *game, char *line, int f_val, int s_val, int t_val);
 
 //04_parse_utils
 int		safe_fd_open(char *file);

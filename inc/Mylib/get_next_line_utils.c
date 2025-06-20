@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 12:43:42 by jpedro-c          #+#    #+#             */
-/*   Updated: 2025/06/18 16:36:13 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/20 12:43:44 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,4 +116,21 @@ void	ft_dealloc(t_gnllist **list, t_gnllist *clean_node, char *buffer)
 		free(clean_node);
 		free(buffer);
 	}
+}
+
+void	ft_clear_list(t_gnllist **list)
+{
+	t_gnllist	*tmp;
+
+	if (!list || !*list)
+		return;
+	while (*list)
+	{
+		tmp = (*list)->next;
+		if ((*list)->str_buff)
+			free((*list)->str_buff);
+		free(*list);
+		*list = tmp;
+	}
+	*list = NULL;
 }

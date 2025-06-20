@@ -53,6 +53,7 @@ SRCS = \
     ft_atol.c \
 	ft_safe_free.c \
 	ft_free_array.c \
+	get_next_line_utils_cub.c \
     
     
     
@@ -62,7 +63,7 @@ NAME = libft.a
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -fPIC
+CFLAGS = -Wall -Wextra -Werror -g -fPIC
 
 all: $(NAME)
 	

@@ -4,7 +4,7 @@
 
 NAME = cub3d
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -fPIE
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #

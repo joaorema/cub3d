@@ -6,13 +6,11 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:03:39 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/19 19:56:47 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/20 13:00:04 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
-
-
 
 void	set_map_info(t_game *game, char *file)
 {
@@ -24,31 +22,39 @@ void	set_map_info(t_game *game, char *file)
 	line = NULL;
 	while(1)
 	{
-		if (line)
-			line = safe_free(line);
-		line = get_next_line(fd);
+		set_map_info_util(game, &line, fd, 1);		
 		if (empty_line(line))
 			continue ;
 	 	else if (!line || is_map(line))
 		{
-			if (line)
-				line = safe_free(line);
-			break;	
+			line = safe_free(line);
+			break;
 		}
 		if (!get_pth(game, line))
-		{
-			if (which_dir(line) == 5)
-				add_fl_and_c(game, line);
-			else
-			{
-				line = safe_free(line);
-				ft_printf(RED ERR INF RESET);
-				close_and_free(game, 2);
-			}	
-		}
-		line = safe_free(line);
+			set_map_info_util(game, &line, fd, 2);
 	}
+	gnl_free_fd(fd);
 	close(fd);
+}
+
+void	set_map_info_util(t_game *game, char **line, int fd, int n)
+{	
+	if (n == 1)
+	{
+		*line = safe_free(*line);
+		*line = get_next_line(fd);	
+	}
+	else
+	{
+		if (which_dir(*line) == 5)
+			add_fl_and_c(game, *line);
+		else
+		{
+			*line = safe_free(*line);
+			ft_printf(RED ERR INF RESET);
+			close_and_free(game, 2);
+		}	
+	}
 }
 
 int get_pth(t_game *game, char *line)

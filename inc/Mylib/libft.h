@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 14:55:51 by jpedro-c          #+#    #+#             */
-/*   Updated: 2025/06/18 16:08:08 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/20 12:43:53 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ typedef struct s_gnllist
 {
 	char				*str_buff;
 	struct s_gnllist	*next;
-}				t_gnllist;
+}	t_gnllist;
 
 t_list		*ft_listnew(void *content);
 t_gnllist	*find_last_node(t_gnllist *list);
+t_gnllist	**get_gnl_list(void);
 
 void	ft_bzero(void *s, size_t n);
 void	*ft_memchr(const void *s, int c, size_t n);
@@ -59,6 +60,8 @@ void	ft_listadd_front(t_list **lst, t_list *new);
 void	*safe_free(void *ptr);
 void	ft_free_array(void **array);
 void	ft_copy_str(t_gnllist *list, char *str);
+void	gnl_free_fd(int fd);
+void	ft_clear_list(t_gnllist **list);
 
 int		ft_atoi(const char *nptr);
 int		ft_isalnum(int c);
