@@ -11,7 +11,5 @@ void	free_game(t_game *game)
 {
 	if (game && game->map)
 		ft_free_array((void **)game->map);
-	if (game && game->temp_map)
-		ft_free_array((void **)game->temp_map);
 	return ;
 }

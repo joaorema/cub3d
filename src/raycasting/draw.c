@@ -31,10 +31,10 @@ void render_wall(t_game *game, float angle, int col)
     vertical_check(game, &v_hit);
     wall.screen_x = (col * game->win_width) / NUM_RAYS;
     init_wall(game, &v_hit, &h_hit, &wall);
-    draw_column(game, &wall);
+    draw_topbottom(game, &wall);
 }
 
-void draw_column(t_game *game, t_wall *wall)
+void draw_topbottom(t_game *game, t_wall *wall)
 {
     int x;
     int w;
@@ -63,3 +63,5 @@ void draw_column(t_game *game, t_wall *wall)
         w++;
     }
 }
+
+

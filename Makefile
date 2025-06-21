@@ -25,7 +25,8 @@ SRCS = $(addprefix $(SRCS_DIR), main.c 					\
 								utils/utils.c       	\
 								raycasting/utils.c  	\
 								raycasting/horizontal.c \
-								raycasting/vertical.c \
+								raycasting/images.c     \
+								raycasting/vertical.c   \
 								raycasting/draw.c)
 
 TMP = ./tmp

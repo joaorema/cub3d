@@ -6,7 +6,7 @@
 /*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/20 21:26:43 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/21 12:30:24 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,19 @@
 # define FLOOR  DARKGRAY
 # define TILE_SIZE 64
 
+typedef struct s_image
+{
+    void *img;
+    char *addr;
+    int width;
+    int height;
+    int bits_per_pixel;
+    int line_len;
+    int x;
+    int y;  
+    int endian;
+    
+}   t_image;
 
 typedef struct s_wall
 {
@@ -45,10 +58,13 @@ typedef struct s_wall
     float wall_top;
     float wall_bottom;
     float screen_center;
+    float hit_x;
+    float hit_y;
     int y;
+    int w;
     int screen_x;
     int slice_width;
-    int w;
+    int was_hit_vertical;
 
 }   t_wall;
 
@@ -75,22 +91,8 @@ typedef struct s_rayhit
     
 }   t_rayhit;
 
-typedef struct s_position
+typedef struct s_player
 {
-    int x;
-    int y;
-    
-} t_position;
-
-typedef struct s_game
-{
-    void *mlx;
-    void *win;
-    void *player_img;
-    void *wall;
-    char *addr;
-    char **map;
-    char **temp_map;
     int  player;
     int  player_x;
     int  player_y;
@@ -100,6 +102,23 @@ typedef struct s_game
     int  player_tile_y;
     int  player_p_x;
     int  player_p_y;
+
+}   t_player;
+
+typedef struct s_point
+{
+    float x;
+    float y;
+    
+} t_point;
+
+typedef struct s_game
+{
+    void *mlx;
+    void *win;
+    char **map;
+    t_player player;
+    t_image img;
     float  angle;                                                         //angle of player
     int map_width;
     int map_height;
@@ -155,10 +174,12 @@ void update_vcheck(t_rayhit *hit);
 void final_vupdate(t_rayhit *hit);
 void vhit_wall(t_rayhit *hit, float ra);
 void v_s_tile(t_rayhit *hit);
-void draw_column(t_game *game, t_wall *wall);
+void draw_topbottom(t_game *game, t_wall *wall);
 
 //utils folder
 void	close_and_free(t_game *game, int exit_code);
 void	free_game(t_game *game);
+int     get_texture_pixel(t_image *texture, int x, int y);
+void my_mlx_pixel_put(t_image *img, int x, int y, int color);
 
 #endif

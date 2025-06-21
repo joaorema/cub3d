@@ -10,8 +10,7 @@ void load_map(t_game *game, char *file)
     count_width(game, file);
     fd = open(file, O_RDONLY);
     game->map = ft_calloc(game->map_height + 1, sizeof(char *));
-    game->temp_map = ft_calloc(game->map_height + 1, sizeof(char *));
-    if(!game->map || !game->temp_map)
+    if(!game->map)
     {
         ft_putstr_fd("Failed to allocate space for map\n", 2);
         exit (1);
@@ -22,7 +21,6 @@ void load_map(t_game *game, char *file)
         temp = get_next_line(fd);
         game->map[i] = ft_strtrim(temp, "\n");
         free(temp);
-        game->temp_map[i] = ft_strdup(game->map[i]);
         i++;
     }
     close(fd);
@@ -41,10 +39,10 @@ void find_player(t_game *game)
         {
             if(game->map[y][x] == 'P')
             {
-                game->player_tile_x = x;
-                game->player_tile_y = y;
-                game->player_x = x * TILE_SIZE + TILE_SIZE / 2;
-                game->player_y = y * TILE_SIZE + TILE_SIZE / 2;
+                game->player.player_tile_x = x;
+                game->player.player_tile_y = y;
+                game->player.player_x = x * TILE_SIZE + TILE_SIZE / 2;
+                game->player.player_y = y * TILE_SIZE + TILE_SIZE / 2;
                 return;
             }
             x++;

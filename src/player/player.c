@@ -7,14 +7,14 @@ int player_move(t_game *game, float m_x, float m_y)
     int map_x;
     int map_y;
     
-    new_x = game->player_x + m_x;                               
-    new_y = game->player_y + m_y;
+    new_x = game->player.player_x + m_x;                               
+    new_y = game->player.player_y + m_y;
     map_x = (int)(new_x) / TILE_SIZE;
     map_y = (int)(new_y) / TILE_SIZE;
     if(game->map[map_y][map_x] != '1')
     {
-        game->player_x = new_x;
-        game->player_y = new_y;
+        game->player.player_x = new_x;
+        game->player.player_y= new_y;
         //mlx_clear_window(game->mlx, game->win);
         //render_map(game);
         return (1);
@@ -56,8 +56,8 @@ int player_direction(int keycode, t_game *game)
         game->angle += 2 * PI;
     if (game->angle > 2 * PI)
         game->angle -= 2 * PI;
-    game->player_dx = cos(game->angle);
-    game->player_dy = sin(game->angle);
+    game->player.player_dx = cos(game->angle);
+    game->player.player_dy = sin(game->angle);
     return (0);
 }
 void	user_input(t_game *game)

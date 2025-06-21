@@ -5,7 +5,7 @@
             "name": "cub3d",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/jpedro-c/sgoinfre/cub3d/cub3d",
+            "program": "/home/joaorema/github/cub3d/cub3d",
 			"args": ["maps/map.cub"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
