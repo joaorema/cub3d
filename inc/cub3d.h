@@ -6,7 +6,7 @@
 /*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/21 12:30:24 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/21 16:33:50 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_wall
     float hit_y;
     int y;
     int w;
+    int tex_x;
     int screen_x;
     int slice_width;
     int was_hit_vertical;
@@ -119,6 +120,7 @@ typedef struct s_game
     char **map;
     t_player player;
     t_image img;
+    t_image wall_img;
     float  angle;                                                         //angle of player
     int map_width;
     int map_height;
@@ -177,9 +179,10 @@ void v_s_tile(t_rayhit *hit);
 void draw_topbottom(t_game *game, t_wall *wall);
 
 //utils folder
-void	close_and_free(t_game *game, int exit_code);
-void	free_game(t_game *game);
-int     get_texture_pixel(t_image *texture, int x, int y);
+void close_and_free(t_game *game, int exit_code);
+void free_game(t_game *game);
+unsigned int get_wall_tex_pixel(t_game *game, t_wall *wall, int y);
 void my_mlx_pixel_put(t_image *img, int x, int y, int color);
+void load_wall_image(t_game *game);
 
 #endif

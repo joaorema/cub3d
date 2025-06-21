@@ -55,6 +55,7 @@ void render_map(t_game *game)
 {
     //mlx_clear_window(game->mlx, game->win);
     render_rays(game);
+    mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 }
 
 int game_loop(t_game *game)
