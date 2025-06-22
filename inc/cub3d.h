@@ -6,7 +6,7 @@
 /*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/21 16:33:50 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/22 17:53:25 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,24 @@
 # define BRICKRED 0xB22222
 # define DARKGRAY 0x00333333
 # define GRAY     0xFFD3D3D3
-# define SKY    GRAY
+# define SKY    0xFFADD8E6
 # define FLOOR  DARKGRAY
-# define TILE_SIZE 64
+# define TILE_SIZE 128
+#define KEY_ESC     65307
+#define KEY_W       119
+#define KEY_A       97
+#define KEY_S       115
+#define KEY_D       100
+#define KEY_LEFT    65361
+#define KEY_RIGHT   65363
+#define MOVE_SPEED  35.0f
+
+typedef struct s_point
+{
+    float x;
+    float y;
+    
+} t_point;
 
 typedef struct s_image
 {
@@ -45,93 +60,77 @@ typedef struct s_image
     int height;
     int bits_per_pixel;
     int line_len;
-    int x;
-    int y;  
     int endian;
+    t_point pos;
     
 }   t_image;
 
 typedef struct s_wall
 {
-    float wall_dist;
-    float lineh;
-    float wall_top;
-    float wall_bottom;
-    float screen_center;
-    float hit_x;
-    float hit_y;
-    int y;
-    int w;
-    int tex_x;
-    int screen_x;
-    int slice_width;
-    int was_hit_vertical;
+    float distance;                                 // Distance from player to wall hit
+    float projected_height;                         // Height of wall slice to draw on screen
+    float top_pixel;                                // Screen y-coordinate for top of wall slice
+    float bottom_pixel;                             // Screen y-coordinate for bottom of wall slice
+    float screen_center_y;                          // Vertical center of screen (win_height/2)
+    int texture_x;                                  // X coordinate on wall texture to sample
+    int screen_x;                                   // X coordinate on screen to draw slice
+    int slice_width;                                // Width of the vertical slice of the wall
+    int hit_vertical;                               // Boolean: did the ray hit a vertical wall?
+    t_point hit_point;                              // Coordinates where ray hit the wall
 
 }   t_wall;
 
 typedef struct s_rayhit
 {
-    float x;
-    float y;
-    float distance;
-    float ra;
-    float atan;
-    float ntan;
-    float ry;
-    float rx;
-    float xo;
-    float yo;
-    float px;
-    float py;
-    float maxhorizontal;
-    float maxvertical;
-    float max_dof;
-    int dof;
-    int mx;
-    int my;
+    t_point hit_pos;                                // Coordinates where the ray hits something
+    float distance;                                 // Distance from player to hit point
+    float ray_angle;                                // Angle of the current ray
+    float atan_angle;                               // Auxiliary values for raycasting calculations
+    float ntan_angle;
+    float next_ray_y;                               // Next intersection Y coordinate for checking grid
+    float next_ray_x;                               // Next intersection X coordinate for checking grid
+    float x_offset;                                 // Step increment X for ray movement
+    float y_offset;                                 // Step increment Y for ray movement
+    t_point player_pos;                             // Player's current position
+    float max_horizontal;                           // Max horizontal distance limit for ray
+    float max_vertical;                             // Max vertical distance limit for ray
+    float max_depth_of_field;                       // Max steps before raycasting stops
+    int depth_of_field;                             // Current depth of field (number of checks)
+    int map_x;                                      // Map grid X coordinate of hit
+    int map_y;                                      // Map grid Y coordinate of hit
     
-}   t_rayhit;
+} t_rayhit;
 
 typedef struct s_player
 {
-    int  player;
-    int  player_x;
-    int  player_y;
-    float  player_dx;                                                     //player delta x
-    float player_dy;                                                     //player delta y
-    int  player_tile_x;
-    int  player_tile_y;
-    int  player_p_x;
-    int  player_p_y;
+    int tile_x;               // Player tile/grid X coordinate
+    int tile_y;               // Player tile/grid Y coordinate
+    t_point delta;            // Movement delta per frame (dx, dy)
+    t_point position;         // Player world coordinates (x, y)
+    t_point pixel_offset;     // Pixel offset within current tile
 
 }   t_player;
 
-typedef struct s_point
-{
-    float x;
-    float y;
-    
-} t_point;
 
 typedef struct s_game
 {
     void *mlx;
     void *win;
     char **map;
-    t_player player;
-    t_image img;
-    t_image wall_img;
-    float  angle;                                                         //angle of player
-    int map_width;
-    int map_height;
-    int win_width;
-    int win_height;
+    float player_angle;       // Player looking angle in radians
+    int map_width;            // Width of the map in tiles
+    int map_height;           // Height of the map in tiles
+    int win_width;            // Window width in pixels
+    int win_height;           // Window height in pixels
     int key_w;
     int key_a;
     int key_s;
     int key_d;
     int key_left;
     int key_right;
+    t_player player;
+    t_image img;              // Main rendering image buffer
+    t_image wall_img;         // Wall texture image
     
 } t_game;
 
@@ -161,7 +160,7 @@ void horizontal_check(t_game *game, t_rayhit *hit);
 void vertical_check(t_game *game, t_rayhit *hit);
 float distance(float ax, float ay, float bx, float by, float ang);              //hipotenusa
 void render_wall(t_game *game, float angle, int col);
-void init_wall(t_game *game, t_rayhit *vhit, t_rayhit *hhit, t_wall *wall);
+void init_wall(t_game *game, t_rayhit *vhit, t_rayhit *hhit, t_wall *wall, float angle);
 void h_sides(t_game *game, t_rayhit *hit);
 void h_up(t_game *game, t_rayhit *hit, float atan);
 void h_down(t_game *game, t_rayhit *hit, float atan);
@@ -177,6 +176,9 @@ void final_vupdate(t_rayhit *hit);
 void vhit_wall(t_rayhit *hit, float ra);
 void v_s_tile(t_rayhit *hit);
 void draw_topbottom(t_game *game, t_wall *wall);
+void	draw(t_image *image, t_point pos, t_point size, int color);
+void draw_wall_slice(t_game *game, t_wall *wall);
+int is_walkable(t_game *game, float x, float y);
 
 //utils folder
 void close_and_free(t_game *game, int exit_code);

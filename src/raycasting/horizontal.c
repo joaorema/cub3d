@@ -2,50 +2,56 @@
 
 void h_sides(t_game *game, t_rayhit *hit)
 {
-    (void)game;
-    hit->dof = hit->max_dof;
-    hit->rx = hit->px;
-    hit->ry = hit->py;
+   (void)game;
+    hit->depth_of_field = hit->max_depth_of_field;
+    hit->next_ray_x = hit->player_pos.x;
+    hit->next_ray_y = hit->player_pos.y;
 }
 void h_up(t_game *game, t_rayhit *hit, float atan)
 {
     (void)game;
-    hit->ry = floor(hit->py / TILE_SIZE) * TILE_SIZE - 0.0001;
-    hit->rx = (hit->py - hit->ry) * atan + hit->px;
-    hit->yo = -TILE_SIZE;
-    hit->xo = -hit->yo * atan;
+    hit->next_ray_y = floor(hit->player_pos.y / TILE_SIZE) * TILE_SIZE - 0.0001f;
+    hit->next_ray_x = (hit->player_pos.y - hit->next_ray_y) * atan + hit->player_pos.x;
+    hit->y_offset = -TILE_SIZE;
+    hit->x_offset = -hit->y_offset * atan;
 }
 
 void h_down(t_game *game, t_rayhit *hit, float atan)
 {
     (void)game;
-    hit->ry = floor(hit->py / TILE_SIZE) * TILE_SIZE + TILE_SIZE;
-    hit->rx = (hit->py - hit->ry) * atan + hit->px;
-    hit->yo = TILE_SIZE;
-    hit->xo = -hit->yo * atan;
+    hit->next_ray_y = floor(hit->player_pos.y / TILE_SIZE) * TILE_SIZE + TILE_SIZE;
+    hit->next_ray_x = (hit->player_pos.y - hit->next_ray_y) * atan + hit->player_pos.x;
+    hit->y_offset = TILE_SIZE;
+    hit->x_offset = -hit->y_offset * atan;
 }
 
 void update_hcheck(t_rayhit *hit)
 {
-    hit->rx += hit->xo;
-    hit->ry += hit->yo;
-    hit->dof++;
+    hit->next_ray_x += hit->x_offset;
+    hit->next_ray_y += hit->y_offset;
+    hit->depth_of_field++;
 }
 void final_hupdate(t_rayhit *hit)
 {
-    hit->x = hit->rx;
-    hit->y = hit->ry;
+    hit->hit_pos.x = hit->next_ray_x;
+    hit->hit_pos.y = hit->next_ray_y;
     hit->distance = B_DISTANCE;
 }
 void hhit_wall(t_rayhit *hit, float ra)
 {
-    hit->x = hit->rx;
-    hit->y = hit->ry;
-    hit->distance = distance(hit->px, hit->py, hit->x, hit->y, ra);
+    hit->hit_pos.x = hit->next_ray_x;
+    hit->hit_pos.y = hit->next_ray_y;
+    hit->distance = distance(
+        hit->player_pos.x,
+        hit->player_pos.y,
+        hit->hit_pos.x,
+        hit->hit_pos.y,
+        ra
+    );
 }
 
 void h_s_tile(t_rayhit *hit)
 {
-    hit->mx = (int)(hit->rx) / TILE_SIZE;
-    hit->my = (int)(hit->ry) / TILE_SIZE;
+    hit->map_x = (int)(hit->next_ray_x) / TILE_SIZE;
+    hit->map_y = (int)(hit->next_ray_y) / TILE_SIZE;
 }

@@ -39,10 +39,10 @@ void find_player(t_game *game)
         {
             if(game->map[y][x] == 'P')
             {
-                game->player.player_tile_x = x;
-                game->player.player_tile_y = y;
-                game->player.player_x = x * TILE_SIZE + TILE_SIZE / 2;
-                game->player.player_y = y * TILE_SIZE + TILE_SIZE / 2;
+                game->player.tile_x = x;
+                game->player.tile_y = y;
+                game->player.position.x = x * TILE_SIZE + TILE_SIZE / 2;
+                game->player.position.y = y * TILE_SIZE + TILE_SIZE / 2;
                 return;
             }
             x++;
