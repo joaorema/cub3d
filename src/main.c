@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:27 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/20 17:02:45 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:34:58 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ int main(int ac, char *av[])
 	}
 	init_game(&game);
 	load_and_parse_map(&game, av[1]);
-	//if (!parse_map(&game))
-	//	return (1);
+	//start_wind(&game);
 	close_and_free(&game, 0);
 	return (0);
 }

@@ -19,6 +19,7 @@ MLX = $(MLX_DIR)/libmlx.a
 SRCS_DIR = ./src/
 SRCS = $(addprefix $(SRCS_DIR), main.c \
        							init/00_init.c \
+								init/01_init_imgs.c \
 								parse/00_load_and_parse.c \
 								parse/01_ch_map.c \
 								parse/02_ch_map_info.c \

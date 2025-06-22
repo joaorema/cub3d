@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/20 18:58:20 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/23 00:08:31 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int	main(int ac, char *av[]);
 
 //00_init
 void	init_game(t_game *game);
+void	start_wind(t_game *game);
+int		close_window(void *param);
 
 //00_parse
 void	load_and_parse_map(t_game *game, char *file);
@@ -117,8 +119,8 @@ int		which_dir(char *line);
 void 	set_pth(t_game *game, char *line, char **set_str);
 
 //03_rgb_info
-void 	add_fl_and_c(t_game *game, char *line);
-int		get_rgb_val(char *line, int *start);
+void 	add_f_and_c(t_game *game, char *line);
+int		get_rgb_val(t_game *game, char *line, int *start);
 void	ch_mid_val(t_game *game, char c, bool *ch, int n);
 void	set_rgb(t_game *game, char *line, int f_val, int s_val, int t_val);
 
@@ -136,6 +138,7 @@ int		empty_line(char *line);
 //06_parse_utils
 
 //00_close_and_free
+void	print_err_and_exit(t_game *game, char *err_msg, int exit_code);
 void	close_and_free(t_game *game, int exit_code);
 void	free_game(t_game *game);
 void	kill_visuals(t_game *game);

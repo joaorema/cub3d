@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   02_ch_map_info.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:03:39 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/20 18:55:47 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/23 00:01:25 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,11 @@ void	set_map_info_util(t_game *game, char **line, int fd, int n)
 	else
 	{
 		if (which_dir(*line) == 5)
-			add_fl_and_c(game, *line);
+			add_f_and_c(game, *line);
 		else
 		{
 			*line = safe_free(*line);
-			ft_printf(RED ERR MINF RESET);
-			close_and_free(game, 2);
+			print_err_and_exit(game, RED ERR MINF RESET, 2);
 		}	
 	}
 }
@@ -110,15 +109,14 @@ void set_pth(t_game *game, char *line, char **set_str)
 {
 	int		i;
 	char	path[2048];
-	char	id[3];
 	int		j;
 
 	i = 0;
 	while (ft_strchr(WS, line[i]))
 		i++;
-	id[0] = line[i++];
-	id[1] = line[i++];
-	id[2] = '\0';
+	i += i + 2;
+	if (!ft_strchr(WS, line[i]))
+		print_err_and_exit(game, RED ERR PTH RESET, 2);
 	while (ft_strchr(WS, line[i]))
 		i++;
 	j = 0;
@@ -129,37 +127,7 @@ void set_pth(t_game *game, char *line, char **set_str)
 	while (line[i])
 	{
 		if (!ft_strchr(WS, line[i]))
-		{
-			ft_printf(RED ERR PTH RESET);
-	 		close_and_free(game, 2);
-		}
+		print_err_and_exit(game, RED ERR PTH RESET, 2);
 		i++;
 	}
 }
-
-// void set_pth(t_game *game, char *line, char **set_str)
-// {
-// 	int		i;
-// 	int		start;
-// 	int		len;
-	
-// 	i = 0;
-// 	len = 0;
-// 	while (line[i] != '.')
-// 	{
-// 		// if (!ft_strchr(WS, line[i]))
-// 		// {
-// 		// 	ft_printf(RED ERR PTH RESET);
-// 		// 	close_and_free(game, 2);
-// 		// }
-// 		(void)game;
-// 		i++;	
-// 	}
-// 	start = i;
-// 	while(line[i] && !ft_strchr(WS, line[i]))
-// 	{
-// 		len++;
-// 		i++;
-// 	}
-// 	*set_str = ft_substr((const char *)line, (unsigned int)start, (size_t)len);
-// }

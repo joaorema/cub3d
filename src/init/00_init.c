@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:00:02 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/20 18:58:30 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:34:27 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,5 @@ void  init_game(t_game *game)
 	game->map_inf.we_pth = NULL;
 	game->map_inf.c_rgb = NULL;
 	game->map_inf.f_rgb = NULL;
+	game->txt = NULL;
 }

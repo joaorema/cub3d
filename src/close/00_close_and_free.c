@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   00_close_and_free.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:24:56 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/20 18:51:09 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:58:20 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
+
+void	print_err_and_exit(t_game *game, char *err_msg, int exit_code)
+{
+	ft_putstr_fd(err_msg, 2);
+	close_and_free(game, exit_code);
+}
 
 void	close_and_free(t_game *game, int exit_code)
 {
@@ -40,6 +46,8 @@ void	free_game(t_game *game)
 		game->map_inf.we_pth = safe_free(game->map_inf.we_pth);
 	if (game->map_inf.ea_pth)
 		game->map_inf.ea_pth = safe_free(game->map_inf.ea_pth);
+	if (game->txt)
+		game->txt = safe_free(game->txt);
 	return ;
 }
 
