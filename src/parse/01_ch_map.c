@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   01_ch_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:03:49 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/20 15:14:38 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/24 19:10:21 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,25 @@ void set_width_and_load(t_game *game, char *file)
 			len = get_line_len(line);
 			if (len > game->map_width)
 				game->map_width = len;
-			add_line_to_map(game, line);	
+			if (!only_ws(line))
+				add_line_to_map(game, line);	
 		}
 		line = safe_free(line);
 	}
 	close(fd);
+}
+
+bool	only_ws(char *line)
+{
+	int	i;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (!ft_strchr(WS, line[i]))
+			return (false);	
+	}
+	return (true);		
 }
 
 void add_line_to_map(t_game *game, char *line)

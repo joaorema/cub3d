@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/23 00:08:31 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/24 19:07:17 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@
 # define EXT "File extension should be .cub\n"
 # define EMPT "Empty file or unable to read\n"
 # define MINF "Missing info on map\n"
+# define WINF "Wrong info on map\n"
 # define MMAP "Missing map\n"
 # define COL "Missing colour information\n"
 # define RGB "Incorrect RGB info\n"
 # define PTH "Incorrect path info\n"
 # define TXT "Impossible to open texture\n"
+# define PL "Incorrect number of players\n"
+# define INV "Invalid char in map\n"
 
 //colours
 # define RESET  "\033[0m"
@@ -84,7 +87,7 @@ typedef struct s_game
     char		**tmp_map;
 	t_map_inf 	map_inf;	
 	t_text		*txt;
-    int 		player;
+    char 		player_dir;
     int			player_x;
     int			player_y;
     int			map_width;
@@ -109,6 +112,7 @@ void	set_map_info(t_game *game, char *file);
 //01_ch_map
 void	set_height(t_game *game, char *file);
 void 	set_width_and_load(t_game *game, char *file);
+bool	only_ws(char *line);
 void 	add_line_to_map(t_game *game, char *line);
 
 //02_ch_map_info
@@ -128,6 +132,8 @@ void	set_rgb(t_game *game, char *line, int f_val, int s_val, int t_val);
 void	parse_map_info(t_game *game);
 void	ch_missing_info(t_game *game);
 void	ch_txt_paths(t_game *game);
+void	ch_player_and_inv_chars(t_game *game);
+void	ch_closed_walls(t_game *game);
 
 //05_load_utils
 int		safe_fd_open(char *file);
@@ -136,6 +142,8 @@ int		get_line_len(char *line);
 int		empty_line(char *line);
 
 //06_parse_utils
+bool	char_is_valid(char c);
+void	set_pl_info(t_game *game, char c, int x, int y);
 
 //00_close_and_free
 void	print_err_and_exit(t_game *game, char *err_msg, int exit_code);

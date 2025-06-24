@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 15:27:21 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/23 00:08:41 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/24 19:46:12 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	parse_map_info(t_game *game)
 {
 	ch_missing_info(game);
 	ch_txt_paths(game);
+	ch_player_and_inv_chars(game);
+	ch_closed_walls(game);
 }
 
 void	ch_missing_info(t_game *game)
@@ -45,3 +47,68 @@ void	ch_txt_paths(t_game *game)
 		print_err_and_exit(game, RED ERR TXT RESET, 2);
 }
 
+void	ch_player_and_inv_chars(t_game *game)
+{
+	char	*line;
+	int		i;
+	int		j;
+	
+	j = -1;
+	while(game->map[++j])
+	{
+		line = ft_strdup(game->map[j]);
+		i = -1;
+		while(line[++i])
+		{
+			if (!char_is_valid(line[i]))
+				print_err_and_exit(game, RED ERR INV RESET, 2);
+			if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
+			{
+				if (game->player_dir != '\0')
+					print_err_and_exit(game, RED ERR PL RESET, 2);
+				set_pl_info(game, line[i], i, j);
+			}
+		}
+		line = safe_free(line);
+	}
+	if (game->player_dir == '\0')
+		print_err_and_exit(game, RED ERR PL RESET, 2);
+}
+
+void	ch_closed_walls(t_game *game)
+{
+	int		i;
+	int		j;
+	int		x;
+
+	j = -1;
+	i = -1;
+	x = -1;
+	game->tmp_map = malloc(sizeof(char *) * (game->map_height + 3));
+	game->tmp_map[++x] = calloc(game->map_width + 3, sizeof(char));
+	while (++i < (game->map_width + 1))
+		game->tmp_map[x][i] = 'X';
+	game->tmp_map[x][++i] = '\0';
+	j = -1;
+	while(game->map[++j])
+	{
+		i = 0;
+		game->tmp_map[++x] = calloc(game->map_width + 3, sizeof(char));
+		game->tmp_map[x][i] = 'X';
+		while (i < (game->map_width + 1))
+		{
+			if ((i >= (int)ft_strlen(game->map[j]) )|| ft_strchr(WS, game->map[j][i]))
+				game->tmp_map[x][i] = 'X';
+			else				
+				game->tmp_map[x][i] = game->map[j][i];
+			i++;			
+		}
+		game->tmp_map[x][++i] = '\0';
+	}
+	i = -1;
+	game->tmp_map[++x] = calloc(game->map_width + 3, sizeof(char));
+	while (++i < (game->map_width + 1))
+		game->tmp_map[x][i] = 'X';
+	game->tmp_map[x][++i] = '\0';
+	game->tmp_map[++x] = NULL;
+}

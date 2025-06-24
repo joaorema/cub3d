@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:03:39 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/23 00:01:25 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/24 17:56:39 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	set_map_info_util(t_game *game, char **line, int fd, int n)
 		else
 		{
 			*line = safe_free(*line);
-			print_err_and_exit(game, RED ERR MINF RESET, 2);
+			print_err_and_exit(game, RED ERR WINF RESET, 2);
 		}	
 	}
 }

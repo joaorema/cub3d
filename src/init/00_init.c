@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:00:02 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/22 23:34:27 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/24 18:14:43 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void  init_game(t_game *game)
 	game->tmp_map = NULL;
 	game->mlx = mlx_init();
 	game->win = NULL;
-	game->player = 0;
+	game->player_dir = '\0';
 	game->player_x = 0;
 	game->player_y = 0;
 	game->map_width = 0;
