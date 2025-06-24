@@ -1,13 +1,13 @@
 #include "../../inc/cub3d.h"
 
-void render_rays(t_game *game)
+void render_rays(t_game *game)                                              //main raycast that draws everything
 {
     int i;
     float ray_angle;
 
     i = 0;
     ray_angle = game->player_angle - (FOV / 2);
-    while (i < NUM_RAYS)
+    while (i < NUM_RAYS)                                                    //Num rays = 60
     {
         render_wall(game, ray_angle, i);
         ray_angle += ANGLE_STEP;
@@ -19,24 +19,24 @@ void render_rays(t_game *game)
 
         i++;
     }
-    mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+    mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);     //puts wall image
 }
 
-void render_wall(t_game *game, float angle, int ray_index)
+void render_wall(t_game *game, float angle, int ray_index)                  //
 {
     t_rayhit v_hit;
     t_rayhit h_hit;
     t_wall wall;
 
-    init_rayhit(&v_hit, game, angle);
-    init_rayhit(&h_hit, game, angle);
-    horizontal_check(game, &h_hit);
-    vertical_check(game, &v_hit);
-    wall.screen_x = (int)((float)ray_index / NUM_RAYS * game->win_width);
+    init_rayhit(&v_hit, game, angle);                                       //starts vertical hit struct
+    init_rayhit(&h_hit, game, angle);                                       //starts horizontal hit struct
+    horizontal_check(game, &h_hit);                                         //checks angle and updates h_struct to have current horizontal ray    
+    vertical_check(game, &v_hit);                                           //checks angle and updates v_struct to have current vertical ray
+    wall.screen_x = (int)((float)ray_index / NUM_RAYS * game->win_width);   
     wall.slice_width = game->win_width / NUM_RAYS;
-    init_wall(game, &v_hit, &h_hit, &wall, angle);
-    draw_topbottom(game, &wall);
-    draw_wall_slice(game, &wall);
+    init_wall(game, &v_hit, &h_hit, &wall, angle);                          //starts wall struct using v_hit and h_hit
+    draw_topbottom(game, &wall);                                            //draw sky and floor
+    draw_wall_slice(game, &wall);                                           //draw the wall
 }
 
 void draw_topbottom(t_game *game, t_wall *wall)
@@ -72,63 +72,10 @@ void draw_wall_slice(t_game *game, t_wall *wall)
     {
         for (int y = y_start; y < y_end && y < game->win_height; y++)
         {
-            color = get_wall_tex_pixel(game, wall, y);
+            color = get_texture(game, wall, y);
             my_mlx_pixel_put(&game->img, x + w, y, color);
         }
         w++;
     }
 }
 
-unsigned int get_wall_tex_pixel(t_game *game, t_wall *wall, int y)
-{
-    int tex_y;
-    int tex_x = wall->texture_x;
-    char *pixel;
-
-    int wall_height = wall->bottom_pixel - wall->top_pixel;
-    if (wall_height <= 0)
-        return 0;
-
-    float sample_ratio = (float)(y - wall->top_pixel) / (float)wall_height;
-    if (sample_ratio < 0.0f)
-        sample_ratio = 0.0f;
-    else if (sample_ratio > 1.0f)
-        sample_ratio = 1.0f;
-
-    tex_y = (int)(sample_ratio * (game->wall_img.height - 1));
-
-    // Clamp values for safety
-    if (tex_y < 0)
-        tex_y = 0;
-    else if (tex_y >= game->wall_img.height)
-        tex_y = game->wall_img.height - 1;
-
-    if (tex_x < 0)
-        tex_x = 0;
-    else if (tex_x >= game->wall_img.width)
-        tex_x = game->wall_img.width - 1;
-
-    pixel = game->wall_img.addr + (tex_y * game->wall_img.line_len + tex_x * (game->wall_img.bits_per_pixel / 8));
-
-    return *(unsigned int *)pixel;
-}
-
-
-
-void	draw(t_image *image, t_point pos, t_point size, int color)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	while (x < size.x)
-	{
-		y = 0;
-		while (y < size.y)
-		{
-			my_mlx_pixel_put(image, pos.x + x, pos.y + y++, color);
-		}
-		x++;
-	}
-}

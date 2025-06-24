@@ -64,5 +64,21 @@ float distance(float ax, float ay, float bx, float by, float ang)
     return (sqrt((bx-ax)*(bx-ax) + (by-ay)*(by-ay)) );                      //soma do quadrado dos catetos
 }
 
+float clamptexture(float value, float min, float max)
+{
+    if (value < min) 
+        return min;
+    if (value > max) 
+        return max;
+    return value;
+}
 
+int clamp_point(int value, int min, int max)
+{
+    if (value < min) 
+        return min;
+    if (value > max) 
+        return max;
+    return value;
+}
 

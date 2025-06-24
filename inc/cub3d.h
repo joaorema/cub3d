@@ -6,7 +6,7 @@
 /*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/22 17:53:25 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:37:31 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,11 +179,15 @@ void draw_topbottom(t_game *game, t_wall *wall);
 void	draw(t_image *image, t_point pos, t_point size, int color);
 void draw_wall_slice(t_game *game, t_wall *wall);
 int is_walkable(t_game *game, float x, float y);
+int clamp_point(int value, int min, int max);
+float clamptexture(float value, float min, float max);
+void set_wall(t_game *game, t_wall *wall);
+void check_distance(t_rayhit *vhit, t_rayhit *hhit, t_wall *wall);
 
 //utils folder
 void close_and_free(t_game *game, int exit_code);
 void free_game(t_game *game);
-unsigned int get_wall_tex_pixel(t_game *game, t_wall *wall, int y);
+unsigned int get_texture(t_game *game, t_wall *wall, int y);
 void my_mlx_pixel_put(t_image *img, int x, int y, int color);
 void load_wall_image(t_game *game);
 
