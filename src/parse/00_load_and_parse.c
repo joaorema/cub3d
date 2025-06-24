@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:35 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/24 17:26:05 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/25 00:07:09 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	load_and_parse_map(t_game *game, char *file)
 	game->map[game->map_height] = NULL;
 	set_map_info(game, file);
 	parse_map_info(game);
-	print_map_info(game); //debug to delete
+	//print_map_info(game); //debug to delete
 }
 
 int	ch_file(t_game *game, char *file)

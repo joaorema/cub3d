@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 15:27:21 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/24 19:46:12 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/25 00:52:05 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	parse_map_info(t_game *game)
 	ch_missing_info(game);
 	ch_txt_paths(game);
 	ch_player_and_inv_chars(game);
-	ch_closed_walls(game);
+	load_tmp_map(game);
+	print_map_info(game);
+	ch_closed_walls(game, game->tmp_map, (game->map_width + 1), (game->map_height + 1));
 }
 
 void	ch_missing_info(t_game *game)
@@ -66,7 +68,7 @@ void	ch_player_and_inv_chars(t_game *game)
 			{
 				if (game->player_dir != '\0')
 					print_err_and_exit(game, RED ERR PL RESET, 2);
-				set_pl_info(game, line[i], i, j);
+				set_pl_info(game, line[i], (i + 1), (j + 1));
 			}
 		}
 		line = safe_free(line);
@@ -75,40 +77,67 @@ void	ch_player_and_inv_chars(t_game *game)
 		print_err_and_exit(game, RED ERR PL RESET, 2);
 }
 
-void	ch_closed_walls(t_game *game)
-{
-	int		i;
-	int		j;
-	int		x;
 
-	j = -1;
-	i = -1;
-	x = -1;
-	game->tmp_map = malloc(sizeof(char *) * (game->map_height + 3));
-	game->tmp_map[++x] = calloc(game->map_width + 3, sizeof(char));
-	while (++i < (game->map_width + 1))
-		game->tmp_map[x][i] = 'X';
-	game->tmp_map[x][++i] = '\0';
-	j = -1;
-	while(game->map[++j])
+void	ch_closed_walls(t_game *game, char **tmp_map, int max_x, int max_y)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	(void)max_x;
+	while(y < max_y)
 	{
-		i = 0;
-		game->tmp_map[++x] = calloc(game->map_width + 3, sizeof(char));
-		game->tmp_map[x][i] = 'X';
-		while (i < (game->map_width + 1))
+		x = 0;
+		if (y == 0)
 		{
-			if ((i >= (int)ft_strlen(game->map[j]) )|| ft_strchr(WS, game->map[j][i]))
-				game->tmp_map[x][i] = 'X';
-			else				
-				game->tmp_map[x][i] = game->map[j][i];
-			i++;			
+			y++;
+			continue;
 		}
-		game->tmp_map[x][++i] = '\0';
+		if (y == 1 || y == max_y - 1)
+		{
+			while (tmp_map[y][x])
+			{
+				while (tmp_map[y][x] == 'X')
+					x++;
+				if (!tmp_map[y][x])
+					break;
+				while (tmp_map[y][x] != 'X')
+				{
+					if (tmp_map[y][x] != '1')
+						print_err_and_exit (game, RED ERR INVMAP RESET, 2);
+					x++;
+				}
+				if (tmp_map[y][x] != 'X' && tmp_map[y][x] != '1')
+					print_err_and_exit (game, RED ERR INVMAP RESET, 2);
+			}
+		}
+		else
+		{
+			while (tmp_map[y][x] == 'X')
+				x++;
+			if (tmp_map[y][x] != '1')
+				print_err_and_exit (game, RED ERR INVMAP RESET, 2);
+			x++;
+			while (tmp_map[y][x] != 'X')
+			{
+				if (tmp_map[y][x] == '1')
+				{
+					while (tmp_map[y][x] == '1')
+						x++;
+					if (tmp_map[y][x] && tmp_map[y][x] != 'X')
+						print_err_and_exit (game, RED ERR INVMAP RESET, 2);
+				}
+				x++;
+			}
+			if (tmp_map[y][x - 1] != '1')
+				print_err_and_exit (game, RED ERR INVMAP RESET, 2);
+			while (tmp_map[y][x])
+			{
+				if (tmp_map[y][x] != 'X')
+					print_err_and_exit (game, RED ERR INVMAP RESET, 2);
+				x++;
+			}
+		}
+		y++;
 	}
-	i = -1;
-	game->tmp_map[++x] = calloc(game->map_width + 3, sizeof(char));
-	while (++i < (game->map_width + 1))
-		game->tmp_map[x][i] = 'X';
-	game->tmp_map[x][++i] = '\0';
-	game->tmp_map[++x] = NULL;
 }

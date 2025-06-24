@@ -6,7 +6,7 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/24 19:07:17 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/24 23:57:34 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define TXT "Impossible to open texture\n"
 # define PL "Incorrect number of players\n"
 # define INV "Invalid char in map\n"
+# define INVMAP "Map is invalid\n"
 
 //colours
 # define RESET  "\033[0m"
@@ -133,7 +134,7 @@ void	parse_map_info(t_game *game);
 void	ch_missing_info(t_game *game);
 void	ch_txt_paths(t_game *game);
 void	ch_player_and_inv_chars(t_game *game);
-void	ch_closed_walls(t_game *game);
+void	ch_closed_walls(t_game *game, char **tmp_map, int max_x, int max_y);
 
 //05_load_utils
 int		safe_fd_open(char *file);
@@ -144,6 +145,7 @@ int		empty_line(char *line);
 //06_parse_utils
 bool	char_is_valid(char c);
 void	set_pl_info(t_game *game, char c, int x, int y);
+void	load_tmp_map(t_game *game);
 
 //00_close_and_free
 void	print_err_and_exit(t_game *game, char *err_msg, int exit_code);
