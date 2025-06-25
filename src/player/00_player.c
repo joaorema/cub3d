@@ -53,9 +53,9 @@ int is_walkable(t_game *game, float x, float y)
 
 int	handle_keyboard(int keycode, t_game *game)
 {
-    //float angle;
+    float angle;
     
-    //angle = game->player_angle;
+    angle = game->player_angle;
     if (keycode == KEY_ESC)
         close_and_free(game, 0);
     else if(keycode == KEY_W) // forward

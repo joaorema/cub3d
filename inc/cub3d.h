@@ -51,14 +51,15 @@
 # define PI         3.1415926535
 # define P2         PI/2
 # define P3         3*PI/2
-# define WIDTH      1920
-# define HEIGHT     1080
+# define WIDTH      800
+# define HEIGHT     800
 # define NUM_RAYS   WIDTH
-# define FOV        (PI / 3)
+# define FOV        (PI / 3.6)
 # define ANGLE_STEP (FOV / NUM_RAYS)
 # define B_DISTANCE 100000
 # define TILE_SIZE  64 
 # define PLAYER_RADIUS (0.2 * TILE_SIZE)
+# define MAX_WALL_HEIGHT_RATIO 0.9f 
 # define KEY_ESC    65307
 # define KEY_W      119
 # define KEY_A      97
@@ -66,7 +67,7 @@
 # define KEY_D      100
 # define KEY_LEFT   65361
 # define KEY_RIGHT  65363
-# define MOVE_SPEED 03.0f
+# define MOVE_SPEED 01.0f
 # define ROTATION_SPEED 0.03f
 # define W          0.0f
 # define E          PI
@@ -217,7 +218,7 @@ void    init(t_game *game, char *file);
 void    init_raystruct(t_game *game, t_rayhit *hit);
 void    init_rayhit(t_rayhit *hit, t_game *game, float angle);
 void    init_wall(t_game *game, t_rayhit *vhit, t_rayhit *hhit, t_wall *wall, float angle);
-void    set_wall(t_game *game, t_wall *wall);
+void    set_wall(t_wall *wall);
 void    check_distance(t_rayhit *vhit, t_rayhit *hhit, t_wall *wall);
 void    find_player(t_game *game);             //
 void    render_map(t_game *game);          

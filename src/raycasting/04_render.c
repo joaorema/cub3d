@@ -61,18 +61,22 @@ void draw_topbottom(t_game *game, t_wall *wall)
 
 void draw_wall_slice(t_game *game, t_wall *wall)
 {
-    int x = wall->screen_x;
-    int w = 0;
+    int x;
+    int w;
     unsigned int color;
     int y_start;
     int y_end;
 
-    y_end = (int)wall->bottom_pixel;
+    x = wall->screen_x;
+    w = 0;
     y_start = (int)wall->top_pixel;
+    y_end = (int)wall->bottom_pixel;
+    if (y_start >= y_end)
+        return;
     while (w < wall->slice_width)
     {
         int y = y_start;
-        while (y < y_end && y < game->win_height)
+        while (y < y_end)
         {
             color = get_texture(game, wall, y);
             my_mlx_pixel_put(&game->img, x + w, y, color);

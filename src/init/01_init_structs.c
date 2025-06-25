@@ -29,7 +29,7 @@ void init_wall(t_game *game, t_rayhit *vhit, t_rayhit *hhit, t_wall *wall, float
     wall->screen_center_y = game->win_height / 2;
     corrected_distance = wall->distance * cos(angle - game->player_angle);
     wall->projected_height = (TILE_SIZE * 320) / corrected_distance;
-    set_wall(game, wall);
+    set_wall(wall);
     if (wall->hit_vertical)
     {
         if (cos(angle) > 0)
@@ -53,17 +53,12 @@ void init_wall(t_game *game, t_rayhit *vhit, t_rayhit *hhit, t_wall *wall, float
         wall->texture_x = game->no_img.width - 1;
 }
 
-void set_wall(t_game *game, t_wall *wall)
+void set_wall(t_wall *wall)
 {
     wall->top_pixel = wall->screen_center_y - wall->projected_height / 2;
     wall->bottom_pixel = wall->screen_center_y + wall->projected_height / 2;
-    if (wall->top_pixel < 0)
-        wall->top_pixel = 0;
-    if (wall->bottom_pixel > game->win_height)
-        wall->bottom_pixel = game->win_height;
-    
 }
-
+//save difference and then use it later when printing
 
 void check_distance(t_rayhit *vhit, t_rayhit *hhit, t_wall *wall)
 {
