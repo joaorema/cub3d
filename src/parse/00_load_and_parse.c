@@ -6,7 +6,7 @@
 /*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:35 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/24 23:08:30 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/25 23:46:35 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	load_and_parse_map(t_game *game, char *file)
 	game->map = malloc(sizeof(char *) * (game->map_height + 1));
 	set_width_and_load(game, file);
 	game->map[game->map_height] = NULL;
-	//set_map_info(game, file);
-	//parse_map_info(game);
+	set_map_info(game, file);
+	parse_map_info(game);
 	game->player_angle = game->player_direction;
 }
 

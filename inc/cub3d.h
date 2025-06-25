@@ -6,7 +6,7 @@
 /*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/25 01:07:03 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/25 23:40:18 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,7 @@
 # define SKY        0xFFADD8E6
 # define FLOOR      0x00333333
 
-//constants
-# define PI         3.1415926535
-# define P2         PI/2
-# define P3         3*PI/2
-# define WIDTH      800
-# define HEIGHT     800
-# define NUM_RAYS   WIDTH
-# define FOV        (PI / 3.6)
-# define ANGLE_STEP (FOV / NUM_RAYS)
-# define B_DISTANCE 100000
-# define TILE_SIZE  64 
-# define PLAYER_RADIUS (0.2 * TILE_SIZE)
-# define MAX_WALL_HEIGHT_RATIO 0.9f 
+//keycodes
 # define KEY_ESC    65307
 # define KEY_W      119
 # define KEY_A      97
@@ -67,22 +55,35 @@
 # define KEY_D      100
 # define KEY_LEFT   65361
 # define KEY_RIGHT  65363
-# define MOVE_SPEED 01.0f
-# define ROTATION_SPEED 0.03f
-# define W          0.0f
-# define E          PI
-# define N          (PI / 2)
-# define S          (3 * PI / 2)
+# define MOVE_SPEED 05.0f
+
+
+//constants
+# define PI         3.1415926535
+# define P2         PI/2
+# define P3         3*PI/2
 # define NORTH      0
 # define SOUTH      1
 # define WEST       2
 # define EAST       3
-//isa
-# define WS " \t\n\r\v\f"
-# define CH_MAP "01NSEW"
-# define N_CH_MAP "01 \t\n\r\v\f"
-# define NB "0123456789"
+# define WS         " \t\n\r\v\f"
+# define CH_MAP     "01NSEW"
+# define N_CH_MAP   "01 \t\n\r\v\f"
+# define NB         "0123456789"
 
+//game settings
+# define WIDTH      800
+# define HEIGHT     800
+# define NUM_RAYS   WIDTH
+# define FOV        (PI / 3)            //60º angle
+# define ANGLE_STEP (FOV / NUM_RAYS)    //0.00131 radians
+# define B_DISTANCE 100000
+# define TILE_SIZE  64 
+# define P_RADIUS   (TILE_SIZE * 0.35f)            
+# define ROT_SPEED  0.03f
+
+
+//structs
 typedef struct s_keys
 {
     int         w;
@@ -193,6 +194,8 @@ typedef struct s_game
     char        **tmp_map;
     char        player_direction;
     float       player_angle;       // Player looking angle in radians
+    int         floor_color;
+    int         sky_color;
     t_map_inf   map_inf;
     t_text      *txt;
     t_player    player;
@@ -211,7 +214,7 @@ void	free_game(t_game *game);
 void	kill_visuals(t_game *game);
 
 //init folder
-void    start_game(t_game *game);
+void    init_game_struct(t_game *game);
 void    init_map(t_game *game);
 void    init_player(t_game *game);
 void    init(t_game *game, char *file);
@@ -226,6 +229,11 @@ int     game_loop(t_game *game);
 void    init_images(t_game *game);
 void    set_player_angle(t_game *game, char dir);
 void    init_keys(t_game *game);
+void    check_hit(t_wall *wall, float *angle, float *offset);
+void    handle_keys(t_game *game);
+void    loop(t_game *game);
+int     move_player(t_game *game);
+void clamp_wall(t_game *game, t_wall *wall);
 
 
 //parse folder
@@ -255,7 +263,7 @@ int	    is_map(char *line);
 int	    empty_line(char *line);
 bool	char_is_valid(char c);
 void	set_pl_info(t_game *game, char c);
-
+int     create_trgb(int r, int g, int b);
 
 //player folder
 int     player_move(t_game *game, float m_x, float m_y);

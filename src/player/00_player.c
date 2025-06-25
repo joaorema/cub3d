@@ -1,70 +1,16 @@
 #include "../../inc/cub3d.h"
 
-int player_move(t_game *game, float dx, float dy)
-{
-    float new_x;
-    float new_y;
-
-    new_x = game->player.position.x + dx;
-    new_y = game->player.position.y + dy;
-    if (is_walkable(game, new_x, new_y))
-    {
-        game->player.position.x = new_x;
-        game->player.position.y = new_y;
-        return 1;
-    }
-    return 0;
-}
-
-
-int is_walkable(t_game *game, float x, float y)
-{
-    float radius;
-    int map_x;
-    int map_y;
-
-    radius = PLAYER_RADIUS;
-    map_x = (int)floor(x / TILE_SIZE);
-    map_y = (int)floor((y + radius) / TILE_SIZE);
-    if (map_y < 0 || map_y >= game->map_height || map_x < 0 || map_x >= game->map_width)
-        return 0;
-    if (game->map[map_y][map_x] == '1')
-        return 0;
-    map_y = (int)floor((y - radius) / TILE_SIZE);
-    if (map_y < 0 || map_y >= game->map_height || map_x < 0 || map_x >= game->map_width)
-        return 0;
-    if (game->map[map_y][map_x] == '1')
-        return 0;
-    map_x = (int)floor((x + radius) / TILE_SIZE);
-    map_y = (int)floor(y / TILE_SIZE);
-    if (map_y < 0 || map_y >= game->map_height || map_x < 0 || map_x >= game->map_width)
-        return 0;
-    if (game->map[map_y][map_x] == '1')
-        return 0;
-    map_x = (int)floor((x - radius) / TILE_SIZE);
-    if (map_y < 0 || map_y >= game->map_height || map_x < 0 || map_x >= game->map_width)
-        return 0;
-    if (game->map[map_y][map_x] == '1')
-        return 0;
-    return 1;
-}
-
-
-
 int	handle_keyboard(int keycode, t_game *game)
 {
-    float angle;
-    
-    angle = game->player_angle;
     if (keycode == KEY_ESC)
         close_and_free(game, 0);
-    else if(keycode == KEY_W) // forward
+    else if(keycode == KEY_W) 
         game->keys.w = 1;
-    else if (keycode == KEY_S) // backward
+    else if (keycode == KEY_S) 
         game->keys.s = 1;
-    else if (keycode == KEY_A) // strafe left
+    else if (keycode == KEY_A) 
         game->keys.a = 1;
-    else if (keycode == KEY_D) // strafe right
+    else if (keycode == KEY_D) 
         game->keys.d = 1;
     else if (keycode == KEY_LEFT)
         game->keys.left = 1;
@@ -90,7 +36,6 @@ int key_released(int keycode, t_game *game)
     return 0;
 }
 
-
 int player_direction(int keycode, t_game *game)
 {
     if (keycode == KEY_LEFT)
@@ -105,10 +50,20 @@ int player_direction(int keycode, t_game *game)
     game->player.delta.y = sin(game->player_angle);
     return 0;
 }
-
-void	user_input(t_game *game)
+int player_move(t_game *game, float dx, float dy)
 {
-    mlx_key_hook(game->win, handle_keyboard, game);
+    float new_x;
+    float new_y;
+
+    new_x = game->player.position.x + dx;
+    new_y = game->player.position.y + dy;
+    if (is_walkable(game, new_x, new_y))
+    {
+        game->player.position.x = new_x;
+        game->player.position.y = new_y;
+        return 1;
+    }
+    return 0;
 }
 
 void rotate_player(t_game *game, float rotation)

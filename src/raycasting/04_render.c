@@ -52,9 +52,9 @@ void draw_topbottom(t_game *game, t_wall *wall)
         sky_height = (int)wall->top_pixel;
         floor_height = game->win_height - (int)wall->bottom_pixel;
         if (sky_height > 0)                                                            // Draw sky rectangle for this vertical slice
-            draw(&game->img, (t_point){x + w, 0}, (t_point){1, sky_height}, SKY);
+            draw(&game->img, (t_point){x + w, 0}, (t_point){1, sky_height}, game->sky_color);
         if (floor_height > 0)                                                          // Draw floor rectangle for this vertical slice
-            draw(&game->img, (t_point){x + w, (int)wall->bottom_pixel}, (t_point){1, floor_height}, FLOOR);
+            draw(&game->img, (t_point){x + w, (int)wall->bottom_pixel}, (t_point){1, floor_height}, game->floor_color);
         w++;
     }
 }

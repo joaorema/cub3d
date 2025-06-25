@@ -1,18 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/10 15:49:27 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/24 22:10:48 by joaorema         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../inc/cub3d.h"
-#include "../inc/mlx_linux/mlx.h"
-#include "../inc/Mylib/libft.h"
 
 int main(int ac, char *av[])
 {
@@ -24,12 +10,8 @@ int main(int ac, char *av[])
         return (1); 
     }
     init(&game, av[1]);
-    
-    //user_input(&game);
-    render_rays(&game);
-    mlx_hook(game.win, 2, (1L << 0), handle_keyboard, &game);
-    mlx_hook(game.win, 3, (1L << 1), key_released, &game);
-    mlx_loop_hook(game.mlx, game_loop,  &game);
-    mlx_loop(game.mlx);
+    render_rays(&game);                                             //display first render then update if move
+    handle_keys(&game);
+    loop(&game);
     return (0);
 }

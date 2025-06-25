@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   03_rgb_info.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:08:06 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/23 00:07:21 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/25 23:55:29 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	set_rgb(t_game *game, char *line, int f_val, int s_val, int t_val)
 			game->map_inf.f_rgb[0] = f_val;
 			game->map_inf.f_rgb[1] = s_val;
 			game->map_inf.f_rgb[2] = t_val;
+			game->floor_color = create_trgb(game->map_inf.f_rgb[0], game->map_inf.f_rgb[1], game->map_inf.f_rgb[2]);
 			break;
 		}
 		if (line[i] == 'C')
@@ -115,6 +116,7 @@ void	set_rgb(t_game *game, char *line, int f_val, int s_val, int t_val)
 			game->map_inf.c_rgb[0] = f_val;
 			game->map_inf.c_rgb[1] = s_val;
 			game->map_inf.c_rgb[2] = t_val;
+			game->sky_color = create_trgb(game->map_inf.c_rgb[0], game->map_inf.c_rgb[1], game->map_inf.c_rgb[2]);
 			break;
 		}
 	}
