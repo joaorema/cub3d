@@ -17,6 +17,18 @@ void	close_and_free(t_game *game, int exit_code)
 	exit (exit_code);
 }
 
+int		close_x(void *param)
+{
+	t_game *game = (t_game *)param;
+	if (game)
+	{
+		kill_visuals(game);
+		free_game(game);
+	}
+	exit(0);
+	return 0;
+}
+
 void	free_game(t_game *game)
 {
 	if (game->map)

@@ -32,6 +32,7 @@ void handle_keys(t_game *game)
 {
     mlx_hook(game->win, 2, (1L << 0), handle_keyboard, game);
     mlx_hook(game->win, 3, (1L << 1), key_released, game);
+    mlx_hook(game->win, 17, (1L << 2), close_x, game);
 }
 
 void loop(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/25 23:40:18 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/26 00:08:58 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,7 @@ void	print_err_and_exit(t_game *game, char *err_msg, int exit_code);
 void	close_and_free(t_game *game, int exit_code);
 void	free_game(t_game *game);
 void	kill_visuals(t_game *game);
+int 	close_x(void *param);
 
 //init folder
 void    init_game_struct(t_game *game);
