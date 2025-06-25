@@ -5,18 +5,14 @@
             "name": "cub3d",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/icunha-t/Commoncore/cub3d/cub3d",
-			"args": ["maps/invalid/map_empty_line.cub"],
+            "program": "/home/isabel/cub3d/cub3d",
+			"args": ["maps/valid/basic.cub"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
 			"miDebuggerPath": "/usr/bin/gdb",
-			"sourceFileMap": {
-				"/home/icunha-t/Commoncore/cub3d/src": "/home/icunha-t/Commoncore/cub3d/src",
-				"/home/icunha-t/Commoncore/cub3d/inc/Mylib": "/home/icunha-t/Commoncore/cub3d/inc/Mylib"
-			},
             "setupCommands": [
 			{
 				"description": "Enable pretty-printing for gdb",

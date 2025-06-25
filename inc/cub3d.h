@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/25 20:15:24 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/26 00:48:48 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define MINF "Missing info on map\n"
 # define WINF "Wrong info on map\n"
 # define MMAP "Missing map\n"
-# define COL "Missing colour information\n"
+# define COL "Missing color information\n"
 # define RGB "Incorrect RGB info\n"
 # define PTH "Incorrect path info\n"
 # define TXT "Impossible to open texture\n"
@@ -43,6 +43,7 @@
 # define OPMAP "Map has an open end\n"
 # define SPMAP "Space in map\n"
 # define DPINF "Duplicate info on map\n"
+# define FD "Unable to create file descriptor\n"
 
 //colours
 # define RESET  "\033[0m"
@@ -84,6 +85,28 @@ typedef struct s_point
 	int	y;
 }	t_point;
 
+typedef struct s_ints
+{
+	int	i;
+	int	j;
+	int	x;
+	int	z;
+}	t_ints;
+
+
+typedef struct s_gnl
+{
+	char	*line;
+	int		fd;
+}	t_gnl;
+
+typedef struct s_rgb
+{
+	int	f_val;
+	int	s_val;
+	int	t_val;
+}	t_rgb;
+
 typedef struct s_game
 {
     void		*mlx;
@@ -98,6 +121,7 @@ typedef struct s_game
     int			map_height;
     
 } t_game;
+
 /* ************************************************************************** */
 /*                                 PROTOTYPES                                 */
 /* ************************************************************************** */
@@ -105,32 +129,38 @@ int	main(int ac, char *av[]);
 
 //00_init
 void	init_game(t_game *game);
+void	init_gnl(t_gnl *gnl);
+void	init_ints(t_ints *ints);
+
+//01_init_imgs
 void	start_wind(t_game *game);
 int		close_window(void *param);
 
 //00_parse
 void	load_and_parse_map(t_game *game, char *file);
-int		ch_file(t_game *game, char *file);
+void	ch_file(t_game *game, char *file);
 void	set_map_info(t_game *game, char *file);
 
 //01_ch_map
 void	set_height(t_game *game, char *file);
-int 	set_width_and_load(t_game *game, char *file);
+void 	set_width_and_load(t_game *game, char *file);
+void	set_width_and_load_util(t_game *game, bool *map_limit, char *line);
 bool	only_ws(char *line);
 void 	add_line_to_map(t_game *game, char *line);
 
 //02_ch_map_info
 void	set_map_info(t_game *game, char *file);
-void	set_map_info_util(t_game *game, char **line, int fd, int n);
-int 	get_pth(t_game *game, char *line);
+void	set_map_info_util(t_game *game, t_gnl *gnl, int n);
+int 	get_pth(t_game *game, t_gnl gnl);
 int		which_dir(char *line);
-void 	set_pth(t_game *game, char *line, char **set_str);
+void 	set_pth(t_game *game, t_gnl gnl, char **set_str);
 
 //03_rgb_info
-void 	add_f_and_c(t_game *game, char *line);
-int		get_rgb_val(t_game *game, char *line, int *start);
-void	ch_mid_val(t_game *game, char c, bool *ch, int n);
-void	set_rgb(t_game *game, char *line, int f_val, int s_val, int t_val);
+void 	add_f_and_c(t_game *game, t_gnl gnl);
+int		get_rgb_val(t_game *game, t_gnl gnl, int *start);
+void	ch_mid_val(t_game *game, t_gnl gnl, int *i, bool *ch);
+void	set_rgb_f(t_game *game, t_gnl gnl, t_rgb rgb);
+void	set_rgb_c(t_game *game, t_gnl gnl, t_rgb rgb);
 
 //04_parse_map_info
 void	parse_map_info(t_game *game);
@@ -151,6 +181,7 @@ int		is_map(char *line);
 int		empty_line(char *line);
 
 //07_parse_utils
+void	ch_dups(t_game *game, char *path, t_gnl gnl);
 bool	char_is_valid(char c);
 bool	play_char(char c);
 void	set_pl_info(t_game *game, char c, int x, int y);
@@ -158,9 +189,11 @@ void	set_pl_info(t_game *game, char c, int x, int y);
 //08_check_walls_utils
 void	load_tmp_map(t_game *game);
 bool	ch_all_sides(t_game *game, int x, int y, char tg);
+void 	add_extra_line(t_game *game, t_ints *ints, int n);
+void	incr_ints(int *z, int *i);
 
 //00_close_and_free
-void	print_err_and_exit(t_game *game, char *err_msg, int exit_code);
+void	print_err_and_exit(t_game *game, char *err_msg, int exit, t_gnl *gnl);
 void	close_and_free(t_game *game, int exit_code);
 void	free_game(t_game *game);
 void	kill_visuals(t_game *game);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   05_check_walls.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:45:36 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/25 19:37:59 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/25 21:49:03 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ void	ch_islands(t_game *game, char **tmp_map, int max_y, int max_x)
 			if (tmp_map[y][x] == '0' || tmp_map[y][x] == 'F')
 			{
 				if (!ch_all_sides(game, x, y, 'X'))
-					print_err_and_exit(game, RED ERR OPMAP RESET, 2);
+					print_err_and_exit(game, RED ERR OPMAP RESET, 2, NULL);
 			}
 			if (tmp_map[y][x] == 'X')
 			{
 				if (!ch_all_sides(game, x, y, 'F'))
-					print_err_and_exit(game, RED ERR SPMAP RESET, 2);
+					print_err_and_exit(game, RED ERR SPMAP RESET, 2, NULL);
 			}
 		}
 	}

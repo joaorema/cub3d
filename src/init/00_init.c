@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:00:02 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/25 11:35:27 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/26 00:36:51 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,18 @@ void  init_game(t_game *game)
 	game->map_inf.c_rgb = NULL;
 	game->map_inf.f_rgb = NULL;
 	game->txt = NULL;
+}
+
+void	init_gnl(t_gnl *gnl)
+{
+	gnl->fd = -1;
+	gnl->line = NULL;
+}
+
+void	init_ints(t_ints *ints)
+{
+	ints->i = -1;
+	ints->j = -1;
+	ints->x = 0;
+	ints->z = 0;
 }

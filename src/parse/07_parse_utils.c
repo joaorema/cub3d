@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   07_parse_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 15:30:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/25 18:49:29 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/25 23:39:59 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
+
+void	ch_dups(t_game *game, char *path, t_gnl gnl)
+{
+	if (path)
+		print_err_and_exit(game, RED ERR DPINF RESET, 2 , &gnl);
+}
 
 bool	char_is_valid(char c)
 {

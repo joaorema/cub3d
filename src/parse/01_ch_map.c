@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   01_ch_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:03:49 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/25 20:16:43 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/26 00:51:18 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,55 +14,59 @@
 
 void set_height(t_game *game, char *file)
 {
-	char *line;
-	int	fd;
-
-	if ((fd = safe_fd_open(file)) && (fd == -1))
-		close_and_free(game, 2);
+	t_gnl	gnl;
+	
+	init_gnl(&gnl);
+	if ((gnl.fd = safe_fd_open(file)) && (gnl.fd == -1))
+		print_err_and_exit(game, NULL, 2, NULL);
 	while(1)
 	{
-	 	line = get_next_line(fd);
-	 	if (!line)
+	 	gnl.line = get_next_line(gnl.fd);
+	 	if (!gnl.line)
 	 		break;
-		if (is_map(line))
+		if (is_map(gnl.line))
 		 	game->map_height++;
-		line = safe_free(line);
+		gnl.line = safe_free(gnl.line);
 	}
-	close(fd);
+	close(gnl.fd);
 }
 
-int set_width_and_load(t_game *game, char *file)
+void set_width_and_load(t_game *game, char *file)
 {
-	int 	fd;
-    char 	*line;
-	int		len;
+	t_gnl 	gnl;
 	bool	map_limit;
-	int		ret;
-	
-	ret = 1;
+
+	init_gnl(&gnl);
 	map_limit = false;
-	if ((fd = safe_fd_open(file)) && (fd == -1))
-		close_and_free(game, 2);
+	if ((gnl.fd = safe_fd_open(file)) && (gnl.fd == -1))
+		print_err_and_exit(game, NULL, 2, NULL);
 	while(1)
 	{
-		line = get_next_line(fd);			
-	 	if (!line)
+		gnl.line = get_next_line(gnl.fd);			
+	 	if (!gnl.line)
 	 		break;
-		if (is_map(line))
-		{
-			map_limit = true;
-			len = get_line_len(line);
-			if (len > game->map_width)
-				game->map_width = len;
-			if (!only_ws(line))
-				add_line_to_map(game, line);	
-		}
+		if (is_map(gnl.line))
+			set_width_and_load_util(game, &map_limit, gnl.line);		
 		else if (map_limit)
-			ret = 0;
-		line = safe_free(line);
+		{
+			game->map[game->map_height] = NULL;
+			print_err_and_exit(game, RED ERR INFAFTMAP RESET, 2, &gnl);	
+		}
+		gnl.line = safe_free(gnl.line);
 	}
-	close(fd);
-	return (ret);
+	close(gnl.fd);
+}
+
+void	set_width_and_load_util(t_game *game, bool *map_limit, char *line)
+{
+	int	len;
+
+	*map_limit = true;
+	len = get_line_len(line);
+	if (len > game->map_width)
+		game->map_width = len;
+	if (!only_ws(line))
+		add_line_to_map(game, line);	
 }
 
 bool	only_ws(char *line)

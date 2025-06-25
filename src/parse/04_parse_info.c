@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   04_parse_info.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 15:27:21 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/25 20:22:11 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/26 00:14:29 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	parse_map_info(t_game *game)
 	ch_missing_info(game);
 	ch_txt_paths(game);
 	ch_player_and_inv_chars(game);
+	print_player_info(game); //debug to delete
 	load_tmp_map(game);
 	print_tmp_map(game, 1, NULL); //debug to delete
 	ch_closed_walls(game, game->tmp_map, (game->map_height + 1),
@@ -27,11 +28,11 @@ void	ch_missing_info(t_game *game)
 {
 	if (!game->map_inf.no_pth || !game->map_inf.so_pth || !game->map_inf.we_pth
 		|| !game->map_inf.ea_pth)
-		print_err_and_exit(game, RED ERR MINF RESET, 2);
+		print_err_and_exit(game, RED ERR MINF RESET, 2, NULL);
 	if (!game->map_inf.c_rgb || !game->map_inf.f_rgb)
-		print_err_and_exit(game, RED ERR COL RESET, 2);
+		print_err_and_exit(game, RED ERR COL RESET, 2, NULL);
 	if (!game->map_height)
-		print_err_and_exit(game, RED ERR MMAP RESET, 2);
+		print_err_and_exit(game, RED ERR MMAP RESET, 2, NULL);
 }
 
 void	ch_txt_paths(t_game *game)
@@ -39,8 +40,8 @@ void	ch_txt_paths(t_game *game)
 	int	img_x;
 	int	img_y;
 
-	img_x = TILE_SIZE; //verificar com Joao
-	img_y = TILE_SIZE; //verificar com Joao
+	img_x = TILE_SIZE;
+	img_y = TILE_SIZE;
 	game->txt = calloc(1, sizeof(t_text));
 	game->txt->NO = mlx_xpm_file_to_image(game->mlx, game->map_inf.no_pth,
 		&img_x, &img_y);
@@ -51,40 +52,34 @@ void	ch_txt_paths(t_game *game)
 	game->txt->EA = mlx_xpm_file_to_image(game->mlx, game->map_inf.ea_pth,
 		&img_x, &img_y);	
 	if (!game->txt->NO || !game->txt->SO || !game->txt->WE || !game->txt->EA)
-		print_err_and_exit(game, RED ERR TXT RESET, 2);
+		print_err_and_exit(game, RED ERR TXT RESET, 2, NULL);
 }
 
 void	ch_player_and_inv_chars(t_game *game)
 {
-	char	*line;
+	t_gnl 	gnl;
 	int		i;
 	int		j;
 	
+	init_gnl(&gnl);
 	j = -1;
 	while(game->map[++j])
 	{
-		line = ft_strdup(game->map[j]);
+		gnl.line = ft_strdup(game->map[j]);
 		i = -1;
-		while(line[++i])
+		while(gnl.line[++i])
 		{
-			if (!char_is_valid(line[i]))
-			{
-				line = safe_free(line);
-				print_err_and_exit(game, RED ERR INV RESET, 2);
-			}
-			if (play_char(line[i]))
+			if (!char_is_valid(gnl.line[i]))
+				print_err_and_exit(game, RED ERR INV RESET, 2, &gnl);
+			if (play_char(gnl.line[i]))
 			{
 				if (game->player_dir != '\0')
-				{
-					line = safe_free(line);
-					print_err_and_exit(game, RED ERR INV RESET, 2);
-				}
-				set_pl_info(game, line[i], i, j);
+					print_err_and_exit(game, RED ERR INV RESET, 2, &gnl);
+				set_pl_info(game, gnl.line[i], i, j);
 			}
 		}
-		line = safe_free(line);
+		gnl.line = safe_free(gnl.line);
 	}
 	if (game->player_dir == '\0')
-		print_err_and_exit(game, RED ERR PL RESET, 2);
-	print_player_info(game); //debug to delete
+		print_err_and_exit(game, RED ERR PL RESET, 2, &gnl);
 }

@@ -6,16 +6,23 @@
 /*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:24:56 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/22 23:58:20 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/25 22:54:15 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-void	print_err_and_exit(t_game *game, char *err_msg, int exit_code)
+void	print_err_and_exit(t_game *game, char *err_msg, int exit, t_gnl *gnl)
 {
+	if (gnl && gnl->line)
+		gnl->line = safe_free(gnl->line);
+	if (gnl && gnl->fd != -1)
+	{
+		gnl_free_fd(gnl->fd);
+		close(gnl->fd);
+	}
 	ft_putstr_fd(err_msg, 2);
-	close_and_free(game, exit_code);
+	close_and_free(game, exit);
 }
 
 void	close_and_free(t_game *game, int exit_code)
