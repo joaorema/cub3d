@@ -37,3 +37,13 @@ void init_images(t_game *game)
     game->we_img.img = NULL;
     game->ea_img.img = NULL;
 }
+
+void init_keys(t_game *game)
+{
+    game->keys.w = 0;
+    game->keys.a = 0;
+    game->keys.s = 0;
+    game->keys.d = 0;
+    game->keys.left = 0;
+    game->keys.right = 0;
+}

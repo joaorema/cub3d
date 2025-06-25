@@ -13,6 +13,7 @@ void start_game(t_game *game)
     game->win_width = 0;
     game->win_height = 0;
     init_player(game);
+    init_keys(game);
     game->mlx = mlx_init();
     game->win = NULL;
 }
@@ -28,4 +29,5 @@ void init(t_game *game, char *file)
     find_player(game);
     load_wall_images(game);
 }
+
 

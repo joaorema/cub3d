@@ -57,7 +57,8 @@
 # define FOV        (PI / 3)
 # define ANGLE_STEP (FOV / NUM_RAYS)
 # define B_DISTANCE 100000
-# define TILE_SIZE  64
+# define TILE_SIZE  64 
+# define PLAYER_RADIUS (0.2 * TILE_SIZE)
 # define KEY_ESC    65307
 # define KEY_W      119
 # define KEY_A      97
@@ -65,7 +66,8 @@
 # define KEY_D      100
 # define KEY_LEFT   65361
 # define KEY_RIGHT  65363
-# define MOVE_SPEED 50.0f
+# define MOVE_SPEED 03.0f
+# define ROTATION_SPEED 0.03f
 # define W          0.0f
 # define E          PI
 # define N          (PI / 2)
@@ -185,12 +187,7 @@ typedef struct s_game
     int         map_height;           // Height of the map in tiles
     int         win_width;            // Window width in pixels
     int         win_height;           // Window height in pixels
-    int         key_w;
-    int         key_a;
-    int         key_s;
-    int         key_d;
-    int         key_left;
-    int         key_right;
+    t_keys      keys;
     char        **map;
     char        **tmp_map;
     char        player_direction;
@@ -227,6 +224,7 @@ void    render_map(t_game *game);
 int     game_loop(t_game *game);
 void    init_images(t_game *game);
 void    set_player_angle(t_game *game, char dir);
+void    init_keys(t_game *game);
 
 
 //parse folder
@@ -264,7 +262,8 @@ int     is_walkable(t_game *game, float x, float y);
 int	    handle_keyboard(int keycode, t_game *game);
 int     player_direction(int keycode, t_game *game);
 void    user_input(t_game *game);
-
+int     key_released(int keycode, t_game *game);
+void    rotate_player(t_game *game, float rotation);
 //raycasting init
 void    horizontal_check(t_game *game, t_rayhit *hit);
 void    h_sides(t_game *game, t_rayhit *hit);

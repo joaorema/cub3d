@@ -28,7 +28,6 @@ void find_player(t_game *game)
     }
 }
 
-
 void set_player_angle(t_game *game, char dir)
 {
     if (dir == 'N')
@@ -51,12 +50,35 @@ void render_map(t_game *game)
 
 int game_loop(t_game *game)
 {
+    float angle;
+    int moved;
 
-    render_map(game);
+    angle = game->player_angle;
+    moved = 0;
+    if (game->keys.w) // Forward
+        moved |= player_move(game, cos(angle) * MOVE_SPEED, sin(angle) * MOVE_SPEED);
+    if (game->keys.s) // Backward
+        moved |= player_move(game, -cos(angle) * MOVE_SPEED, -sin(angle) * MOVE_SPEED);
+    if (game->keys.a) // Strafe left
+        moved |= player_move(game, cos(angle - PI/2) * MOVE_SPEED, sin(angle - PI/2) * MOVE_SPEED);
+    if (game->keys.d) // Strafe right
+        moved |= player_move(game, cos(angle + PI/2) * MOVE_SPEED, sin(angle + PI/2) * MOVE_SPEED);
+
+    // Rotation
+    if (game->keys.left)
+        rotate_player(game, -ROTATION_SPEED);
+    if (game->keys.right)
+        rotate_player(game, ROTATION_SPEED);
+
+    // Redraw only if something changed
+    if (moved || game->keys.left || game->keys.right)
+        render_map(game);
+
     return 0;
 }
 
-void game_hook(t_game *game)
-{
-    mlx_loop_hook(game.mlx, game_loop,  &game);
-}
+
+//void game_hook(t_game *game)
+//{
+//    mlx_loop_hook(game.mlx, game_loop,  &game);
+//}
