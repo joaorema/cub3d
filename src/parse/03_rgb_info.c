@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   03_rgb_info.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:08:06 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/23 00:07:21 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/25 19:50:15 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	ch_mid_val(t_game *game, char c, bool *ch, int n)
 		}
 		if (!*ch && c == ',')
 			*ch = true;
-		else if ((*ch && c == ',') || (!*ch))
+		else if (*ch && c == ',')
 		{
 			ft_printf(RED ERR RGB RESET);
 			close_and_free(game, 2);
@@ -94,13 +94,18 @@ void	ch_mid_val(t_game *game, char c, bool *ch, int n)
 
 void	set_rgb(t_game *game, char *line, int f_val, int s_val, int t_val)
 {
-	int	i;
+	int			i;
+	static bool	ch_c;
+	static bool	ch_f;
 
 	i = -1;
 	while (line[++i])
 	{
 		if (line[i] == 'F')
 		{
+			if (ch_f)
+				print_err_and_exit (game, RED ERR DPINF RESET, 2);
+			ch_f = true;
 			game->map_inf.f_rgb = ft_calloc(3, sizeof(int));
 			i = 0;
 			game->map_inf.f_rgb[0] = f_val;
@@ -110,6 +115,9 @@ void	set_rgb(t_game *game, char *line, int f_val, int s_val, int t_val)
 		}
 		if (line[i] == 'C')
 		{
+			if (ch_c)
+				print_err_and_exit (game, RED ERR DPINF RESET, 2);
+			ch_c = true;
 			game->map_inf.c_rgb = ft_calloc(3, sizeof(int));
 			i = 0;
 			game->map_inf.c_rgb[0] = f_val;

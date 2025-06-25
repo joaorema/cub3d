@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   04_parse_info.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 15:27:21 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/25 00:52:05 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/25 20:22:11 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ void	parse_map_info(t_game *game)
 	ch_txt_paths(game);
 	ch_player_and_inv_chars(game);
 	load_tmp_map(game);
-	print_map_info(game);
-	ch_closed_walls(game, game->tmp_map, (game->map_width + 1), (game->map_height + 1));
+	print_tmp_map(game, 1, NULL); //debug to delete
+	ch_closed_walls(game, game->tmp_map, (game->map_height + 1),
+		(game->map_width + 1));
 }
 
 void	ch_missing_info(t_game *game)
@@ -41,10 +42,14 @@ void	ch_txt_paths(t_game *game)
 	img_x = TILE_SIZE; //verificar com Joao
 	img_y = TILE_SIZE; //verificar com Joao
 	game->txt = calloc(1, sizeof(t_text));
-	game->txt->NO = mlx_xpm_file_to_image(game->mlx, game->map_inf.no_pth, &img_x, &img_y);
-	game->txt->SO = mlx_xpm_file_to_image(game->mlx, game->map_inf.so_pth, &img_x, &img_y);
-	game->txt->WE = mlx_xpm_file_to_image(game->mlx, game->map_inf.we_pth, &img_x, &img_y);
-	game->txt->EA = mlx_xpm_file_to_image(game->mlx, game->map_inf.ea_pth, &img_x, &img_y);	
+	game->txt->NO = mlx_xpm_file_to_image(game->mlx, game->map_inf.no_pth,
+		&img_x, &img_y);
+	game->txt->SO = mlx_xpm_file_to_image(game->mlx, game->map_inf.so_pth,
+		&img_x, &img_y);
+	game->txt->WE = mlx_xpm_file_to_image(game->mlx, game->map_inf.we_pth,
+		&img_x, &img_y);
+	game->txt->EA = mlx_xpm_file_to_image(game->mlx, game->map_inf.ea_pth,
+		&img_x, &img_y);	
 	if (!game->txt->NO || !game->txt->SO || !game->txt->WE || !game->txt->EA)
 		print_err_and_exit(game, RED ERR TXT RESET, 2);
 }
@@ -63,81 +68,23 @@ void	ch_player_and_inv_chars(t_game *game)
 		while(line[++i])
 		{
 			if (!char_is_valid(line[i]))
+			{
+				line = safe_free(line);
 				print_err_and_exit(game, RED ERR INV RESET, 2);
-			if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
+			}
+			if (play_char(line[i]))
 			{
 				if (game->player_dir != '\0')
-					print_err_and_exit(game, RED ERR PL RESET, 2);
-				set_pl_info(game, line[i], (i + 1), (j + 1));
+				{
+					line = safe_free(line);
+					print_err_and_exit(game, RED ERR INV RESET, 2);
+				}
+				set_pl_info(game, line[i], i, j);
 			}
 		}
 		line = safe_free(line);
 	}
 	if (game->player_dir == '\0')
 		print_err_and_exit(game, RED ERR PL RESET, 2);
-}
-
-
-void	ch_closed_walls(t_game *game, char **tmp_map, int max_x, int max_y)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	(void)max_x;
-	while(y < max_y)
-	{
-		x = 0;
-		if (y == 0)
-		{
-			y++;
-			continue;
-		}
-		if (y == 1 || y == max_y - 1)
-		{
-			while (tmp_map[y][x])
-			{
-				while (tmp_map[y][x] == 'X')
-					x++;
-				if (!tmp_map[y][x])
-					break;
-				while (tmp_map[y][x] != 'X')
-				{
-					if (tmp_map[y][x] != '1')
-						print_err_and_exit (game, RED ERR INVMAP RESET, 2);
-					x++;
-				}
-				if (tmp_map[y][x] != 'X' && tmp_map[y][x] != '1')
-					print_err_and_exit (game, RED ERR INVMAP RESET, 2);
-			}
-		}
-		else
-		{
-			while (tmp_map[y][x] == 'X')
-				x++;
-			if (tmp_map[y][x] != '1')
-				print_err_and_exit (game, RED ERR INVMAP RESET, 2);
-			x++;
-			while (tmp_map[y][x] != 'X')
-			{
-				if (tmp_map[y][x] == '1')
-				{
-					while (tmp_map[y][x] == '1')
-						x++;
-					if (tmp_map[y][x] && tmp_map[y][x] != 'X')
-						print_err_and_exit (game, RED ERR INVMAP RESET, 2);
-				}
-				x++;
-			}
-			if (tmp_map[y][x - 1] != '1')
-				print_err_and_exit (game, RED ERR INVMAP RESET, 2);
-			while (tmp_map[y][x])
-			{
-				if (tmp_map[y][x] != 'X')
-					print_err_and_exit (game, RED ERR INVMAP RESET, 2);
-				x++;
-			}
-		}
-		y++;
-	}
+	print_player_info(game); //debug to delete
 }

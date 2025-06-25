@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00_load_and_parse.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:35 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/25 00:07:09 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/25 20:19:31 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,15 @@ void	load_and_parse_map(t_game *game, char *file)
 		close_and_free(game, 2);
 	set_height(game, file);
 	game->map = malloc(sizeof(char *) * (game->map_height + 1));
-	set_width_and_load(game, file);
+	if (!set_width_and_load(game, file))
+	{
+		game->map[game->map_height] = NULL;
+		print_err_and_exit(game, RED ERR INFAFTMAP RESET, 2);	
+	}
 	game->map[game->map_height] = NULL;
 	set_map_info(game, file);
+	print_map_info(game); //debug to delete
 	parse_map_info(game);
-	//print_map_info(game); //debug to delete
 }
 
 int	ch_file(t_game *game, char *file)

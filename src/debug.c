@@ -5,27 +5,74 @@ void	print_map_info(t_game *game)
 {
 	int i = -1;
 
-	ft_printf("Map height: %d\n", game->map_height);
-	ft_printf("Map width: %d\n", game->map_width);
+	ft_printf(GREEN"Map height:"RESET);
+	ft_printf("%d\n", game->map_height);
+	ft_printf(GREEN"Map width: "RESET);
+	ft_printf("%d\n", game->map_width);
 	if (game->map_inf.no_pth)
-		ft_printf("north is: %s\n", game->map_inf.no_pth);
+	{
+		ft_printf(GREEN"north is: "RESET);
+		ft_printf("%s\n", game->map_inf.no_pth);
+	}	
 	if (game->map_inf.so_pth)
-		ft_printf("south is: %s\n", game->map_inf.so_pth);
+	{
+		ft_printf(GREEN"south is: "RESET);
+		ft_printf("%s\n", game->map_inf.so_pth);
+	}
 	if (game->map_inf.ea_pth)
-		ft_printf("east is: %s\n", game->map_inf.ea_pth);
+	{
+		ft_printf(GREEN"east is: "RESET);
+		ft_printf("%s\n", game->map_inf.ea_pth);
+	}
 	if (game->map_inf.we_pth)
-		ft_printf("west is: %s\n", game->map_inf.we_pth);
+	{
+		ft_printf(GREEN"west is: "RESET);
+		ft_printf("%s\n", game->map_inf.we_pth);
+	}
 	if (game->map_inf.f_rgb)
-		ft_printf("floor is: %d, %d, %d\n", game->map_inf.f_rgb[0], game->map_inf.f_rgb[1], game->map_inf.f_rgb[2]);
+	{
+		ft_printf(GREEN"floor is: "RESET);
+		ft_printf("%d, %d, %d\n", game->map_inf.f_rgb[0], game->map_inf.f_rgb[1], game->map_inf.f_rgb[2]);
+	}
 	if (game->map_inf.c_rgb)
-		ft_printf("ceiling is: %d, %d, %d\n", game->map_inf.c_rgb[0], game->map_inf.c_rgb[1], game->map_inf.c_rgb[2]); //debug to delete
-	if (game->player_dir != '\0')	
-		ft_printf("player is %c at x %d and y %d\n", game->player_dir, game->player_x, game->player_y);
-	ft_printf("Map is:\n");
+	{
+		ft_printf(GREEN"ceiling is: "RESET);
+		ft_printf("%d, %d, %d\n", game->map_inf.c_rgb[0], game->map_inf.c_rgb[1], game->map_inf.c_rgb[2]);
+	}
+	ft_printf(GREEN"Map is:\n"RESET);
 	while (++i < game->map_height)
-		ft_printf("%s\n", game->map[i]);	
-	i = -1;
-	ft_printf("Tmp_map is:\n");
-	while (++i < (game->map_height + 2))
-		ft_printf("%s\n", game->tmp_map[i]);
+		ft_printf("%s\n", game->map[i]);
+}
+
+void	print_player_info(t_game *game)
+{
+	if (game->player_dir != '\0')
+	{	
+		ft_printf(GREEN"Player is:"RESET);
+		ft_printf(" %c at line %d and col %d\n", game->player_dir, game->player_pos.y, game->player_pos.x);
+	}
+}
+void	print_tmp_map(t_game *game, int n, t_point *pos)
+{
+	int i = -1;
+	if (n == 1)
+	{
+		ft_printf(GREEN"Tmp_map is:\n"RESET);
+		while (++i < (game->map_height + 2))
+			ft_printf("%s\n", game->tmp_map[i]);
+	}
+	if (n == 2)
+	{
+		ft_printf(GREEN"Tmp_map prepped for FF:\n"RESET);
+		while (++i < (game->map_height + 2))
+			ft_printf("%s\n", game->tmp_map[i]);
+		if (pos)
+			ft_printf("Starting position for FF is: line %d, col %d\n", (pos->y + 1), (pos->x + 1));
+	}
+	if (n == 3)
+	{
+		ft_printf(GREEN"Tmp_map after FF is:\n"RESET);
+		while (++i < (game->map_height + 2))
+			ft_printf("%s\n", game->tmp_map[i]);
+	}
 }

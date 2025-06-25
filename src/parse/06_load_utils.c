@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:33 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/20 15:45:07 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/25 18:40:56 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,25 @@ int	is_map(char *line)
 	int		i;
 	char	c;
 	char	n;
-	
+
 	i = 0;
 	if (line[i] == '\n')
 		return (0);
 	while (line[i] && ft_strchr(WS, line[i]))
 		i++;
+	if (!line[i])
+		return (0);
 	c = line[i];
 	if ((line[i] != '\0') && (line[i + 1] != '\0'))
 		n = line[i + 1];
 	else
 		n = '\0';
 	if (ft_strchr(CH_MAP, c) && ((n == '\0') || ft_strchr(N_CH_MAP, n)))
-		return (1);
+	{
+		if (c == 'W' && ((n != '\0') && n == 'E'))
+			return (0);
+		return (1);	
+	}
 	return (0);
 }
 

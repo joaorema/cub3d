@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   02_ch_map_info.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:03:39 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/24 17:56:39 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/25 19:46:05 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	set_map_info(t_game *game, char *file)
 }
 
 void	set_map_info_util(t_game *game, char **line, int fd, int n)
-{	
+{
 	if (n == 1)
 	{
 		*line = safe_free(*line);
@@ -60,21 +60,29 @@ int get_pth(t_game *game, char *line)
 {
 	if (which_dir(line) == 1)
 	{
+		if (game->map_inf.no_pth != NULL)
+			print_err_and_exit(game, RED ERR DPINF RESET, 2);
 		set_pth(game, line, &(game)->map_inf.no_pth);
 		return (1);
 	}
 	else if (which_dir(line) == 2)
 	{
+		if (game->map_inf.so_pth != NULL)
+			print_err_and_exit(game, RED ERR DPINF RESET, 2);
 		set_pth(game, line, &(game)->map_inf.so_pth);
 		return (1);
 	}
 	else if (which_dir(line) == 3)
 	{
+		if (game->map_inf.ea_pth != NULL)
+			print_err_and_exit(game, RED ERR DPINF RESET, 2);
 		set_pth(game, line, &(game)->map_inf.ea_pth);
 		return (1);
 	}	
 	else if (which_dir(line) == 4)
 	{	
+		if (game->map_inf.we_pth != NULL)
+			print_err_and_exit(game, RED ERR DPINF RESET, 2);
 		set_pth(game, line, &(game)->map_inf.we_pth);
 		return (1);
 	}
@@ -114,7 +122,7 @@ void set_pth(t_game *game, char *line, char **set_str)
 	i = 0;
 	while (ft_strchr(WS, line[i]))
 		i++;
-	i += i + 2;
+	i = i + 2;
 	if (!ft_strchr(WS, line[i]))
 		print_err_and_exit(game, RED ERR PTH RESET, 2);
 	while (ft_strchr(WS, line[i]))

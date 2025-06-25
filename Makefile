@@ -25,8 +25,10 @@ SRCS = $(addprefix $(SRCS_DIR), main.c \
 								parse/02_ch_map_info.c \
 								parse/03_rgb_info.c \
 								parse/04_parse_info.c \
-								parse/05_load_utils.c \
-       							parse/06_parse_utils.c \
+								parse/05_check_walls.c \
+								parse/06_load_utils.c \
+       							parse/07_parse_utils.c \
+								parse/08_check_walls_utils.c \
 								close/00_close_and_free.c \
 								debug.c)
 

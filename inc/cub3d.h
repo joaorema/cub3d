@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/24 23:57:34 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/25 20:15:24 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@
 # define PL "Incorrect number of players\n"
 # define INV "Invalid char in map\n"
 # define INVMAP "Map is invalid\n"
+# define INFAFTMAP "Information after map is invalid\n"
+# define OPMAP "Map has an open end\n"
+# define SPMAP "Space in map\n"
+# define DPINF "Duplicate info on map\n"
 
 //colours
 # define RESET  "\033[0m"
@@ -50,18 +54,12 @@
 # define TILE_SIZE 32
 # define WS " \t\n\r\v\f"
 # define CH_MAP "01NSEW"
-# define N_CH_MAP "01 \t\n\r\v\f"
+# define N_CH_MAP "01NSEW \t\n\r\v\f"
+# define NN_CH_MAP "01 \t\n\r\v\f"
 # define NB "0123456789"
 /* ************************************************************************** */
 /*                                   STRUCTS                                  */
 /* ************************************************************************** */
-typedef struct s_position
-{
-    int x;
-    int y;
-    
-} t_position;
-
 typedef struct s_map_inf
 {
 	char	*no_pth;
@@ -80,6 +78,12 @@ typedef struct s_text
 	void	*EA;
 }	t_text;
 
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
+
 typedef struct s_game
 {
     void		*mlx;
@@ -89,8 +93,7 @@ typedef struct s_game
 	t_map_inf 	map_inf;	
 	t_text		*txt;
     char 		player_dir;
-    int			player_x;
-    int			player_y;
+    t_point		player_pos;
     int			map_width;
     int			map_height;
     
@@ -112,7 +115,7 @@ void	set_map_info(t_game *game, char *file);
 
 //01_ch_map
 void	set_height(t_game *game, char *file);
-void 	set_width_and_load(t_game *game, char *file);
+int 	set_width_and_load(t_game *game, char *file);
 bool	only_ws(char *line);
 void 	add_line_to_map(t_game *game, char *line);
 
@@ -134,18 +137,27 @@ void	parse_map_info(t_game *game);
 void	ch_missing_info(t_game *game);
 void	ch_txt_paths(t_game *game);
 void	ch_player_and_inv_chars(t_game *game);
-void	ch_closed_walls(t_game *game, char **tmp_map, int max_x, int max_y);
 
-//05_load_utils
+//05_check_walls
+void	ch_closed_walls(t_game *game, char **tmp_map, int max_x, int max_y);
+t_point	prep_chars(char **tmp_map, int max_y, int max_x);
+void	flood_fill(t_game *game, t_point start_pos, char tg);
+void	ch_islands(t_game *game, char **tmp_map, int max_y, int max_x);
+
+//06_load_utils
+int		get_line_len(char *line);
 int		safe_fd_open(char *file);
 int		is_map(char *line);
-int		get_line_len(char *line);
 int		empty_line(char *line);
 
-//06_parse_utils
+//07_parse_utils
 bool	char_is_valid(char c);
+bool	play_char(char c);
 void	set_pl_info(t_game *game, char c, int x, int y);
+
+//08_check_walls_utils
 void	load_tmp_map(t_game *game);
+bool	ch_all_sides(t_game *game, int x, int y, char tg);
 
 //00_close_and_free
 void	print_err_and_exit(t_game *game, char *err_msg, int exit_code);
@@ -155,5 +167,7 @@ void	kill_visuals(t_game *game);
 
 //debug to delete
 void	print_map_info(t_game *game);
+void	print_player_info(t_game *game);
+void	print_tmp_map(t_game *game, int n, t_point *pos);
 
 #endif
