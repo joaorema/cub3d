@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   06_parse_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/10 15:49:27 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/24 22:10:48 by joaorema         ###   ########.fr       */
+/*   Created: 2025/06/20 15:30:57 by icunha-t          #+#    #+#             */
+/*   Updated: 2025/06/24 22:24:09 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
-#include "../inc/mlx_linux/mlx.h"
-#include "../inc/Mylib/libft.h"
+#include "../../inc/cub3d.h"
 
-int main(int ac, char *av[])
+bool	char_is_valid(char c)
 {
-    t_game game;
+	if (c != 'N' && c != 'S' && c != 'E' && c != 'W' && c != '1' && c != '0'  && c != ' ')
+		return (false);
+	return(true);
+}
 
-    if (ac != 2)
-    {
-        ft_printf("Usage : %s <map_file> \n", av[0]);
-        return (1); 
-    }
-    init(&game, av[1]);
-    
-    user_input(&game);
-    mlx_loop_hook(game.mlx, game_loop,  &game);
-    mlx_loop(game.mlx);
-    return (0);
+void	set_pl_info(t_game *game, char c)
+{
+	game->player_direction = c;
+	//game->player_x = x;
+	//game->player_y = y;
 }

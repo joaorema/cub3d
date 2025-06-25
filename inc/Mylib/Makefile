@@ -51,8 +51,9 @@ SRCS = \
     space.c \
     ft_is_numeric.c \
     ft_atol.c \
-    ft_free_array.c \
-    ft_safe_free.c
+	ft_safe_free.c \
+	ft_free_array.c \
+	get_next_line_utils_cub.c \
     
     
     
@@ -62,19 +63,19 @@ NAME = libft.a
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -fPIC
+CFLAGS = -Wall -Wextra -Werror -g -fPIC
 
 all: $(NAME)
 	
 $(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS) -lft
+	@ar rcs $(NAME) $(OBJS) -lft
 
 clean:
-	rm -f $(OBJS)
-	@echo "\033[0;31mObjects removed\033[0m"
+	@rm -f $(OBJS)
+	@echo "\033[31;1mlibft .o removed\033[0m"
 fclean: clean
-	rm -f $(NAME)
-	@echo "\033[0;31mLibftprintf.a removed\033[0m"
+	@rm -f $(NAME)
+	@echo "\033[31;1mlibft and printf.a removed\033[0m"
 re: fclean all
 
 notes: 
