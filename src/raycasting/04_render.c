@@ -31,8 +31,8 @@ void render_wall(t_game *game, float angle, int ray_index)                  //
     init_rayhit(&h_hit, game, angle);                                       //starts horizontal hit struct
     horizontal_check(game, &h_hit);                                         //checks angle and updates h_struct to have current horizontal ray    
     vertical_check(game, &v_hit);                                           //checks angle and updates v_struct to have current vertical ray
-    wall.screen_x = (int)((float)ray_index / NUM_RAYS * game->win_width);   
-    wall.slice_width = game->win_width / NUM_RAYS;
+    wall.screen_x = (ray_index);   
+    wall.slice_width = 1;
     init_wall(game, &v_hit, &h_hit, &wall, angle);                          //starts wall struct using v_hit and h_hit
     draw_topbottom(game, &wall);                                            //draw sky and floor
     draw_wall_slice(game, &wall);                                           //draw the wall

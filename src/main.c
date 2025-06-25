@@ -26,6 +26,7 @@ int main(int ac, char *av[])
     init(&game, av[1]);
     
     user_input(&game);
+    game_hook();
     mlx_loop_hook(game.mlx, game_loop,  &game);
     mlx_loop(game.mlx);
     return (0);

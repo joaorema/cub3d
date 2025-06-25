@@ -51,13 +51,13 @@
 # define PI         3.1415926535
 # define P2         PI/2
 # define P3         3*PI/2
-# define WIDTH      1080
-# define HEIGHT      600
-# define NUM_RAYS   90
+# define WIDTH      1920
+# define HEIGHT     1080
+# define NUM_RAYS   WIDTH
 # define FOV        (PI / 3)
 # define ANGLE_STEP (FOV / NUM_RAYS)
 # define B_DISTANCE 100000
-# define TILE_SIZE  128
+# define TILE_SIZE  64
 # define KEY_ESC    65307
 # define KEY_W      119
 # define KEY_A      97
@@ -65,7 +65,7 @@
 # define KEY_D      100
 # define KEY_LEFT   65361
 # define KEY_RIGHT  65363
-# define MOVE_SPEED 35.0f
+# define MOVE_SPEED 50.0f
 # define W          0.0f
 # define E          PI
 # define N          (PI / 2)
@@ -80,6 +80,15 @@
 # define N_CH_MAP "01 \t\n\r\v\f"
 # define NB "0123456789"
 
+typedef struct s_keys
+{
+    int         w;
+    int         s;
+    int         a;
+    int         d;
+    int         left;
+    int         right;
+}   t_keys;
 
 typedef struct s_map_inf
 {

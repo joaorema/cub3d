@@ -33,7 +33,7 @@ int	handle_keyboard(int keycode, t_game *game)
     
     angle = game->player_angle;
     if (keycode == KEY_ESC)
-        exit(0);
+        close_and_free(game, 0);
     if (keycode == KEY_W) // forward
         player_move(game, cos(angle) * MOVE_SPEED, sin(angle) * MOVE_SPEED);
     else if (keycode == KEY_S) // backward
@@ -62,6 +62,7 @@ int player_direction(int keycode, t_game *game)
     game->player.delta.y = sin(game->player_angle);
     return 0;
 }
+
 void	user_input(t_game *game)
 {
     mlx_key_hook(game->win, handle_keyboard, game);

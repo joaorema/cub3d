@@ -44,14 +44,16 @@ void	kill_visuals(t_game *game)
 {
 	if (!game)
 		return ;
-	if (game->txt && game->txt->NO)
-		mlx_destroy_image(game->mlx, game->txt->NO);
-	if (game->txt && game->txt->SO)
-		mlx_destroy_image(game->mlx, game->txt->SO);
-	if (game->txt && game->txt->WE)
-		mlx_destroy_image(game->mlx, game->txt->WE);
-	if (game->txt && game->txt->EA)
-		mlx_destroy_image(game->mlx, game->txt->EA);
+	if (game->no_img.img)
+    	mlx_destroy_image(game->mlx, game->no_img.img);
+	if (game->so_img.img)
+		mlx_destroy_image(game->mlx, game->so_img.img);
+	if (game->we_img.img)
+		mlx_destroy_image(game->mlx, game->we_img.img);
+	if (game->ea_img.img)
+		mlx_destroy_image(game->mlx, game->ea_img.img);
+	if (game->img.img)
+		mlx_destroy_image(game->mlx, game->img.img);	
 	if (game->win)
 	{
 		mlx_destroy_window(game->mlx, game->win);

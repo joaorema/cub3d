@@ -51,6 +51,12 @@ void render_map(t_game *game)
 
 int game_loop(t_game *game)
 {
+
     render_map(game);
     return 0;
+}
+
+void game_hook(t_game *game)
+{
+    mlx_loop_hook(game.mlx, game_loop,  &game);
 }

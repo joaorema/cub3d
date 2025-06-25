@@ -2,13 +2,13 @@
 
 void load_wall_images(t_game *game)                                                                          //loads the image into my game struct
 {
-    game->no_img.img = mlx_xpm_file_to_image(game->mlx, "images/north.xpm",
+    game->no_img.img = mlx_xpm_file_to_image(game->mlx, "images/blue.xpm",
                                          &game->no_img.width, &game->no_img.height);
-    game->so_img.img = mlx_xpm_file_to_image(game->mlx, "images/south.xpm",
+    game->so_img.img = mlx_xpm_file_to_image(game->mlx, "images/dark.xpm",
                                          &game->so_img.width, &game->so_img.height);
-    game->we_img.img = mlx_xpm_file_to_image(game->mlx, "images/west.xpm",
+    game->we_img.img = mlx_xpm_file_to_image(game->mlx, "images/tijolo.xpm",
                                          &game->we_img.width, &game->we_img.height);
-    game->ea_img.img = mlx_xpm_file_to_image(game->mlx, "images/east.xpm",
+    game->ea_img.img = mlx_xpm_file_to_image(game->mlx, "images/madeira.xpm",
                                          &game->ea_img.width, &game->ea_img.height);
     game->no_img.addr = mlx_get_data_addr(game->no_img.img, &game->no_img.bits_per_pixel,
                                      &game->no_img.line_len, &game->no_img.endian);
