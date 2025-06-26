@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   01_horizontal_variables.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/26 14:42:55 by icunha-t          #+#    #+#             */
+/*   Updated: 2025/06/26 14:44:06 by icunha-t         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cub3d.h"
 
 void h_sides(t_game *game, t_rayhit *hit)
@@ -7,6 +19,7 @@ void h_sides(t_game *game, t_rayhit *hit)
     hit->next_ray_x = hit->player_pos.x;
     hit->next_ray_y = hit->player_pos.y;
 }
+
 void h_up(t_game *game, t_rayhit *hit, float atan)
 {
     (void)game;
@@ -31,6 +44,7 @@ void update_hcheck(t_rayhit *hit)
     hit->next_ray_y += hit->y_offset;
     hit->depth_of_field++;
 }
+
 void final_hupdate(t_rayhit *hit)
 {
     hit->hit_pos.x = hit->next_ray_x;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   00_player.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/26 14:26:08 by icunha-t          #+#    #+#             */
+/*   Updated: 2025/06/26 14:26:33 by icunha-t         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cub3d.h"
 
 int	handle_keyboard(int keycode, t_game *game)
@@ -50,6 +62,7 @@ int player_direction(int keycode, t_game *game)
     game->player.delta.y = sin(game->player_angle);
     return 0;
 }
+
 int player_move(t_game *game, float dx, float dy)
 {
     float new_x;

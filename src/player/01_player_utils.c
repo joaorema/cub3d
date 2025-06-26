@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   01_player_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/26 14:28:55 by icunha-t          #+#    #+#             */
+/*   Updated: 2025/06/26 14:30:15 by icunha-t         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cub3d.h"
 
 void find_player(t_game *game)
@@ -69,7 +81,6 @@ int is_walkable(t_game *game, float x, float y)
         return 0;
     return 1;
 }
-
 
 int move_player(t_game *game)
 {

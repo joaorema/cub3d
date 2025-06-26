@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   00_close_and_free.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/26 11:08:02 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/26 14:12:20 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,20 +71,6 @@ void	kill_visuals(t_game *game)
 		game->mlx = safe_free(game->mlx);
 		game->mlx = NULL;
 	}
-}
-
-void	init_gnl(t_gnl *gnl)
-{
-	gnl->fd = -1;
-	gnl->line = NULL;
-}
-
-void	init_ints(t_ints *ints)
-{
-	ints->i = -1;
-	ints->j = -1;
-	ints->x = 0;
-	ints->z = 0;
 }
 
 void	close_and_free(t_game *game, int exit_code)

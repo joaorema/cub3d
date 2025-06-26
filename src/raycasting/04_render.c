@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   04_render.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/26 14:36:51 by icunha-t          #+#    #+#             */
+/*   Updated: 2025/06/26 14:37:02 by icunha-t         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cub3d.h"
 
-void render_rays(t_game *game)                                              //main raycast that draws everything
+void render_rays(t_game *game)                                             
 {
     int i;
     float ray_angle;

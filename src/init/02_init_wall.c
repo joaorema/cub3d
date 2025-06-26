@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   02_init_wall.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/26 14:16:24 by icunha-t          #+#    #+#             */
+/*   Updated: 2025/06/26 14:20:16 by icunha-t         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cub3d.h"
 
 void init_wall(t_game *game, t_rayhit *vhit, t_rayhit *hhit, t_wall *wall, float angle)
@@ -49,7 +61,6 @@ void check_hit(t_wall *wall, float *angle, float *offset)
         *offset = fmodf(wall->hit_point.x + 0.0001f, TILE_SIZE);
     }
 }
-
 
 void check_distance(t_rayhit *vhit, t_rayhit *hhit, t_wall *wall)
 {
