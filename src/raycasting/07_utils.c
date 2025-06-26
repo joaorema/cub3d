@@ -12,9 +12,8 @@
 
 #include "../../inc/cub3d.h"
 
-float	distance(float ax, float ay, float bx, float by, float ang)
+float	distance(float ax, float ay, float bx, float by)
 {
-	(void)ang;
 	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
 }
 

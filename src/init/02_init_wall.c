@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   02_init_wall.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 14:16:24 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/26 19:39:59 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/26 21:17:01 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-void	init_wall(t_game *game, t_rayhit *vhit, t_rayhit *hhit, t_wall *wall,
+void	init_wall(t_game *game, t_rayhits *hits, t_wall *wall,
 			float angle)
 {
 	float	corrected_distance;
 	float	offset;
 
-	check_distance(vhit, hhit, wall);
+	check_distance(&hits->v_hit, &hits->h_hit, wall);
 	wall->screen_center_y = game->win_height / 2;
 	corrected_distance = wall->distance * cos(angle - game->player_angle);
 	wall->projected_height = (TILE_SIZE * 320) / corrected_distance;
@@ -50,7 +50,7 @@ void	check_hit(t_wall *wall, float *angle, float *offset)
 			wall->side = EAST;
 		else
 			wall->side = WEST;
-		*offset = fmodf(wall->hit_point.y + 0.0001f, TILE_SIZE);
+		*offset = fmod(wall->hit_point.y, TILE_SIZE);
 	}
 	else
 	{
@@ -58,7 +58,7 @@ void	check_hit(t_wall *wall, float *angle, float *offset)
 			wall->side = SOUTH;
 		else
 			wall->side = NORTH;
-		*offset = fmodf(wall->hit_point.x + 0.0001f, TILE_SIZE);
+		*offset = fmod(wall->hit_point.x, TILE_SIZE);
 	}
 }
 

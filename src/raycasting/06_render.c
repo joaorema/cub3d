@@ -36,6 +36,7 @@ void	render_wall(t_game *game, float angle, int ray_index)
 {
 	t_rayhit	v_hit;
 	t_rayhit	h_hit;
+	t_rayhits	new_hit;
 	t_wall		wall;
 
 	init_rayhit(&v_hit, game, angle);
@@ -44,7 +45,9 @@ void	render_wall(t_game *game, float angle, int ray_index)
 	vertical_check(game, &v_hit);
 	wall.screen_x = (ray_index);
 	wall.slice_width = 1;
-	init_wall(game, &v_hit, &h_hit, &wall, angle);
+	new_hit.h_hit = h_hit;
+	new_hit.v_hit = v_hit;
+	init_wall(game, &new_hit, &wall, angle);
 	draw_topbottom(game, &wall);
 	draw_wall_slice(game, &wall);
 }
@@ -74,29 +77,28 @@ void	draw_topbottom(t_game *game, t_wall *wall)
 
 void	draw_wall_slice(t_game *game, t_wall *wall)
 {
-	int				x;
-	int				w;
-	unsigned int	color;
 	int				y_start;
 	int				y_end;
 	int				y;
+	t_point			pos;
+	unsigned int	color;
 
-	x = wall->screen_x;
-	w = 0;
+	pos.x = wall->screen_x;
+	pos.y = 0;
 	y_start = (int)wall->top_pixel;
 	y_end = (int)wall->bottom_pixel;
 	if (y_start >= y_end)
 		return ;
-	while (w < wall->slice_width)
+	while (pos.y < wall->slice_width)
 	{
 		y = y_start;
 		while (y < y_end)
 		{
 			color = get_texture(game, wall, y);
-			my_mlx_pixel_put(&game->img, x + w, y, color);
+			my_mlx_pixel_put(&game->img, pos.x + pos.y, y, color);
 			y++;
 		}
-		w++;
+		pos.y++;
 	}
 }
 

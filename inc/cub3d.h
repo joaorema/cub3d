@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/26 19:56:36 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/26 21:45:58 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@
 # define RED	"\033[1;31m"
 # define GREEN	"\033[1;32m"
 # define BLUE	"\033[1;36m"
-# define SKY	0xFFADD8E6
-# define FLOOR	0x00333333
 
 //keycodes
 # define KEY_ESC	65307
@@ -61,12 +59,11 @@
 # define KEY_D		100
 # define KEY_LEFT	65361
 # define KEY_RIGHT	65363
-# define MOVE_SPEED	05.0f
 
 //constants
 # define PI			3.1415926535
-# define P2			PI/2
-# define P3			3*PI/2
+# define P2			1.57079632675
+# define P3			4.71238898025
 # define NORTH		0
 # define SOUTH		1
 # define WEST		2
@@ -80,12 +77,13 @@
 # define WIDTH		800
 # define HEIGHT		800
 # define NUM_RAYS	WIDTH
-# define FOV		(PI / 3)
-# define ANGLE_STEP	(FOV / NUM_RAYS)
-# define B_DISTANCE	100000
-# define TILE_SIZE	64
-# define P_RADIUS	(TILE_SIZE * 0.35f)
-# define ROT_SPEED	0.03f
+# define FOV		1.0471975512 
+# define ANGLE_STEP	0.001309
+# define B_DISTANCE	1000000
+# define TILE_SIZE	32
+# define P_RADIUS	6.4f
+# define ROT_SPEED	0.02f
+# define MOVE_SPEED	03.0f
 
 //structs
 typedef struct s_keys
@@ -197,6 +195,12 @@ typedef struct s_rayhit
 	t_point		player_pos;
 }	t_rayhit;
 
+typedef struct s_rayhits
+{
+	t_rayhit	v_hit;
+	t_rayhit	h_hit;
+}	t_rayhits;
+
 typedef struct s_player
 {
 	int			tile_x;
@@ -253,7 +257,7 @@ void			init_raystruct(t_game *game, t_rayhit *hit);
 void			init_rayhit(t_rayhit *hit, t_game *game, float angle);
 
 //02_init_wall.c
-void			init_wall(t_game *game, t_rayhit *vhit, t_rayhit *hhit,
+void			init_wall(t_game *game, t_rayhits *hits,
 					t_wall *wall, float angle);
 void			clamp_wall(t_game *game, t_wall *wall);
 void			set_wall(t_wall *wall);
@@ -340,6 +344,7 @@ void			rotate_player(t_game *game, float rotation);
 //01_player_utils.c
 void			find_player(t_game *game);
 void			set_player_angle(t_game *game, char dir);
+void			set_player_start(t_game *game, int x, int y, char dir);
 int				is_walkable(t_game *game, float x, float y);
 int				move_player(t_game *game);
 
@@ -356,7 +361,7 @@ void			update_vcheck(t_rayhit *hit);
 void			final_hupdate(t_rayhit *hit);
 
 //02_horizontal_variables_utils.c
-void			hhit_wall(t_rayhit *hit, float ra);
+void			hhit_wall(t_rayhit *hit);
 void			h_s_tile(t_rayhit *hit);
 
 //03_vertical_variables.c
@@ -367,7 +372,7 @@ void			update_hcheck(t_rayhit *hit);
 void			final_vupdate(t_rayhit *hit);
 
 //04_vertical_variables_utils.c
-void			vhit_wall(t_rayhit *hit, float ra);
+void			vhit_wall(t_rayhit *hit);
 void			v_s_tile(t_rayhit *hit);
 
 //05_textures.c
@@ -383,7 +388,7 @@ void			draw_wall_slice(t_game *game, t_wall *wall);
 int				create_trgb(int r, int g, int b);
 
 //07_utils.c
-float			distance(float ax, float ay, float bx, float by, float ang);
+float			distance(float ax, float ay, float bx, float by);
 float			clamptexture(float value, float min, float max);
 int				clamp_point(int value, int min, int max);
 void			my_mlx_pixel_put(t_image *img, int x, int y, int color);

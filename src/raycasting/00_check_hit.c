@@ -33,7 +33,7 @@ void	horizontal_check(t_game *game, t_rayhit *hit)
 			&&hit->map_y >= 0 && hit->map_y < game->map_height
 			&& game->map[hit->map_y][hit->map_x] == '1')
 		{
-			hhit_wall(hit, ray_angle);
+			hhit_wall(hit);
 			return ;
 		}
 		update_hcheck(hit);
@@ -62,7 +62,7 @@ void	vertical_check(t_game *game, t_rayhit *hit)
 			&& hit->map_y >= 0 && hit->map_y < game->map_height
 			&& game->map[hit->map_y][hit->map_x] == '1')
 		{
-			vhit_wall(hit, ray_angle);
+			vhit_wall(hit);
 			return ;
 		}
 		update_vcheck(hit);

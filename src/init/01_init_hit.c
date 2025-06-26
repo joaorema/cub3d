@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   01_init_hit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 14:16:00 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/26 19:39:16 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/26 21:15:19 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,8 @@ void	init_rayhit(t_rayhit *hit, t_game *game, float angle)
 	hit->depth_of_field = 0;
 	hit->distance = 1000000.0f;
 	hit->max_depth_of_field = 30;
+	if (game->map_width > game->map_height)
+		hit->max_depth_of_field = game->map_width;
+	else
+		hit->max_depth_of_field = game->map_height;
 }

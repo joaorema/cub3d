@@ -36,25 +36,24 @@ void	load_wall_images(t_game *game)
 			&game->ea_img.line_len, &game->ea_img.endian);
 }
 
-unsigned int	get_texture(t_game *game, t_wall *wall, int y)
+unsignedint	get_texture(t_game *game, t_wall *wall, int y)
 {
-	int		tex_y;
-	int		tex_x;
+	t_pl	tex;
+	t_image	*texture;
 	int		wall_height;
 	char	*pixel;
 	float	wall_y;
-	t_image	*texture;
 
 	texture = set_side(game, wall);
-	tex_x = wall->texture_x;
+	tex.x = wall->texture_x;
 	wall_height = wall->bottom_pixel - wall->top_pixel;
 	wall_y = (float)(y - wall->top_pixel) / (float)wall_height;
 	wall_y = clamptexture(wall_y, 0.0f, 1.0f);
-	tex_y = (int)(wall_y * (texture->height - 1));
-	tex_x = clamp_point(tex_x, 0, texture->width);
-	tex_y = clamp_point(tex_y, 0, texture->height);
-	pixel = texture->addr + (tex_y * texture->line_len + tex_x
-			* (texture->bits_per_pixel / 8));
+	tex.y = (int)(wall_y * (texture->height - 1));
+	tex.x = clamp_point(tex.x, 0, texture->width);
+	tex.y = clamp_point(tex.y, 0, texture->height);
+	pixel = texture->addr + (tex.y * texture->line_len
+			+ tex.x * (texture->bits_per_pixel / 8));
 	return (*(unsigned int *)pixel);
 }
 
