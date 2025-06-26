@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/26 19:22:09 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/26 19:56:36 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@
 # define EAST		3
 # define WS			" \t\n\r\v\f"
 # define CH_MAP		"01NSEW"
-# define N_CH_MAP	"01 \t\n\r\v\f"
+# define N_CH_MAP	"01NSEW \t\n\r\v\f"
 # define NB			"0123456789"
 
 //game settings

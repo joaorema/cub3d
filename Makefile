@@ -38,9 +38,9 @@ SRCS = $(addprefix $(SRCS_DIR), main.c 					  					\
 								player/01_player_utils.c 					\
 								raycasting/00_check_hit.c  					\
 								raycasting/01_horizontal_variables.c 		\
-								raycasting/02_horizontal_variables_utils	\
+								raycasting/02_horizontal_variables_utils.c	\
 								raycasting/03_vertical_variables.c  		\
-								raycasting/04_vertical_variables_utils	   	\
+								raycasting/04_vertical_variables_utils.c   	\
 								raycasting/05_textures.c   					\
 								raycasting/06_render.c      				\
 								raycasting/07_utils.c)

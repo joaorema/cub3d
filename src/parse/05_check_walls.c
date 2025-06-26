@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 14:23:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/26 18:44:59 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/26 19:59:46 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ void	ch_closed_walls(t_game *game, char **tmp_map, int max_y, int max_x)
 	t_pl	start_pos;
 
 	start_pos = prep_chars(tmp_map, max_y, max_x);
-	print_tmp_map(game, 2, &start_pos); //debug to delete
 	flood_fill(game, start_pos, '0');
-	print_tmp_map(game, 3, NULL); //debug to delete
 	ch_islands(game, tmp_map, max_y, max_x);
 }
 
