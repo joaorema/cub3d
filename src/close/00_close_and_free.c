@@ -1,32 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
+/*   Updated: 2025/06/26 11:08:02 by icunha-t         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-void	print_err_and_exit(t_game *game, char *err_msg, int exit_code)
+void	print_err_and_exit(t_game *game, char *err_msg, int exit, t_gnl *gnl)
 {
+	if (gnl && gnl->line)
+		gnl->line = safe_free(gnl->line);
+	if (gnl && gnl->fd != -1)
+	{
+		gnl_free_fd(gnl->fd);
+		close(gnl->fd);
+	}
 	ft_putstr_fd(err_msg, 2);
-	close_and_free(game, exit_code);
-}
-
-void	close_and_free(t_game *game, int exit_code)
-{
-	if (game)
-	{
-		kill_visuals(game);
-		free_game(game);
-	}
-	exit (exit_code);
-}
-
-int		close_x(void *param)
-{
-	t_game *game = (t_game *)param;
-	if (game)
-	{
-		kill_visuals(game);
-		free_game(game);
-	}
-	exit(0);
-	return 0;
+	close_and_free(game, exit);
 }
 
 void	free_game(t_game *game)
@@ -56,16 +52,14 @@ void	kill_visuals(t_game *game)
 {
 	if (!game)
 		return ;
-	if (game->no_img.img)
-    	mlx_destroy_image(game->mlx, game->no_img.img);
-	if (game->so_img.img)
-		mlx_destroy_image(game->mlx, game->so_img.img);
-	if (game->we_img.img)
-		mlx_destroy_image(game->mlx, game->we_img.img);
-	if (game->ea_img.img)
-		mlx_destroy_image(game->mlx, game->ea_img.img);
-	if (game->img.img)
-		mlx_destroy_image(game->mlx, game->img.img);	
+	if (game->txt && game->txt->no)
+		mlx_destroy_image(game->mlx, game->txt->no);
+	if (game->txt && game->txt->so)
+		mlx_destroy_image(game->mlx, game->txt->so);
+	if (game->txt && game->txt->we)
+		mlx_destroy_image(game->mlx, game->txt->we);
+	if (game->txt && game->txt->ea)
+		mlx_destroy_image(game->mlx, game->txt->ea);
 	if (game->win)
 	{
 		mlx_destroy_window(game->mlx, game->win);
@@ -77,4 +71,40 @@ void	kill_visuals(t_game *game)
 		game->mlx = safe_free(game->mlx);
 		game->mlx = NULL;
 	}
+}
+
+void	init_gnl(t_gnl *gnl)
+{
+	gnl->fd = -1;
+	gnl->line = NULL;
+}
+
+void	init_ints(t_ints *ints)
+{
+	ints->i = -1;
+	ints->j = -1;
+	ints->x = 0;
+	ints->z = 0;
+}
+
+void	close_and_free(t_game *game, int exit_code)
+{
+	if (game)
+	{
+		kill_visuals(game);
+		free_game(game);
+	}
+	exit (exit_code);
+}
+
+int		close_x(void *param)
+{
+	t_game *game = (t_game *)param;
+	if (game)
+	{
+		kill_visuals(game);
+		free_game(game);
+	}
+	exit(0);
+	return 0;
 }

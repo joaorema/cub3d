@@ -40,3 +40,4 @@ void loop(t_game *game)
     mlx_loop_hook(game->mlx, game_loop,  game);
     mlx_loop(game->mlx);
 }
+

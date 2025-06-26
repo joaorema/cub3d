@@ -19,17 +19,20 @@ MLX = $(MLX_DIR)/libmlx.a
 SRCS_DIR = ./src/
 SRCS = $(addprefix $(SRCS_DIR), main.c 					  				\
 								close/00_close_and_free.c 				\
+								close/01_debug.c						\
        							init/00_init_struct.c 					\
 								init/01_init_hit.c						\
 								init/02_init_wall.c						\
 								init/03_game_loop.c 					\
        							parse/00_load_and_parse.c 				\
-								parse/01_ch_map.c						\
+								parse/01_ch_map.c 						\
 								parse/02_ch_map_info.c 					\
 								parse/03_rgb_info.c 					\
 								parse/04_parse_info.c 					\
-								parse/05_load_utils.c 					\
-								parse/06_parse_utils.c 					\
+								parse/05_check_walls.c 					\
+								parse/06_load_utils.c 					\
+								parse/07_parse_utils.c 					\
+								parse/08_check_wall_utils.c             \
 								player/00_player.c     					\
 								player/01_player_utils.c 				\
 								raycasting/00_check_hit.c  				\

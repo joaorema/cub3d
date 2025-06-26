@@ -14,36 +14,27 @@
 
 void	load_and_parse_map(t_game *game, char *file)
 {
-	if (ch_file(game, file))
-		close_and_free(game, 2);
+	ch_file(game, file);
 	set_height(game, file);
-	game->map = malloc(sizeof(char *) * (game->map_height + 1));
+	game->map = calloc((game->map_height + 1), sizeof(char *));
 	set_width_and_load(game, file);
 	game->map[game->map_height] = NULL;
 	set_map_info(game, file);
+	print_map_info(game); //debug to delete
 	parse_map_info(game);
-	game->player_angle = game->player_direction;
 }
 
-int	ch_file(t_game *game, char *file)
+void	ch_file(t_game *game, char *file)
 {
-	char	*line;
-	int		fd;
-	
-	if ((fd = safe_fd_open(file)) && (fd == -1))
-		close_and_free(game, 2);
+	t_gnl	gnl;
+
+	init_gnl(&gnl);
+	gnl.fd = safe_fd_open(file);
+	if (gnl.fd == -1)
+		print_err_and_exit(game, NULL, 2, NULL);
 	if (ft_strcmp(".cub", file + (ft_strlen(file) - 4)))
-	{
-		ft_printf(RED ERR EXT RESET);
-		close (fd);
-		return (1);
-	}
-	if (read(fd, &line, 1) <= 0) 
-	{
-		ft_printf(RED ERR EMPT RESET);
-		close(fd);
-		return (1);
-	}
-	close(fd);
-	return (0);
+		print_err_and_exit(game, RED ERR EXT RESET, 2, &gnl);
+	if (read(gnl.fd, &gnl.line, 1) <= 0)
+		print_err_and_exit(game, RED ERR EMPT RESET, 2, &gnl);
+	close(gnl.fd);
 }
