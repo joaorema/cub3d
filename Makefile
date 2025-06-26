@@ -2,9 +2,9 @@
 #                                     CONFIG                                   #
 ################################################################################
 
-NAME = cub3D
+NAME = cub3d
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fPIE
+CFLAGS = -Wall -Wextra -Werror -g 
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
@@ -17,27 +17,36 @@ MLX_DIR = ./inc/mlx_linux
 MLX = $(MLX_DIR)/libmlx.a
 
 SRCS_DIR = ./src/
-SRCS = $(addprefix $(SRCS_DIR), main.c \
-       							init/00_init.c \
-								init/01_init_imgs.c \
-								parse/00_load_and_parse.c \
-								parse/01_ch_map.c \
-								parse/02_ch_map_info.c \
-								parse/03_rgb_info.c \
-								parse/04_parse_info.c \
-								parse/05_check_walls.c \
-								parse/06_load_utils.c \
-       							parse/07_parse_utils.c \
-								parse/08_check_walls_utils.c \
-								close/00_close_and_free.c \
-								debug.c)
+SRCS = $(addprefix $(SRCS_DIR), main.c 					  				\
+								close/00_close_and_free.c 				\
+								close/01_debug.c						\
+       							init/00_init_struct.c 					\
+								init/01_init_hit.c						\
+								init/02_init_wall.c						\
+								init/03_game_loop.c 					\
+       							parse/00_load_and_parse.c 				\
+								parse/01_ch_map.c 						\
+								parse/02_ch_map_info.c 					\
+								parse/03_rgb_info.c 					\
+								parse/04_parse_info.c 					\
+								parse/05_check_walls.c 					\
+								parse/06_load_utils.c 					\
+								parse/07_parse_utils.c 					\
+								parse/08_check_wall_utils.c             \
+								player/00_player.c     					\
+								player/01_player_utils.c 				\
+								raycasting/00_check_hit.c  				\
+								raycasting/01_horizontal_variables.c 	\
+								raycasting/02_vertical_variables.c     	\
+								raycasting/03_textures.c   				\
+								raycasting/04_render.c      			\
+								raycasting/05_utils.c)
 
 TMP = ./tmp
 
 ################################################################################
 #                                  COLORS                                      #
 ################################################################################
-
 RED		= "\033[0;31m"
 GRN		= "\033[0;32m"  
 YEL		= "\033[0;33m"
@@ -61,7 +70,7 @@ RESET	= "\033[0m"
 
 all: $(NAME)
 
-OBJS = $(patsubst $(SRCS_DIR)%,$(TMP)/%,$(SRCS:.c=.o))
+OBJS = $(patsubst $(SRCS_DIR)%.c,$(TMP)/%.o,$(SRCS))
 
 $(NAME): $(MLX) $(OBJS) $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJS) -L$(MLX_DIR) -lmlx -L$(LIBFT_DIR) -lft -lm -lXext -lX11 -o $(NAME)

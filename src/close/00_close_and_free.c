@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_close_and_free.c                                :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/17 17:24:56 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/26 10:54:35 by icunha-t         ###   ########.fr       */
+/*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
+/*   Updated: 2025/06/26 11:08:02 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,6 @@ void	print_err_and_exit(t_game *game, char *err_msg, int exit, t_gnl *gnl)
 	}
 	ft_putstr_fd(err_msg, 2);
 	close_and_free(game, exit);
-}
-
-void	close_and_free(t_game *game, int exit_code)
-{
-	if (game)
-	{
-		kill_visuals(game);
-		free_game(game);
-	}
-	exit (exit_code);
 }
 
 void	free_game(t_game *game)
@@ -81,4 +71,40 @@ void	kill_visuals(t_game *game)
 		game->mlx = safe_free(game->mlx);
 		game->mlx = NULL;
 	}
+}
+
+void	init_gnl(t_gnl *gnl)
+{
+	gnl->fd = -1;
+	gnl->line = NULL;
+}
+
+void	init_ints(t_ints *ints)
+{
+	ints->i = -1;
+	ints->j = -1;
+	ints->x = 0;
+	ints->z = 0;
+}
+
+void	close_and_free(t_game *game, int exit_code)
+{
+	if (game)
+	{
+		kill_visuals(game);
+		free_game(game);
+	}
+	exit (exit_code);
+}
+
+int		close_x(void *param)
+{
+	t_game *game = (t_game *)param;
+	if (game)
+	{
+		kill_visuals(game);
+		free_game(game);
+	}
+	exit(0);
+	return 0;
 }

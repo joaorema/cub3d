@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   07_parse_utils.c                                   :+:      :+:    :+:   */
+/*   06_parse_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 15:30:57 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/25 23:39:59 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/24 22:24:09 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ bool	play_char(char c)
 
 void	set_pl_info(t_game *game, char c, int x, int y)
 {
-	game->player_dir = c;
-	game->player_pos.x = x + 1;
-	game->player_pos.y = y + 1;
+	game->player_direction = c;
+	game->player.position.x = x + 1;
+	game->player.position.y = y + 1;
 }
-
