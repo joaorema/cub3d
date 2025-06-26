@@ -5,8 +5,13 @@
             "name": "cub3d",
             "type": "cppdbg",
             "request": "launch",
+<<<<<<< HEAD
             "program": "/home/joaorema/github/cub3d/cub3d",
 			"args": ["maps/map.cub"],
+=======
+            "program": "/home/isabel/cub3d/cub3d",
+			"args": ["maps/valid/basic.cub"],
+>>>>>>> 90d2ea5bd97d71b5fa93dfcdc417297e99ac74f3
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -14,6 +19,7 @@
             "MIMode": "gdb",
 			"miDebuggerPath": "/usr/bin/gdb",
             "setupCommands": [
+<<<<<<< HEAD
                 {
                     "description": "Enable pretty-printing for gdb",
                     "text": "-enable-pretty-printing",
@@ -23,6 +29,19 @@
                     "ignoreFailures": true,
                 },
             ],
+=======
+			{
+				"description": "Enable pretty-printing for gdb",
+				"text": "-enable-pretty-printing",
+				"ignoreFailures": true
+			},
+			{
+				"description": "Set gdb to follow child process after fork",
+				"text": "set follow-fork-mode child",
+				"ignoreFailures": true
+			}
+		],
+>>>>>>> 90d2ea5bd97d71b5fa93dfcdc417297e99ac74f3
             "logging": {
                 "engineLogging": true
             }
