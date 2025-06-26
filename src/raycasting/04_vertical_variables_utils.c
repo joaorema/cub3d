@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   04_init_utils.c                                    :+:      :+:    :+:   */
+/*   04_vertical_variables_utils.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 14:12:54 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/26 18:37:53 by icunha-t         ###   ########.fr       */
+/*   Created: 2025/06/26 19:06:35 by icunha-t          #+#    #+#             */
+/*   Updated: 2025/06/26 19:07:35 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-void	init_gnl(t_gnl *gnl)
+void	vhit_wall(t_rayhit *hit, float ray_angle)
 {
-	gnl->fd = -1;
-	gnl->l = NULL;
+	hit->hit_pos.x = hit->next_ray_x;
+	hit->hit_pos.y = hit->next_ray_y;
+	hit->distance = distance(
+			hit->player_pos.x,
+			hit->player_pos.y,
+			hit->hit_pos.x,
+			hit->hit_pos.y,
+			ray_angle
+			);
 }
 
-void	init_ints(t_ints *ints)
+void	v_s_tile(t_rayhit *hit)
 {
-	ints->i = -1;
-	ints->j = -1;
-	ints->x = 0;
-	ints->z = 0;
+	hit->map_x = (int)(hit->next_ray_x) / TILE_SIZE;
+	hit->map_y = (int)(hit->next_ray_y) / TILE_SIZE;
 }

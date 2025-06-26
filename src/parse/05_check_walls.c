@@ -6,19 +6,19 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 14:23:07 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/26 14:23:21 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/26 18:44:59 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-void	ch_closed_walls(t_game *game, char **tmp_map, int max_y,  int max_x)
+void	ch_closed_walls(t_game *game, char **tmp_map, int max_y, int max_x)
 {
-	t_pl start_pos;
-	
-	start_pos = prep_chars(tmp_map, max_y ,max_x);
+	t_pl	start_pos;
+
+	start_pos = prep_chars(tmp_map, max_y, max_x);
 	print_tmp_map(game, 2, &start_pos); //debug to delete
-	flood_fill(game, start_pos,'0');
+	flood_fill(game, start_pos, '0');
 	print_tmp_map(game, 3, NULL); //debug to delete
 	ch_islands(game, tmp_map, max_y, max_x);
 }
@@ -27,15 +27,15 @@ t_pl	prep_chars(char **tmp_map, int max_y, int max_x)
 {
 	t_pl	start_pos;
 	bool	ch_start_pos;
-	int	x;
-	int y;
+	int		x;
+	int		y;
 
 	y = -1;
 	ch_start_pos = false;
 	while (++y < max_y)
 	{
 		x = -1;
-		while(++x < max_x)
+		while (++x < max_x)
 		{
 			if (!ch_start_pos && (tmp_map[y][x] != '1' && tmp_map[y][x] != 'X'))
 			{
@@ -52,7 +52,7 @@ t_pl	prep_chars(char **tmp_map, int max_y, int max_x)
 
 void	flood_fill(t_game *game, t_pl start_pos, char tg)
 {
-	t_pl new_pos;
+	t_pl	new_pos;
 
 	if (start_pos.x < 0 || start_pos.x >= (game->map_width + 1)
 		|| start_pos.y < 0 || start_pos.y >= (game->map_height + 1))
@@ -73,13 +73,13 @@ void	flood_fill(t_game *game, t_pl start_pos, char tg)
 void	ch_islands(t_game *game, char **tmp_map, int max_y, int max_x)
 {
 	int	x;
-	int y;
+	int	y;
 
 	y = 0;
 	while (++y < max_y)
 	{
 		x = 0;
-		while(++x < max_x)
+		while (++x < max_x)
 		{
 			if (tmp_map[y][x] == '0' || tmp_map[y][x] == 'F')
 			{

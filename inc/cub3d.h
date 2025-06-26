@@ -6,19 +6,19 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/26 14:51:55 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/26 19:22:09 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include "Mylib/libft.h"
-#include "mlx_linux/mlx.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <math.h>
-#include <stdbool.h>
+# include "Mylib/libft.h"
+# include "mlx_linux/mlx.h"
+# include <stdio.h>
+# include <unistd.h>
+# include <math.h>
+# include <stdbool.h>
 
 /* ************************************************************************** */
 /*                                    MACROS                                  */
@@ -63,7 +63,6 @@
 # define KEY_RIGHT	65363
 # define MOVE_SPEED	05.0f
 
-
 //constants
 # define PI			3.1415926535
 # define P2			PI/2
@@ -79,14 +78,14 @@
 
 //game settings
 # define WIDTH		800
-# define HEIGHT     800
-# define NUM_RAYS   WIDTH
+# define HEIGHT		800
+# define NUM_RAYS	WIDTH
 # define FOV		(PI / 3)
-# define ANGLE_STEP (FOV / NUM_RAYS)
-# define B_DISTANCE 100000
-# define TILE_SIZE  64
-# define P_RADIUS   (TILE_SIZE * 0.35f)
-# define ROT_SPEED  0.03f
+# define ANGLE_STEP	(FOV / NUM_RAYS)
+# define B_DISTANCE	100000
+# define TILE_SIZE	64
+# define P_RADIUS	(TILE_SIZE * 0.35f)
+# define ROT_SPEED	0.03f
 
 //structs
 typedef struct s_keys
@@ -97,7 +96,7 @@ typedef struct s_keys
 	int			d;
 	int			left;
 	int			right;
-}   t_keys;
+}	t_keys;
 
 typedef struct s_map_inf
 {
@@ -119,8 +118,8 @@ typedef struct s_ints
 
 typedef struct s_gnl
 {
-	char	*line;
-	int		fd;
+	char		*l;
+	int			fd;
 }	t_gnl;
 
 typedef struct s_text
@@ -140,9 +139,9 @@ typedef struct s_rgb
 
 typedef struct s_point
 {
-    float		x;
-    float		y;
-} t_point;
+	float		x;
+	float		y;
+}	t_point;
 
 typedef struct s_pl
 {
@@ -152,15 +151,15 @@ typedef struct s_pl
 
 typedef struct s_image
 {
-    void		*img;
-    char		*addr;
-    int			width;
-    int			height;
-    int			bits_per_pixel;
-    int			line_len;
-    int			endian;
-    t_point		pos;
-}   t_image;
+	void		*img;
+	char		*addr;
+	int			width;
+	int			height;
+	int			bits_per_pixel;
+	int			line_len;
+	int			endian;
+	t_point		pos;
+}	t_image;
 
 typedef struct s_wall
 {
@@ -196,17 +195,16 @@ typedef struct s_rayhit
 	float		max_depth_of_field;
 	t_point		hit_pos;
 	t_point		player_pos;
-} t_rayhit;
+}	t_rayhit;
 
 typedef struct s_player
 {
-    int			tile_x;
-    int			tile_y;
-    t_point		delta;
-    t_point		position;
-    t_point		pixel_offset;
-}   t_player;
-
+	int			tile_x;
+	int			tile_y;
+	t_point		delta;
+	t_point		position;
+	t_point		pixel_offset;
+}	t_player;
 
 typedef struct s_game
 {
@@ -233,91 +231,91 @@ typedef struct s_game
 	t_image		ea_img;
 }	t_game;
 
-
 //CLOSE//
 //close_and_free.c
-void				print_err_and_exit(t_game *game, char *err_msg, int exit, t_gnl *gnl);
-void				free_game(t_game *game);
-void				kill_visuals(t_game *game);
-void				close_and_free(t_game *game, int exit_code);
-int 				close_x(void *param);
-
+void			print_err_and_exit(t_game *game, char *err_msg,
+					int exit, t_gnl *gnl);
+void			free_game(t_game *game);
+void			kill_visuals(t_game *game);
+void			close_and_free(t_game *game, int exit_code);
+int				close_x(void *param);
 
 //INIT//
 //00_init_struct.c
-void				init_game_struct(t_game *game);
-void				init_images(t_game *game);
-void				init_map(t_game *game);
-void				init_player(t_game *game);
-void				init_keys(t_game *game);
+void			init_game_struct(t_game *game);
+void			init_images(t_game *game);
+void			init_map(t_game *game);
+void			init_player(t_game *game);
+void			init_keys(t_game *game);
 
 //01_init_hit.c
 void			init_raystruct(t_game *game, t_rayhit *hit);
 void			init_rayhit(t_rayhit *hit, t_game *game, float angle);
 
 //02_init_wall.c
-void				init_wall(t_game *game, t_rayhit *vhit, t_rayhit *hhit, t_wall *wall,
-					float angle);
-void				clamp_wall(t_game *game, t_wall *wall);
-void				set_wall(t_wall *wall);
-void				check_hit(t_wall *wall, float *angle, float *offset);
-void				check_distance(t_rayhit *vhit, t_rayhit *hhit, t_wall *wall);
+void			init_wall(t_game *game, t_rayhit *vhit, t_rayhit *hhit,
+					t_wall *wall, float angle);
+void			clamp_wall(t_game *game, t_wall *wall);
+void			set_wall(t_wall *wall);
+void			check_hit(t_wall *wall, float *angle, float *offset);
+void			check_distance(t_rayhit *vhit, t_rayhit *hhit, t_wall *wall);
 
 //03_init_game_loop.c
-void				init(t_game *game, char *file);
-void				render_map(t_game *game);
-int					game_loop(t_game *game);
-void				handle_keys(t_game *game);
-void				loop(t_game *game);
+void			init(t_game *game, char *file);
+void			render_map(t_game *game);
+int				game_loop(t_game *game);
+void			handle_keys(t_game *game);
+void			loop(t_game *game);
 
 //04_init_utils.c
-void				init_gnl(t_gnl *gnl);
-void				init_ints(t_ints *ints);
-
+void			init_gnl(t_gnl *gnl);
+void			init_ints(t_ints *ints);
 
 //PARSE//
 //00_load_and_parse.c
-void				load_and_parse_map(t_game *game, char *file);
-void				ch_file(t_game *game, char *file);
+void			load_and_parse_map(t_game *game, char *file);
+void			ch_file(t_game *game, char *file);
 
 //01_ch_map
-void				set_height(t_game *game, char *file);
-void				set_width_and_load(t_game *game, char *file);
-void				set_width_and_load_util(t_game *game, bool *map_limit, char *line);
-bool				only_ws(char *line);
-void				add_line_to_map(t_game *game, char *line);
+void			set_height(t_game *game, char *file);
+void			set_width_and_load(t_game *game, char *file);
+void			set_width_and_load_util(t_game *game, bool *map_limit,
+					char *line);
+bool			only_ws(char *line);
+void			add_line_to_map(t_game *game, char *line);
 
 //02_ch_map_info
-void				set_map_info(t_game *game, char *file);
-void				set_map_info_util(t_game *game, t_gnl *gnl, int n);
-int					get_pth(t_game *game, t_gnl gnl);
-int					which_dir(char *line);
-void				set_pth(t_game *game, t_gnl gnl, char **set_str);
+void			set_map_info(t_game *game, char *file);
+void			set_map_info_util(t_game *game, t_gnl *gnl, int n);
+int				get_pth(t_game *game, t_gnl gnl);
+int				which_dir(char *line);
+void			set_pth(t_game *game, t_gnl gnl, char **set_str);
 
 //03_rgb_info
-void				add_f_and_c(t_game *game, t_gnl gnl);
-int					get_rgb_val(t_game *game, t_gnl gnl, int *start);
-void				ch_mid_val(t_game *game, t_gnl gnl, int *i, bool *ch);
-void				set_rgb_f(t_game *game, t_gnl gnl, t_rgb rgb);
-void				set_rgb_c(t_game *game, t_gnl gnl, t_rgb rgb);
+void			add_f_and_c(t_game *game, t_gnl gnl);
+int				get_rgb_val(t_game *game, t_gnl gnl, int *start);
+void			ch_mid_val(t_game *game, t_gnl gnl, int *i, bool *ch);
+void			set_rgb_f(t_game *game, t_gnl gnl, t_rgb rgb);
+void			set_rgb_c(t_game *game, t_gnl gnl, t_rgb rgb);
 
 //04_parse_map_info
-void				parse_map_info(t_game *game);
-void				ch_missing_info(t_game *game);
-void				ch_txt_paths(t_game *game);
-void				ch_player_and_inv_chars(t_game *game);
+void			parse_map_info(t_game *game);
+void			ch_missing_info(t_game *game);
+void			ch_txt_paths(t_game *game);
+void			ch_player_and_inv_chars(t_game *game);
 
 //05_check_walls
-void				ch_closed_walls(t_game *game, char **tmp_map, int max_x, int max_y);
-t_pl				prep_chars(char **tmp_map, int max_y, int max_x);
-void				flood_fill(t_game *game, t_pl start_pos, char tg);
-void				ch_islands(t_game *game, char **tmp_map, int max_y, int max_x);
+void			ch_closed_walls(t_game *game, char **tmp_map,
+					int max_x, int max_y);
+t_pl			prep_chars(char **tmp_map, int max_y, int max_x);
+void			flood_fill(t_game *game, t_pl start_pos, char tg);
+void			ch_islands(t_game *game, char **tmp_map, int max_y, int max_x);
 
 //06_load_utils
-int					get_line_len(char *line);
-int					safe_fd_open(char *file);
-int					is_map(char *line);
-int					empty_line(char *line);
+int				get_line_len(char *line);
+int				safe_fd_open(char *file);
+int				is_map(char *line);
+int				empty_line(char *line);
 
 //07_parse_utils
 void			ch_dups(t_game *game, char *path, t_gnl gnl);
@@ -342,10 +340,8 @@ void			rotate_player(t_game *game, float rotation);
 //01_player_utils.c
 void			find_player(t_game *game);
 void			set_player_angle(t_game *game, char dir);
-static int		is_blocked_at(t_game *game, float x, float y);
 int				is_walkable(t_game *game, float x, float y);
 int				move_player(t_game *game);
-
 
 //RAYCASTING
 //00_raycasting_init.c
@@ -358,36 +354,40 @@ void			h_up(t_game *game, t_rayhit *hit, float atan);
 void			h_down(t_game *game, t_rayhit *hit, float atan);
 void			update_vcheck(t_rayhit *hit);
 void			final_hupdate(t_rayhit *hit);
+
+//02_horizontal_variables_utils.c
 void			hhit_wall(t_rayhit *hit, float ra);
 void			h_s_tile(t_rayhit *hit);
 
-//02_vertical_variables.c
+//03_vertical_variables.c
 void			v_top_down(t_game *game, t_rayhit *hit);
 void			v_right(t_game *game, t_rayhit *hit, float ntan);
 void			v_left(t_game *game, t_rayhit *hit, float ntan);
 void			update_hcheck(t_rayhit *hit);
 void			final_vupdate(t_rayhit *hit);
+
+//04_vertical_variables_utils.c
 void			vhit_wall(t_rayhit *hit, float ra);
 void			v_s_tile(t_rayhit *hit);
 
-//03_textures.c
+//05_textures.c
 void			load_wall_images(t_game *game);
 unsigned int	get_texture(t_game *game, t_wall *wall, int y);
-t_image 		*set_side(t_game *game, t_wall *wall);
+t_image			*set_side(t_game *game, t_wall *wall);
 
-//04_render.c
+//06_render.c
 void			render_rays(t_game *game);
 void			render_wall(t_game *game, float angle, int col);
 void			draw_topbottom(t_game *game, t_wall *wall);
 void			draw_wall_slice(t_game *game, t_wall *wall);
+int				create_trgb(int r, int g, int b);
 
-//05_utils.c
-float   		distance(float ax, float ay, float bx, float by, float ang);
-float   		clamptexture(float value, float min, float max);
+//07_utils.c
+float			distance(float ax, float ay, float bx, float by, float ang);
+float			clamptexture(float value, float min, float max);
 int				clamp_point(int value, int min, int max);
 void			my_mlx_pixel_put(t_image *img, int x, int y, int color);
 void			draw(t_image *image, t_point pos, t_point size, int color);
-int				create_trgb(int r, int g, int b);
 
 //debugg
 void			print_map_info(t_game *game);

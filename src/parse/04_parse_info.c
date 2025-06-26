@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   04_parse_info.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 15:27:21 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/24 22:25:12 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/26 18:42:22 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	parse_map_info(t_game *game)
 	ch_player_and_inv_chars(game);
 	print_player_info(game); //debug to delete
 	load_tmp_map(game);
-	print_tmp_map(game, 1, NULL); //debug to delete
 	ch_closed_walls(game, game->tmp_map, (game->map_height + 1),
 		(game->map_width + 1));
 }
@@ -44,41 +43,41 @@ void	ch_txt_paths(t_game *game)
 	img_y = TILE_SIZE;
 	game->txt = calloc(1, sizeof(t_text));
 	game->txt->no = mlx_xpm_file_to_image(game->mlx, game->map_inf.no_pth,
-		&img_x, &img_y);
+			&img_x, &img_y);
 	game->txt->so = mlx_xpm_file_to_image(game->mlx, game->map_inf.so_pth,
-		&img_x, &img_y);
+			&img_x, &img_y);
 	game->txt->we = mlx_xpm_file_to_image(game->mlx, game->map_inf.we_pth,
-		&img_x, &img_y);
+			&img_x, &img_y);
 	game->txt->ea = mlx_xpm_file_to_image(game->mlx, game->map_inf.ea_pth,
-		&img_x, &img_y);	
+			&img_x, &img_y);
 	if (!game->txt->no || !game->txt->so || !game->txt->we || !game->txt->ea)
 		print_err_and_exit(game, RED ERR TXT RESET, 2, NULL);
 }
 
 void	ch_player_and_inv_chars(t_game *game)
 {
-	t_gnl 	gnl;
+	t_gnl	gnl;
 	int		i;
 	int		j;
-	
+
 	init_gnl(&gnl);
 	j = -1;
-	while(game->map[++j])
+	while (game->map[++j])
 	{
-		gnl.line = ft_strdup(game->map[j]);
+		gnl.l = ft_strdup(game->map[j]);
 		i = -1;
-		while(gnl.line[++i])
+		while (gnl.l[++i])
 		{
-			if (!char_is_valid(gnl.line[i]))
+			if (!char_is_valid(gnl.l[i]))
 				print_err_and_exit(game, RED ERR INV RESET, 2, &gnl);
-			if (play_char(gnl.line[i]))
+			if (play_char(gnl.l[i]))
 			{
 				if (game->player_direction != '\0')
 					print_err_and_exit(game, RED ERR INV RESET, 2, &gnl);
-				set_pl_info(game, gnl.line[i], i, j);
+				set_pl_info(game, gnl.l[i], i, j);
 			}
 		}
-		gnl.line = safe_free(gnl.line);
+		gnl.l = safe_free(gnl.l);
 	}
 	if (game->player_direction == '\0')
 		print_err_and_exit(game, RED ERR PL RESET, 2, &gnl);

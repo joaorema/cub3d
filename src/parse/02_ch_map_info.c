@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   02_ch_map_info.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:03:39 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/24 17:56:39 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/26 18:38:03 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,18 @@ void	set_map_info(t_game *game, char *file)
 	t_gnl	gnl;
 
 	init_gnl(&gnl);
-	if ((gnl.fd = safe_fd_open(file)) && (gnl.fd == -1))
+	gnl.fd = safe_fd_open(file);
+	if (gnl.fd == -1)
 		print_err_and_exit(game, NULL, 2, NULL);
-	while(1)
+	while (1)
 	{
-		set_map_info_util(game, &gnl, 1);		
-		if (empty_line(gnl.line))
+		set_map_info_util(game, &gnl, 1);
+		if (empty_line(gnl.l))
 			continue ;
-	 	else if (!gnl.line || is_map(gnl.line))
+		else if (!gnl.l || is_map(gnl.l))
 		{
-			gnl.line = safe_free(gnl.line);
-			break;
+			gnl.l = safe_free(gnl.l);
+			break ;
 		}
 		if (!get_pth(game, gnl))
 			set_map_info_util(game, &gnl, 2);
@@ -40,41 +41,41 @@ void	set_map_info_util(t_game *game, t_gnl *gnl, int n)
 {
 	if (n == 1)
 	{
-		gnl->line = safe_free(gnl->line);
-		gnl->line = get_next_line(gnl->fd);	
+		gnl->l = safe_free(gnl->l);
+		gnl->l = get_next_line(gnl->fd);
 	}
 	else
 	{
-		if (which_dir(gnl->line) == 5)
+		if (which_dir(gnl->l) == 5)
 			add_f_and_c(game, *gnl);
 		else
 			print_err_and_exit(game, RED ERR WINF RESET, 2, &(*gnl));
 	}
 }
 
-int get_pth(t_game *game, t_gnl gnl)
+int	get_pth(t_game *game, t_gnl gnl)
 {
-	if (which_dir(gnl.line) == 1)
+	if (which_dir(gnl.l) == 1)
 	{
 		ch_dups(game, game->map_inf.no_pth, gnl);
 		set_pth(game, gnl, &(game)->map_inf.no_pth);
 		return (1);
 	}
-	else if (which_dir(gnl.line) == 2)
+	else if (which_dir(gnl.l) == 2)
 	{
 		ch_dups(game, game->map_inf.so_pth, gnl);
 		set_pth(game, gnl, &(game)->map_inf.so_pth);
 		return (1);
 	}
-	else if (which_dir(gnl.line) == 3)
+	else if (which_dir(gnl.l) == 3)
 	{
 		ch_dups(game, game->map_inf.ea_pth, gnl);
 		set_pth(game, gnl, &(game)->map_inf.ea_pth);
 		return (1);
-	}	
-	else if (which_dir(gnl.line) == 4)
+	}
+	else if (which_dir(gnl.l) == 4)
 	{
-		ch_dups(game, game->map_inf.we_pth, gnl);	
+		ch_dups(game, game->map_inf.we_pth, gnl);
 		set_pth(game, gnl, &(game)->map_inf.we_pth);
 		return (1);
 	}
@@ -102,32 +103,32 @@ int	which_dir(char *line)
 		return (4);
 	else if (c == 'F' || c == 'C')
 		return (5);
-	return(0);
+	return (0);
 }
 
-void set_pth(t_game *game, t_gnl gnl, char **set_str)
+void	set_pth(t_game *game, t_gnl gnl, char **set_str)
 {
 	int		i;
 	char	path[2048];
 	int		j;
 
 	i = 0;
-	while (ft_strchr(WS, gnl.line[i]))
+	while (ft_strchr(WS, gnl.l[i]))
 		i++;
 	i = i + 2;
-	if (!ft_strchr(WS, gnl.line[i]))
+	if (!ft_strchr(WS, gnl.l[i]))
 		print_err_and_exit(game, RED ERR PTH RESET, 2, &gnl);
-	while (ft_strchr(WS, gnl.line[i]))
+	while (ft_strchr(WS, gnl.l[i]))
 		i++;
 	j = 0;
-	while(!ft_strchr(WS, gnl.line[i]))
-		path[j++] = gnl.line[i++];
+	while (!ft_strchr(WS, gnl.l[i]))
+		path[j++] = gnl.l[i++];
 	path[j] = '\0';
 	*set_str = ft_strdup(path);
-	while (gnl.line[i])
+	while (gnl.l[i])
 	{
-		if (!ft_strchr(WS, gnl.line[i]))
-		print_err_and_exit(game, RED ERR PTH RESET, 2, &gnl);
+		if (!ft_strchr(WS, gnl.l[i]))
+			print_err_and_exit(game, RED ERR PTH RESET, 2, &gnl);
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00_load_and_parse.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:35 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/25 23:46:35 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/26 18:38:03 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ch_file(t_game *game, char *file)
 		print_err_and_exit(game, NULL, 2, NULL);
 	if (ft_strcmp(".cub", file + (ft_strlen(file) - 4)))
 		print_err_and_exit(game, RED ERR EXT RESET, 2, &gnl);
-	if (read(gnl.fd, &gnl.line, 1) <= 0)
+	if (read(gnl.fd, &gnl.l, 1) <= 0)
 		print_err_and_exit(game, RED ERR EMPT RESET, 2, &gnl);
 	close(gnl.fd);
 }

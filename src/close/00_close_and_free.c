@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/26 14:12:20 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/26 18:37:53 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	print_err_and_exit(t_game *game, char *err_msg, int exit, t_gnl *gnl)
 {
-	if (gnl && gnl->line)
-		gnl->line = safe_free(gnl->line);
+	if (gnl && gnl->l)
+		gnl->l = safe_free(gnl->l);
 	if (gnl && gnl->fd != -1)
 	{
 		gnl_free_fd(gnl->fd);
@@ -83,14 +83,16 @@ void	close_and_free(t_game *game, int exit_code)
 	exit (exit_code);
 }
 
-int		close_x(void *param)
+int	close_x(void *param)
 {
-	t_game *game = (t_game *)param;
+	t_game	*game;
+
+	game = (t_game *)param;
 	if (game)
 	{
 		kill_visuals(game);
 		free_game(game);
 	}
 	exit(0);
-	return 0;
+	return (0);
 }
