@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00_close_and_free.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 17:24:56 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/25 22:54:15 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/26 10:54:35 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,14 @@ void	kill_visuals(t_game *game)
 {
 	if (!game)
 		return ;
-	if (game->txt && game->txt->NO)
-		mlx_destroy_image(game->mlx, game->txt->NO);
-	if (game->txt && game->txt->SO)
-		mlx_destroy_image(game->mlx, game->txt->SO);
-	if (game->txt && game->txt->WE)
-		mlx_destroy_image(game->mlx, game->txt->WE);
-	if (game->txt && game->txt->EA)
-		mlx_destroy_image(game->mlx, game->txt->EA);
+	if (game->txt && game->txt->no)
+		mlx_destroy_image(game->mlx, game->txt->no);
+	if (game->txt && game->txt->so)
+		mlx_destroy_image(game->mlx, game->txt->so);
+	if (game->txt && game->txt->we)
+		mlx_destroy_image(game->mlx, game->txt->we);
+	if (game->txt && game->txt->ea)
+		mlx_destroy_image(game->mlx, game->txt->ea);
 	if (game->win)
 	{
 		mlx_destroy_window(game->mlx, game->win);

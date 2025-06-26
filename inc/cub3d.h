@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/26 00:48:48 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/26 11:08:02 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include "Mylib/libft.h"
+# include "Mylib/libft.h"
 # include "mlx_linux/mlx.h"
 # include "mlx_linux/mlx_int.h"
-#include <stdio.h>
-#include <unistd.h>
+# include <stdio.h>
+# include <unistd.h>
 # include <stdbool.h>
 
 /* ************************************************************************** */
@@ -69,14 +69,14 @@ typedef struct s_map_inf
 	char	*we_pth;
 	int		*f_rgb;
 	int		*c_rgb;
-} t_map_inf;
+}	t_map_inf;
 
 typedef struct s_text
 {
-	void	*NO;
-	void	*SO;
-	void	*WE;
-	void	*EA;
+	void	*no;
+	void	*so;
+	void	*we;
+	void	*ea;
 }	t_text;
 
 typedef struct s_point
@@ -93,7 +93,6 @@ typedef struct s_ints
 	int	z;
 }	t_ints;
 
-
 typedef struct s_gnl
 {
 	char	*line;
@@ -109,23 +108,22 @@ typedef struct s_rgb
 
 typedef struct s_game
 {
-    void		*mlx;
-    void		*win;
-    char		**map;
-    char		**tmp_map;
-	t_map_inf 	map_inf;	
+	void		*mlx;
+	void		*win;
+	char		**map;
+	char		**tmp_map;
+	t_map_inf	map_inf;
 	t_text		*txt;
-    char 		player_dir;
-    t_point		player_pos;
-    int			map_width;
-    int			map_height;
-    
-} t_game;
+	char		player_dir;
+	t_point		player_pos;
+	int			map_width;
+	int			map_height;
+}	t_game;
 
 /* ************************************************************************** */
 /*                                 PROTOTYPES                                 */
 /* ************************************************************************** */
-int	main(int ac, char *av[]);
+int		main(int ac, char *av[]);
 
 //00_init
 void	init_game(t_game *game);
@@ -143,20 +141,20 @@ void	set_map_info(t_game *game, char *file);
 
 //01_ch_map
 void	set_height(t_game *game, char *file);
-void 	set_width_and_load(t_game *game, char *file);
+void	set_width_and_load(t_game *game, char *file);
 void	set_width_and_load_util(t_game *game, bool *map_limit, char *line);
 bool	only_ws(char *line);
-void 	add_line_to_map(t_game *game, char *line);
+void	add_line_to_map(t_game *game, char *line);
 
 //02_ch_map_info
 void	set_map_info(t_game *game, char *file);
 void	set_map_info_util(t_game *game, t_gnl *gnl, int n);
-int 	get_pth(t_game *game, t_gnl gnl);
+int		get_pth(t_game *game, t_gnl gnl);
 int		which_dir(char *line);
-void 	set_pth(t_game *game, t_gnl gnl, char **set_str);
+void	set_pth(t_game *game, t_gnl gnl, char **set_str);
 
 //03_rgb_info
-void 	add_f_and_c(t_game *game, t_gnl gnl);
+void	add_f_and_c(t_game *game, t_gnl gnl);
 int		get_rgb_val(t_game *game, t_gnl gnl, int *start);
 void	ch_mid_val(t_game *game, t_gnl gnl, int *i, bool *ch);
 void	set_rgb_f(t_game *game, t_gnl gnl, t_rgb rgb);
@@ -189,7 +187,7 @@ void	set_pl_info(t_game *game, char c, int x, int y);
 //08_check_walls_utils
 void	load_tmp_map(t_game *game);
 bool	ch_all_sides(t_game *game, int x, int y, char tg);
-void 	add_extra_line(t_game *game, t_ints *ints, int n);
+void	add_extra_line(t_game *game, t_ints *ints, int n);
 void	incr_ints(int *z, int *i);
 
 //00_close_and_free

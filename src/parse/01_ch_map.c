@@ -3,29 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   01_ch_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:03:49 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/26 00:51:18 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/26 11:23:30 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-void set_height(t_game *game, char *file)
+void	set_height(t_game *game, char *file)
 {
 	t_gnl	gnl;
-	
+
 	init_gnl(&gnl);
-	if ((gnl.fd = safe_fd_open(file)) && (gnl.fd == -1))
+	gnl.fd = safe_fd_open(file);
+	if (gnl.fd == -1)
 		print_err_and_exit(game, NULL, 2, NULL);
-	while(1)
+	while (1)
 	{
-	 	gnl.line = get_next_line(gnl.fd);
-	 	if (!gnl.line)
-	 		break;
+		gnl.line = get_next_line(gnl.fd);
+		if (!gnl.line)
+			break;
 		if (is_map(gnl.line))
-		 	game->map_height++;
+			game->map_height++;
 		gnl.line = safe_free(gnl.line);
 	}
 	close(gnl.fd);

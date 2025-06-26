@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   05_load_utils.c                                    :+:      :+:    :+:   */
+/*   06_load_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:33 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/25 18:40:56 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/26 11:13:08 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	is_map(char *line)
 	{
 		if (c == 'W' && ((n != '\0') && n == 'E'))
 			return (0);
-		return (1);	
+		return (1);
 	}
 	return (0);
 }
@@ -70,11 +70,11 @@ int	empty_line(char *line)
 
 	i = 0;
 	if (!line)
-		return(0);
+		return (0);
 	while (line[i])
 	{
 		if (!ft_strchr(WS, line[i]))
-			return(0);
+			return (0);
 		i++;
 	}
 	return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00_load_and_parse.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:35 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/26 00:50:49 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/26 11:14:30 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,14 @@ void	load_and_parse_map(t_game *game, char *file)
 void	ch_file(t_game *game, char *file)
 {
 	t_gnl	gnl;
-	
+
 	init_gnl(&gnl);
-	if ((gnl.fd = safe_fd_open(file)) && (gnl.fd == -1))
+	gnl.fd = safe_fd_open(file);
+	if (gnl.fd == -1)
 		print_err_and_exit(game, NULL, 2, NULL);
 	if (ft_strcmp(".cub", file + (ft_strlen(file) - 4)))
 		print_err_and_exit(game, RED ERR EXT RESET, 2, &gnl);
-	if (read(gnl.fd, &gnl.line, 1) <= 0) 
+	if (read(gnl.fd, &gnl.line, 1) <= 0)
 		print_err_and_exit(game, RED ERR EMPT RESET, 2, &gnl);
 	close(gnl.fd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   01_init_imgs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 23:20:56 by isabel            #+#    #+#             */
-/*   Updated: 2025/06/22 23:31:13 by isabel           ###   ########.fr       */
+/*   Updated: 2025/06/26 11:11:55 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 void	start_wind(t_game *game)
 {
-	game->win = mlx_new_window(game->mlx, game->map_width * 32, game->map_height * 32, "cub3d");
-	mlx_put_image_to_window(game->mlx, game->win, game->txt->NO, 0, 0);
-	mlx_put_image_to_window(game->mlx, game->win, game->txt->EA, 64, 0);
-	mlx_put_image_to_window(game->mlx, game->win, game->txt->SO, 64, 64);
-	mlx_put_image_to_window(game->mlx, game->win, game->txt->WE, 0, 64);
+	game->win = mlx_new_window(game->mlx, game->map_width * 32,
+			game->map_height * 32, "cub3d");
+	mlx_put_image_to_window(game->mlx, game->win, game->txt->no, 0, 0);
+	mlx_put_image_to_window(game->mlx, game->win, game->txt->ea, 64, 0);
+	mlx_put_image_to_window(game->mlx, game->win, game->txt->so, 64, 64);
+	mlx_put_image_to_window(game->mlx, game->win, game->txt->we, 0, 64);
 	mlx_hook(game->win, 17, 0L, close_window, game);
 	mlx_loop(game->mlx);
 }
