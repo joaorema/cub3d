@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   04_parse_info.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 15:27:21 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/24 22:25:12 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/26 10:55:07 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,13 @@ void	ch_player_and_inv_chars(t_game *game)
 				print_err_and_exit(game, RED ERR INV RESET, 2, &gnl);
 			if (play_char(gnl.line[i]))
 			{
-				if (game->player_direction != '\0')
+				if (game->player_dir != '\0')
 					print_err_and_exit(game, RED ERR INV RESET, 2, &gnl);
 				set_pl_info(game, gnl.line[i], i, j);
 			}
 		}
 		gnl.line = safe_free(gnl.line);
 	}
-	if (game->player_direction == '\0')
+	if (game->player_dir == '\0')
 		print_err_and_exit(game, RED ERR PL RESET, 2, &gnl);
 }

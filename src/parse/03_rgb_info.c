@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   03_rgb_info.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 17:08:06 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/25 23:55:29 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/26 00:10:46 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void	set_rgb_f(t_game *game, t_gnl gnl, t_rgb rgb)
 			game->map_inf.f_rgb[0] = rgb.f_val;
 			game->map_inf.f_rgb[1] = rgb.s_val;
 			game->map_inf.f_rgb[2] = rgb.t_val;
-			game->floor_color = create_trgb(game->map_inf.f_rgb[0], game->map_inf.f_rgb[1], game->map_inf.f_rgb[2]);
 			break;
 		}
 	}
@@ -123,7 +122,6 @@ void	set_rgb_c(t_game *game, t_gnl gnl, t_rgb rgb)
 			game->map_inf.c_rgb[0] = rgb.f_val;
 			game->map_inf.c_rgb[1] = rgb.s_val;
 			game->map_inf.c_rgb[2] = rgb.t_val;
-			game->sky_color = create_trgb(game->map_inf.c_rgb[0], game->map_inf.c_rgb[1], game->map_inf.c_rgb[2]);
 			break;
 		}
 	}

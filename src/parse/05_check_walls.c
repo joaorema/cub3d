@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   05_check_walls.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/25 18:45:36 by icunha-t          #+#    #+#             */
+/*   Updated: 2025/06/25 21:49:03 by isabel           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/cub3d.h"
 
 void	ch_closed_walls(t_game *game, char **tmp_map, int max_y,  int max_x)
 {
-	t_pl start_pos;
+	t_point start_pos;
 	
 	start_pos = prep_chars(tmp_map, max_y ,max_x);
 	print_tmp_map(game, 2, &start_pos); //debug to delete
@@ -11,9 +23,9 @@ void	ch_closed_walls(t_game *game, char **tmp_map, int max_y,  int max_x)
 	ch_islands(game, tmp_map, max_y, max_x);
 }
 
-t_pl	prep_chars(char **tmp_map, int max_y, int max_x)
+t_point	prep_chars(char **tmp_map, int max_y, int max_x)
 {
-	t_pl	start_pos;
+	t_point	start_pos;
 	bool	ch_start_pos;
 	int	x;
 	int y;
@@ -38,9 +50,9 @@ t_pl	prep_chars(char **tmp_map, int max_y, int max_x)
 	return (start_pos);
 }
 
-void	flood_fill(t_game *game, t_pl start_pos, char tg)
+void	flood_fill(t_game *game, t_point start_pos, char tg)
 {
-	t_pl new_pos;
+	t_point new_pos;
 
 	if (start_pos.x < 0 || start_pos.x >= (game->map_width + 1)
 		|| start_pos.y < 0 || start_pos.y >= (game->map_height + 1))
@@ -48,13 +60,13 @@ void	flood_fill(t_game *game, t_pl start_pos, char tg)
 	if (game->tmp_map[start_pos.y][start_pos.x] != tg)
 		return ;
 	game->tmp_map[start_pos.y][start_pos.x] = 'F';
-	new_pos = (t_pl){start_pos.x + 1, start_pos.y};
+	new_pos = (t_point){start_pos.x + 1, start_pos.y};
 	flood_fill(game, new_pos, tg);
-	new_pos = (t_pl){start_pos.x - 1, start_pos.y};
+	new_pos = (t_point){start_pos.x - 1, start_pos.y};
 	flood_fill(game, new_pos, tg);
-	new_pos = (t_pl){start_pos.x, start_pos.y + 1};
+	new_pos = (t_point){start_pos.x, start_pos.y + 1};
 	flood_fill(game, new_pos, tg);
-	new_pos = (t_pl){start_pos.x, start_pos.y - 1};
+	new_pos = (t_point){start_pos.x, start_pos.y - 1};
 	flood_fill(game, new_pos, tg);
 }
 

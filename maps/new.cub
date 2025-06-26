@@ -1,13 +1,12 @@
-NO images/north.xpm
-SO images/south.xpm
-EA images/east.xpm
-WE images/west.xpm
+NO ./textures/N
+SO ./textures/S
+WE ./textures/W
+EA ./textures/E
+F 0,10,10
+C 50,0,10
 
-F 0, 128, 0
-C 0, 0, 128
 
-1111111
-1000001
-100N001
-1000001
-1111111
+111111
+1N1
+11  1
+111111
