@@ -36,7 +36,7 @@ void	load_wall_images(t_game *game)
 			&game->ea_img.line_len, &game->ea_img.endian);
 }
 
-unsignedint	get_texture(t_game *game, t_wall *wall, int y)
+unsigned int	get_texture(t_game *game, t_wall *wall, int y)
 {
 	t_pl	tex;
 	t_image	*texture;
