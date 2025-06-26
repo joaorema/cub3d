@@ -17,5 +17,8 @@ void init_rayhit(t_rayhit *hit, t_game *game, float angle)
     hit->ray_angle = angle;
     hit->depth_of_field = 0;
     hit->distance = 1000000.0f;
-    hit->max_depth_of_field = 30;
+    if(game->map_width > game->map_height)
+        hit->max_depth_of_field = game->map_width;
+    else
+        hit->max_depth_of_field = game->map_height;
 }

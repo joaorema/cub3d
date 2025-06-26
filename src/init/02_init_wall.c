@@ -38,7 +38,7 @@ void check_hit(t_wall *wall, float *angle, float *offset)
             wall->side = EAST;
         else
             wall->side = WEST;
-        *offset = fmodf(wall->hit_point.y + 0.0001f, TILE_SIZE);
+        *offset = fmod(wall->hit_point.y, TILE_SIZE);
     }
     else
     {
@@ -46,7 +46,7 @@ void check_hit(t_wall *wall, float *angle, float *offset)
             wall->side = SOUTH;
         else
             wall->side = NORTH;
-        *offset = fmodf(wall->hit_point.x + 0.0001f, TILE_SIZE);
+        *offset = fmod(wall->hit_point.x, TILE_SIZE);
     }
 }
 

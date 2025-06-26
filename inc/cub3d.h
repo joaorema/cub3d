@@ -77,6 +77,7 @@
 # define N_CH_MAP   "01 \t\n\r\v\f"
 # define NB         "0123456789"
 
+
 //game settings
 # define WIDTH      800
 # define HEIGHT     800
@@ -84,7 +85,7 @@
 # define FOV        (PI / 3)            //60º angle
 # define ANGLE_STEP (FOV / NUM_RAYS)    //0.00131 radians
 # define B_DISTANCE 100000
-# define TILE_SIZE  64 
+# define TILE_SIZE  32 
 # define P_RADIUS   (TILE_SIZE * 0.35f)            
 # define ROT_SPEED  0.03f
 
@@ -265,7 +266,7 @@ int     game_loop(t_game *game);
 void    init_images(t_game *game);
 void    set_player_angle(t_game *game, char dir);
 void    init_keys(t_game *game);
-void    check_hit(t_wall *wall, float *angle, float *offset);
+void check_hit(t_wall *wall, float *angle, float *offset);
 void    handle_keys(t_game *game);
 void    loop(t_game *game);
 int     move_player(t_game *game);
@@ -355,7 +356,7 @@ void    update_vcheck(t_rayhit *hit);
 void    final_vupdate(t_rayhit *hit);
 void    vhit_wall(t_rayhit *hit, float ra);
 void    v_s_tile(t_rayhit *hit);
-float   distance(float ax, float ay, float bx, float by, float ang);              //hipotenusa
+float distance(float px, float py, float hx, float hy, float ray_angle);             //hipotenusa
 
 //raycasting folder
 void    render_rays(t_game *game);
