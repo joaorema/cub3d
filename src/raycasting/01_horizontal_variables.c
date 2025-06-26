@@ -37,7 +37,7 @@ void final_hupdate(t_rayhit *hit)
     hit->hit_pos.y = hit->next_ray_y;
     hit->distance = B_DISTANCE;
 }
-void hhit_wall(t_rayhit *hit, float ra)
+void hhit_wall(t_rayhit *hit)
 {
     hit->hit_pos.x = hit->next_ray_x;
     hit->hit_pos.y = hit->next_ray_y;
@@ -45,8 +45,7 @@ void hhit_wall(t_rayhit *hit, float ra)
         hit->player_pos.x,
         hit->player_pos.y,
         hit->hit_pos.x,
-        hit->hit_pos.y,
-        ra
+        hit->hit_pos.y
     );
 }
 

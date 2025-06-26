@@ -1,11 +1,11 @@
 #include "../../inc/cub3d.h"
 
-void init_wall(t_game *game, t_rayhit *vhit, t_rayhit *hhit, t_wall *wall, float angle)
+void init_wall(t_game *game, t_rayhits *hits, t_wall *wall, float angle)
 {
     float corrected_distance;
     float offset;
 
-    check_distance(vhit, hhit, wall);
+    check_distance(&hits->v_hit, &hits->h_hit, wall);
     wall->screen_center_y = game->win_height / 2;
     corrected_distance = wall->distance * cos(angle - game->player_angle);
     wall->projected_height = (TILE_SIZE * 320) / corrected_distance;
@@ -14,6 +14,7 @@ void init_wall(t_game *game, t_rayhit *vhit, t_rayhit *hhit, t_wall *wall, float
     wall->texture_x = (int)(offset / TILE_SIZE * game->no_img.width);
     clamp_wall(game, wall);
 }
+
 
 void clamp_wall(t_game *game, t_wall *wall)
 {

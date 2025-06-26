@@ -6,7 +6,7 @@
 /*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/26 00:08:58 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/26 20:17:29 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@
 # define RED        "\033[1;31m"
 # define GREEN      "\033[1;32m"
 # define BLUE       "\033[1;36m"
-# define SKY        0xFFADD8E6
-# define FLOOR      0x00333333
 
 //keycodes
 # define KEY_ESC    65307
@@ -61,13 +59,12 @@
 # define KEY_D      100
 # define KEY_LEFT   65361
 # define KEY_RIGHT  65363
-# define MOVE_SPEED 05.0f
 
 
 //constants
 # define PI         3.1415926535
-# define P2         PI/2
-# define P3         3*PI/2
+# define P2         3.1415926535/2
+# define P3         3*3.1415926535/2
 # define NORTH      0
 # define SOUTH      1
 # define WEST       2
@@ -82,12 +79,13 @@
 # define WIDTH      800
 # define HEIGHT     800
 # define NUM_RAYS   WIDTH
-# define FOV        (PI / 3)            //60º angle
-# define ANGLE_STEP (FOV / NUM_RAYS)    //0.00131 radians
-# define B_DISTANCE 100000
+# define FOV        1.0471975517           //60º angle
+# define ANGLE_STEP 0.0174532925    //0.00131 radians
+# define B_DISTANCE 1000000
 # define TILE_SIZE  32 
-# define P_RADIUS   (TILE_SIZE * 0.35f)            
-# define ROT_SPEED  0.03f
+# define P_RADIUS   6.4f            
+# define ROT_SPEED  0.02f
+# define MOVE_SPEED 03.0f
 
 
 //structs
@@ -204,6 +202,12 @@ typedef struct s_rayhit
     
 } t_rayhit;
 
+typedef struct s_rayhits
+{
+    t_rayhit v_hit;
+    t_rayhit h_hit;
+}   t_rayhits;
+
 typedef struct s_player
 {
     int         tile_x;               // Player tile/grid X coordinate
@@ -257,7 +261,7 @@ void    init_player(t_game *game);
 void    init(t_game *game, char *file);
 void    init_raystruct(t_game *game, t_rayhit *hit);
 void    init_rayhit(t_rayhit *hit, t_game *game, float angle);
-void    init_wall(t_game *game, t_rayhit *vhit, t_rayhit *hhit, t_wall *wall, float angle);
+void init_wall(t_game *game, t_rayhits *hits, t_wall *wall, float angle);
 void    set_wall(t_wall *wall);
 void    check_distance(t_rayhit *vhit, t_rayhit *hhit, t_wall *wall);
 void    find_player(t_game *game);             //
@@ -272,6 +276,7 @@ void    loop(t_game *game);
 int     move_player(t_game *game);
 void clamp_wall(t_game *game, t_wall *wall);
 int create_trgb(int r, int g, int b);
+void set_player_start(t_game *game, int x, int y, char dir);
 
 
 //parse folder
@@ -346,7 +351,7 @@ void    h_up(t_game *game, t_rayhit *hit, float atan);
 void    h_down(t_game *game, t_rayhit *hit, float atan);
 void    update_hcheck(t_rayhit *hit);
 void    final_hupdate(t_rayhit *hit);
-void    hhit_wall(t_rayhit *hit, float ra);
+void    hhit_wall(t_rayhit *hit);
 void    h_s_tile(t_rayhit *hit);
 void    vertical_check(t_game *game, t_rayhit *hit);
 void    v_top_down(t_game *game, t_rayhit *hit);
@@ -354,9 +359,9 @@ void    v_right(t_game *game, t_rayhit *hit, float ntan);
 void    v_left(t_game *game, t_rayhit *hit, float ntan);
 void    update_vcheck(t_rayhit *hit);
 void    final_vupdate(t_rayhit *hit);
-void    vhit_wall(t_rayhit *hit, float ra);
+void    vhit_wall(t_rayhit *hit);
 void    v_s_tile(t_rayhit *hit);
-float distance(float px, float py, float hx, float hy, float ray_angle);             //hipotenusa
+float distance(float px, float py, float hx, float hy);             //hipotenusa
 
 //raycasting folder
 void    render_rays(t_game *game);

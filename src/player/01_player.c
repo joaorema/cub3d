@@ -69,7 +69,7 @@ int player_move(t_game *game, float dx, float dy)
 void rotate_player(t_game *game, float rotation)
 {
     game->player_angle += rotation;
-   
+    
     if (game->player_angle < 0)
         game->player_angle += 2 * PI;
     if (game->player_angle > 2 * PI)

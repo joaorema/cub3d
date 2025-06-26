@@ -37,7 +37,8 @@
         hit->hit_pos.y = hit->next_ray_y;
         hit->distance = B_DISTANCE;
     }
-    void vhit_wall(t_rayhit *hit, float ray_angle)
+
+    void vhit_wall(t_rayhit *hit)
     {
         hit->hit_pos.x = hit->next_ray_x;
         hit->hit_pos.y = hit->next_ray_y;
@@ -45,8 +46,7 @@
             hit->player_pos.x,
             hit->player_pos.y,
             hit->hit_pos.x,
-            hit->hit_pos.y,
-            ray_angle
+            hit->hit_pos.y
         );
     }
 

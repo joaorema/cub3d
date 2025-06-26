@@ -33,9 +33,10 @@ SRCS = $(addprefix $(SRCS_DIR), main.c 					  				\
 								parse/06_load_utils.c 					\
 								parse/07_parse_utils.c 					\
 								parse/08_check_wall_utils.c             \
-								player/00_player.c     					\
-								player/01_player_utils.c 				\
-								raycasting/00_check_hit.c  				\
+								player/00_set_player.c     				\
+								player/01_player.c 						\
+								player/02_player_utils.c				\
+ 								raycasting/00_check_hit.c  				\
 								raycasting/01_horizontal_variables.c 	\
 								raycasting/02_vertical_variables.c     	\
 								raycasting/03_textures.c   				\

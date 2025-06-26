@@ -23,7 +23,8 @@ int game_loop(t_game *game)
     int moved;
 
     moved = move_player(game);
-    render_map(game);
+    if(moved || game->keys.left || game->keys.right)
+        render_map(game);
     return 0;
 }
 

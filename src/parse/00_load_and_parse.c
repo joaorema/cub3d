@@ -6,7 +6,7 @@
 /*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:35 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/25 23:46:35 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/06/26 19:31:09 by joaorema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	load_and_parse_map(t_game *game, char *file)
 	set_map_info(game, file);
 	print_map_info(game); //debug to delete
 	parse_map_info(game);
+	
 }
 
 void	ch_file(t_game *game, char *file)
