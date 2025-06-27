@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00_close_and_free.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isabel <isabel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/26 18:37:53 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/06/27 17:47:58 by isabel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,16 @@ void	kill_visuals(t_game *game)
 		mlx_destroy_image(game->mlx, game->txt->we);
 	if (game->txt && game->txt->ea)
 		mlx_destroy_image(game->mlx, game->txt->ea);
+	if (game->no_img.img)
+		mlx_destroy_image(game->mlx, game->no_img.img);
+	if (game->so_img.img)
+		mlx_destroy_image(game->mlx, game->so_img.img);
+	if (game->ea_img.img)
+		mlx_destroy_image(game->mlx, game->ea_img.img);
+	if (game->img.img)
+		mlx_destroy_image(game->mlx, game->img.img);
+	if (game->we_img.img)
+		mlx_destroy_image(game->mlx, game->we_img.img);
 	if (game->win)
 	{
 		mlx_destroy_window(game->mlx, game->win);
@@ -88,11 +98,12 @@ int	close_x(void *param)
 	t_game	*game;
 
 	game = (t_game *)param;
-	if (game)
-	{
-		kill_visuals(game);
-		free_game(game);
-	}
-	exit(0);
+//	if (game)
+//	{
+//		kill_visuals(param);
+//		free_game(param);
+//	}
+//	exit(0);
+	close_and_free(game, 0);
 	return (0);
 }
