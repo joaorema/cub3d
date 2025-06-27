@@ -30,7 +30,7 @@ void	horizontal_check(t_game *game, t_rayhit *hit)
 	{
 		h_s_tile(hit);
 		if (hit->map_x >= 0 && hit->map_x < game->map_width
-			&&hit->map_y >= 0 && hit->map_y < game->map_height
+			&& hit->map_y >= 0 && hit->map_y < game->map_height
 			&& game->map[hit->map_y][hit->map_x] == '1')
 		{
 			hhit_wall(hit);
