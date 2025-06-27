@@ -15,11 +15,11 @@
 void	init(t_game *game, char *file)
 {
 	init_game_struct(game);
+	load_and_parse_map(game, file);
 	game->win_height = HEIGHT;
 	game->win_width = WIDTH ;
 	game->win = mlx_new_window(game->mlx, game->win_width,
 			game->win_height, "Cub3d");
-	load_and_parse_map(game, file);
 	init_images(game);
 	find_player(game);
 	load_wall_images(game);
