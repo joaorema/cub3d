@@ -12,7 +12,7 @@
 
 #include "../../inc/cub3d.h"
 
-int	get_line_len(char *line)
+int	gll(char *line)
 {
 	int	len;
 

@@ -64,7 +64,7 @@ void	set_width_and_load_util(t_game *game, bool *map_limit, char *line)
 	int	len;
 
 	*map_limit = true;
-	len = get_line_len(line);
+	len = gll(line);
 	if (len > game->map_width)
 		game->map_width = len;
 	if (!only_ws(line))
@@ -89,7 +89,7 @@ void	add_line_to_map(t_game *game, char *line)
 	int			len;
 	static int	i;
 
-	len = get_line_len(line);
+	len = gll(line);
 	if (i < game->map_height)
 	{
 		game->map[i] = ft_strndup(line, (size_t)len);

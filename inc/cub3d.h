@@ -316,7 +316,7 @@ void			flood_fill(t_game *game, t_pl start_pos, char tg);
 void			ch_islands(t_game *game, char **tmp_map, int max_y, int max_x);
 
 //06_load_utils
-int				get_line_len(char *line);
+int				gll(char *line);
 int				safe_fd_open(char *file);
 int				is_map(char *line);
 int				empty_line(char *line);
