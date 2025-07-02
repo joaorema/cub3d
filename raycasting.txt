@@ -19,7 +19,5 @@ Wall Rendering: Once a wall hit is found:
 The wall height is calculated based on distance
 The correct texture is chosen based on which side was hit (NORTH, SOUTH, EAST, WEST)
 The wall slice is drawn with the appropriate texture
-This implementation uses a DDA (Digital Differential Analyzer) approach for both horizontal and vertical ray casting, which is efficient for grid-based maps. The raycaster calculates both horizontal and vertical intersections and chooses the closest one to ensure accurate wall detection.
 
-The project also includes optimizations like:
 
