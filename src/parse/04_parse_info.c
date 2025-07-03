@@ -6,7 +6,7 @@
 /*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 15:27:21 by icunha-t          #+#    #+#             */
-/*   Updated: 2025/06/26 18:42:22 by icunha-t         ###   ########.fr       */
+/*   Updated: 2025/07/03 09:23:39 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	parse_map_info(t_game *game)
 	ch_missing_info(game);
 	ch_txt_paths(game);
 	ch_player_and_inv_chars(game);
-	print_player_info(game); //debug to delete
 	load_tmp_map(game);
 	ch_closed_walls(game, game->tmp_map, (game->map_height + 1),
 		(game->map_width + 1));

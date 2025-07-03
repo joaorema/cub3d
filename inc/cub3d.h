@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:51:10 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/26 21:45:58 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/07/03 09:31:13 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,13 +236,17 @@ typedef struct s_game
 }	t_game;
 
 //CLOSE//
-//close_and_free.c
+//00_close_and_free.c
 void			print_err_and_exit(t_game *game, char *err_msg,
 					int exit, t_gnl *gnl);
 void			free_game(t_game *game);
 void			kill_visuals(t_game *game);
 void			close_and_free(t_game *game, int exit_code);
 int				close_x(void *param);
+
+//01_kill_visuals.c
+void			kill_visuals(t_game *game);
+void			destroy_imgs(t_game *game);
 
 //INIT//
 //00_init_struct.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00_load_and_parse.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaorema <joaorema@student.42.fr>          +#+  +:+       +#+        */
+/*   By: icunha-t <icunha-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:49:35 by joaorema          #+#    #+#             */
-/*   Updated: 2025/06/26 21:49:58 by joaorema         ###   ########.fr       */
+/*   Updated: 2025/07/03 09:23:51 by icunha-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	load_and_parse_map(t_game *game, char *file)
 	set_width_and_load(game, file);
 	game->map[game->map_height] = NULL;
 	set_map_info(game, file);
-	print_map_info(game); //debug to delete
 	parse_map_info(game);
 }
 

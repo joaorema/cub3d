@@ -2,7 +2,7 @@
 #                                     CONFIG                                   #
 ################################################################################
 
-NAME = cub3d
+NAME = cub3D
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g 
 
@@ -19,7 +19,7 @@ MLX = $(MLX_DIR)/libmlx.a
 SRCS_DIR = ./src/
 SRCS = $(addprefix $(SRCS_DIR), main.c 					  					\
 								close/00_close_and_free.c 					\
-								close/01_debug.c							\
+								close/01_kill_visuals.c						\
        							init/00_init_struct.c 						\
 								init/01_init_hit.c							\
 								init/02_init_wall.c							\
