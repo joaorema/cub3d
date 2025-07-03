@@ -58,8 +58,8 @@ void	vertical_check(t_game *game, t_rayhit *hit)
 	while (hit->depth_of_field < hit->max_depth_of_field)
 	{
 		v_s_tile(hit);
-		if (hit->map_x >= 0 && hit->map_x < game->map_width
-			&& hit->map_y >= 0 && hit->map_y < game->map_height
+		if (hit->map_y >= 0 && hit->map_y < game->map_height
+			&& hit->map_x >= 0 && hit->map_x < gll(game->map[hit->map_y])
 			&& game->map[hit->map_y][hit->map_x] == '1')
 		{
 			vhit_wall(hit);
