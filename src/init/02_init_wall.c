@@ -25,6 +25,8 @@ void	init_wall(t_game *game, t_rayhits *hits, t_wall *wall,
 	set_wall(wall);
 	check_hit(wall, &angle, &offset);
 	wall->texture_x = (int)(offset / TILE_SIZE * game->no_img.width);
+	if ((wall->side == WEST) || (wall->side == SOUTH))
+		wall->texture_x = game->no_img.width - wall->texture_x - 1;
 	clamp_wall(game, wall);
 }
 
